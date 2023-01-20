@@ -51,6 +51,7 @@ console.log(birthYear);
 */
 
 // BASIC operators:
+/*
 const currentYear = 2023
 const ageTomas = currentYear - 1993;
 const ageSarah = currentYear - 2010;
@@ -73,3 +74,17 @@ console.log(x);
 console.log(ageSarah > ageTomas) // false
 console.log(ageTomas >= 18); // true
 const isFullAge = ageSarah >= 18; // false
+*/
+
+// Operator precedence:
+
+// possible to declare more variables at once:
+let x, y;
+x = y = 4 + 7 - 1;
+console.log(x, y)
+
+const currentYear = 2023
+const ageTomas = currentYear - 1993;
+const ageSarah = currentYear - 2010;
+const averageAge = (ageSarah + ageTomas) / 2;
+console(ageSarah, ageTomas, averageAge)
