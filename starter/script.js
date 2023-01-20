@@ -41,9 +41,11 @@ console.log(typeof year);
 */
 
 // Declaring variables:
+/*
 let age = 30;
 age = 31;
 
 const birthYear = 1993;
 // birthYear = 1994; // not possible at all
 console.log(birthYear);
+*/
