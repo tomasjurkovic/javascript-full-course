@@ -49,3 +49,27 @@ const birthYear = 1993;
 // birthYear = 1994; // not possible at all
 console.log(birthYear);
 */
+
+// BASIC operators:
+const currentYear = 2023
+const ageTomas = currentYear - 1993;
+const ageSarah = currentYear - 2010;
+console.log(ageTomas, ageSarah);
+console.log(ageTomas / 2, ageSarah * 3);
+
+const firstName = 'Tomas';
+const lastName = 'Jurkovic';
+console.log(firstName + ' ' + lastName);
+
+let x = 10 + 5; // 15
+x += 10; // x = x + 10 => 25
+console.log(x);
+
+x **= 2; // x = x square 2
+
+console.log(x);
+
+// comparison operators:
+console.log(ageSarah > ageTomas) // false
+console.log(ageTomas >= 18); // true
+const isFullAge = ageSarah >= 18; // false
