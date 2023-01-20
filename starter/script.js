@@ -20,6 +20,7 @@ let myCurrentJob = 'automation tester';
 
 */
 
+/*
 // VALUES:
 let javascriptIsFun = true;
 console.log(javascriptIsFun);
@@ -37,18 +38,12 @@ console.log(typeof year);
 year = 1993;
 console.log(typeof year);
 
-// assignment 2:
-/* 1. Declare a variable called 'isIsland' and set its value according to your
-country. The variable should hold a Boolean value. Also declare a variable
-'language', but don't assign it any value yet
-2. Log the types of 'isIsland', 'population', 'country' and 'language'
-to the console */
-
-let isIsland = false;
-let language;
-console.log(typeof isIsland);
-console.log(typeof population);
-console.log(typeof country);
-console.log(typeof language);
+*/
 
 // Declaring variables:
+let age = 30;
+age = 31;
+
+const birthYear = 1993;
+// birthYear = 1994; // not possible at all
+console.log(birthYear);
