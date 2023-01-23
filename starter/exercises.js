@@ -94,3 +94,34 @@ console.log('19' - '13' + '17'); // expected result 617 - first coercion to numb
 console.log('19' - '13' + 17); // expected result 23 - coercion to numbers and other value is already number
 console.log('123' < 57); // expected result false - coercion to numbers, result is boolean bexause < sign
 console.log(5 + 6 + '4' + 9 - 4 - 2); // expected result 1143 - coercion of numbers to string twice and then of string to number
+
+
+// ASSIGNMENT 8:
+
+/* 1. Declare a variable 'numNeighbours' based on a prompt input like this:
+prompt('How many neighbour countries does your country
+have?');
+2. If there is only 1 neighbour, log to the console 'Only 1 border!' (use loose equality
+== for now)
+3. Use an else-if block to log 'More than 1 border' in case 'numNeighbours'
+is greater than 1
+4. Use an else block to log 'No borders' (this block will be executed when
+'numNeighbours' is 0 or any other value)
+5. Test the code with different values of 'numNeighbours', including 1 and 0.
+6. Change == to ===, and test the code again, with the same values of
+'numNeighbours'. Notice what happens when there is exactly 1 border! Why
+is this happening? BECAUSE OF 1 number !== '1' string, so it goes down to else statement...
+7. Finally, convert 'numNeighbours' to a number, and watch what happens now
+when you input 1
+8. Reflect on why we should use the === operator and type conversion in this
+situation */
+
+const numNeighbours = Number(prompt('How many neighbourg countries does your country have?'));
+
+if (numNeighbours === 1) {
+    console.log('Only one neighbourgh.');
+} else if (numNeighbours > 1) {
+    console.log('More than 1 border');
+} else {
+    console.log('No borders');
+}
