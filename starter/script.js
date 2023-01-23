@@ -162,7 +162,7 @@ console.log(n); // prints 10
 */
 
 // TRUTHY and FALSY values:
-
+/*
 // 5 falsy values: 0, '', undefined, null, NaN (and False of course)
 // they will be Falsy if converted to boolean values
 console.log(Boolean(0));  // false
@@ -187,3 +187,32 @@ if (height) {
 } else {
     console.log('Height is UNDEFINED');
 } // prints else block, because we did not defined height and it has undefined (falsy) value
+*/
+
+// == vs. == operator
+const age = 18;
+
+// one line if:
+if (age === 18) console.log("You just became an adult.");
+
+const thisTrue = 18 == '18'; // loose equality operator, avoid it if possible
+console.log(thisTrue);
+
+const thisFalse = 18 === '18';
+console.log(thisFalse); // prints false
+
+const favourite = Number(prompt("What's your favourite number?"));
+console.log(favourite);
+console.log(typeof favourite);
+
+if (favourite === 23) {
+    console.log('Cool! 23 is an amazing number.');
+} else if (favourite === 7) {
+    console.log('Seven is also cool number.');
+} else if (favourite === 9) {
+    console.log('Nine is also cool number.');
+} else {
+    console.log('Number is not 7, 9 nor 23.');
+}
+
+if (favourite !== 23) console.log("Why not 23?"); 
