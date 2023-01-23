@@ -110,6 +110,7 @@ with muliptle
 lines`); */
 
 // IF ELSE Statements:
+/*
 const age = 7;
 
 if (age >= 18) {
@@ -131,4 +132,58 @@ if (birthYear <= 2000) {
 } else {
     century = 21;
 }
-console.log(century)
+console.log(century);
+*/
+
+// Type convertion:
+/*
+const inputYear = '1991';
+console.log(Number(inputYear), inputYear); // 2009, 199118
+console.log(Number(inputYear) + 18); // 2009
+
+console.log(Number('weird'));  // NaN not a number
+console.log(typeof NaN); // prints a number
+
+console.log(String(23), 23); // 23, 23 (one string on number)
+
+// type coercion:
+console.log('I am ' + 23 + ' years old'); // number 23 is automatically converted to string
+// it is cool it happens automatically
+
+console.log('23' - '10' - 3); // prints 10, because - converts strings to the numbers automatically
+console.log('23' * '3'); // prints 69, because all strings are converted to numbers if * operator is used
+console.log('24' / '3'); // prints 8, because all strings are converted to numbers if / operator is used
+
+// guess the output
+let n = '1' + 1; //  11 bevause + operator converting to strings
+n = n - 1; //  10 because - operator convereting to numbers
+console.log(n); // prints 10
+
+*/
+
+// TRUTHY and FALSY values:
+
+// 5 falsy values: 0, '', undefined, null, NaN (and False of course)
+// they will be Falsy if converted to boolean values
+console.log(Boolean(0));  // false
+console.log(Boolean(NaN));  // false
+console.log(Boolean(undefined)); // true
+console.log(Boolean('Jonas')); // true
+console.log(Boolean({}));  // true
+console.log(Boolean('')); // false
+
+const money = 0;
+if (money) {
+    console.log("Don't spend it all now");
+} else {
+    console.log("You should get a job!");
+}
+
+// money is zero now, so JS converts it automatically to boolean and its boolean value is falsy
+
+let height;
+if (height) {
+    console.log("Yay, height is defined");
+} else {
+    console.log('Height is UNDEFINED');
+} // prints else block, because we did not defined height and it has undefined (falsy) value

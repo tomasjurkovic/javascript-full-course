@@ -77,3 +77,20 @@ if (population > averageCountryPopulation) {
 } else {
     console.log(`Slovakia's population is ${averageCountryPopulation - population} million below average.`);
 }
+
+/* ASSIGMENT 7:
+
+Predict the result of these 5 operations without executing them:
+'9' - '5';
+'19' - '13' + '17';
+'19' - '13' + 17;
+'123' < 57;
+5 + 6 + '4' + 9 - 4 - 2;
+2. Execute the operations to check if you were right
+*/
+
+console.log('9' - '5'); // expected result 4 - coercion to numbers
+console.log('19' - '13' + '17'); // expected result 617 - first coercion to numbers then to string because + sign
+console.log('19' - '13' + 17); // expected result 23 - coercion to numbers and other value is already number
+console.log('123' < 57); // expected result false - coercion to numbers, result is boolean bexause < sign
+console.log(5 + 6 + '4' + 9 - 4 - 2); // expected result 1143 - coercion of numbers to string twice and then of string to number
