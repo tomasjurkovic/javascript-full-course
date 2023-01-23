@@ -190,6 +190,7 @@ if (height) {
 */
 
 // == vs. == operator
+/*
 const age = 18;
 
 // one line if:
@@ -215,4 +216,20 @@ if (favourite === 23) {
     console.log('Number is not 7, 9 nor 23.');
 }
 
-if (favourite !== 23) console.log("Why not 23?"); 
+if (favourite !== 23) console.log("Why not 23?");
+*/
+
+// BOOLEAN LOGIC
+const hasDrivingLicense = true;  // A
+const hasGoodVision = false;  // B
+const isTired = true; // C
+
+console.log(hasDrivingLicense && hasGoodVision); // false
+console.log(hasDrivingLicense || hasGoodVision); // true
+console.log(!hasGoodVision) // true
+
+if (hasDrivingLicense && hasGoodVision && !isTired) {
+    console.log('Sarah is able to drive.');
+} else {
+    console.log('Someone else should drive instead of Sarah...');
+}
