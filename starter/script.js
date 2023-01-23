@@ -79,12 +79,32 @@ const isFullAge = ageSarah >= 18; // false
 // Operator precedence:
 
 // possible to declare more variables at once:
-let x, y;
-x = y = 4 + 7 - 1;
-console.log(x, y)
+// let x, y;
+// x = y = 4 + 7 - 1;
+// console.log(x, y)
 
-const currentYear = 2023
-const ageTomas = currentYear - 1993;
-const ageSarah = currentYear - 2010;
-const averageAge = (ageSarah + ageTomas) / 2;
-console(ageSarah, ageTomas, averageAge)
+// const currentYear = 2023
+// const ageTomas = currentYear - 1993;
+// const ageSarah = currentYear - 2010;
+// const averageAge = (ageSarah + ageTomas) / 2;
+// console(ageSarah, ageTomas, averageAge);
+
+// STRING and TEMPLATE litterals:
+const firstName = 'Jonas';
+const job = 'teacher';
+const birthYear = 1991;
+const currentYear = 2023;
+
+const jonas = "I'm " + firstName + ", a " + (currentYear - birthYear) + " years old " + job + "!";
+console.log(jonas);
+
+const jonasNew = `I'm ${firstName}, a ${currentYear - birthYear} years old ${job}!`;
+console.log(jonasNew);
+
+// it works also like this:
+console.log(`Just classic string...`);
+
+// mulitple lines string:
+console.log(`String
+with muliptle
+lines`);

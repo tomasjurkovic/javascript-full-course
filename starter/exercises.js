@@ -51,7 +51,14 @@ population++;
 console.log(population);
 const populationOfFinland = 6;
 const averageCountryPopulation = 33;
-const description = 'Portugal is in Europe, and its 11 million people speak portuguese';
+let description = 'Portugal is in Europe, and its 11 million people speak portuguese';
 
 console.log(population > populationOfFinland); // false
 console.log(population < populationOfFinland); // true
+
+/* ASIGNMENT 5:
+
+1. Recreate the 'description' variable from the last assignment, this time
+using the template literal syntax */
+
+description = `Portugal is in Europe, and its 11 million people speak portuguese`;
