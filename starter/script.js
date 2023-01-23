@@ -90,7 +90,7 @@ const isFullAge = ageSarah >= 18; // false
 // console(ageSarah, ageTomas, averageAge);
 
 // STRING and TEMPLATE litterals:
-const firstName = 'Jonas';
+/* const firstName = 'Jonas';
 const job = 'teacher';
 const birthYear = 1991;
 const currentYear = 2023;
@@ -107,4 +107,28 @@ console.log(`Just classic string...`);
 // mulitple lines string:
 console.log(`String
 with muliptle
-lines`);
+lines`); */
+
+// IF ELSE Statements:
+const age = 7;
+
+if (age >= 18) {
+    console.log('Sarah can start driving license')
+} else {
+    const yearLeft = 18 - age;
+    if (yearLeft == 1) {
+        console.log(`Sarah is too young. Wait another ${yearLeft} year.`)
+    } else {
+        console.log(`Sarah is too young. Wait another ${yearLeft} years.`)
+    }
+}
+
+// century example:
+const birthYear = 2022;
+let century;
+if (birthYear <= 2000) {
+    century = 20;
+} else {
+    century = 21;
+}
+console.log(century)
