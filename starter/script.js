@@ -220,6 +220,7 @@ if (favourite !== 23) console.log("Why not 23?");
 */
 
 // BOOLEAN LOGIC
+/*
 const hasDrivingLicense = true;  // A
 const hasGoodVision = false;  // B
 const isTired = true; // C
@@ -233,3 +234,49 @@ if (hasDrivingLicense && hasGoodVision && !isTired) {
 } else {
     console.log('Someone else should drive instead of Sarah...');
 }
+*/
+
+// SWITCH STATEMENTS:
+const day = 'wednesday';
+
+// when 1 option in switch is empty wothou break, the next one is executed
+// break is really neccessary, without it code continue execution of next commands
+switch (day) {
+    case 'monday':
+        console.log('Plan course structure');
+        console.log('Go to coding meetup');
+        break;
+    case 'tuesday':
+        console.log('Prepare theory videos');
+        break;
+    case 'wednesday':
+    case 'thursday':
+        console.log('Write code examples');
+        break;
+    case 'friday':
+        console.log('Record videos');
+        break;
+    case 'saturday':
+    case 'sunday':
+        console.log('Enjoy the weekend');
+        break;
+    default:
+        console.log('Not a valid day!');
+        break;
+}
+
+// write it as a if else statement:
+/* if (day === 'monday') {
+    console.log('Plan course structure');
+    console.log('Go to coding meetup');
+} else if (day === 'tuesday') {
+    console.log('Prepare theory videos');
+} else if (day === 'wednesday' || day === 'thursday') {
+    console.log('Write code examples');
+} else if (day === 'friday') {
+    console.log('Record videos');
+} else if (day === 'saturday' || day === 'sunday') {
+    console.log('Enjoy the weekend');
+} else {
+    console.log('Not a valid day!');
+} */
