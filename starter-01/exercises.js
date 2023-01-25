@@ -168,3 +168,6 @@ one word changes between these two sentences!
 
 const countryPopulationFacingAverage = population > averageCountryPopulation ? "Slovakia's population is above average" : "Slovakia's population is below average";
 console.log(countryPopulationFacingAverage);
+
+// or it could be written like this:
+console.log(`${country}'s population is ${population > averageCountryPopulation ? 'above' : 'below'} average`)
