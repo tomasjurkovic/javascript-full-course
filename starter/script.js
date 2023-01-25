@@ -241,6 +241,7 @@ const day = 'wednesday';
 
 // when 1 option in switch is empty wothou break, the next one is executed
 // break is really neccessary, without it code continue execution of next commands
+/*
 switch (day) {
     case 'monday':
         console.log('Plan course structure');
@@ -264,6 +265,7 @@ switch (day) {
         console.log('Not a valid day!');
         break;
 }
+*/
 
 // write it as a if else statement:
 /* if (day === 'monday') {
@@ -280,3 +282,21 @@ switch (day) {
 } else {
     console.log('Not a valid day!');
 } */
+
+// STATEMENTS & EXPRESSIONS:
+
+// expressions look like and produce a value:
+3 + 4
+1991
+true && false && !false
+
+// statements look like and does not produce a value:
+if (23 > 11) {
+    const str = '23 is bigger';
+}
+
+// in console we can only put expressions:
+console.log(`I'm ${2023 - 1993} years old.`);
+
+// this won't work:
+// console.log(if (23 > 11) { const str = '23 is bigger'; }); 
