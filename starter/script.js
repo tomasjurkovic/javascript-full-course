@@ -285,6 +285,7 @@ switch (day) {
 
 // STATEMENTS & EXPRESSIONS:
 
+/*
 // expressions look like and produce a value:
 3 + 4
 1991
@@ -299,4 +300,31 @@ if (23 > 11) {
 console.log(`I'm ${2023 - 1993} years old.`);
 
 // this won't work:
-// console.log(if (23 > 11) { const str = '23 is bigger'; }); 
+// console.log(if (23 > 11) { const str = '23 is bigger'; });
+
+*/
+
+// CONDITIONAL (ternary) OPERATOR:
+
+const age = 23;
+
+// only one line is allowed and second line after : needs to be else block (alos only one line)
+age >= 18 ? console.log("I like to drink wine.") :
+    console.log('Better drink some water');
+
+// better example that this is expression:
+const drink = age >= 18 ? 'wine' : 'water'; // only in one line
+console.log(drink);
+
+// same with if else statement:
+let drink2;
+if (age >= 18) {
+    drink2 = 'beer';
+} else {
+    drink2 = 'cola';
+}
+console.log(drink2);
+
+// use it in the template literal:
+const lactoseAlergy = true;
+console.log(`I like to drink a ${lactoseAlergy ? 'double espresso' : 'flat white'}`);
