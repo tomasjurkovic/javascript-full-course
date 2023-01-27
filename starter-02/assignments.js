@@ -38,8 +38,9 @@ store the results into variables, and log them to the console
 the same populations)
 */
 
+const wordPopulation = 7900;
+
 function percentageOfWorld1(population) {
-    const wordPopulation = 7900;
     return (population / wordPopulation) * 100;
 }
 
@@ -51,7 +52,6 @@ console.log(slovakiaPercentage, bangladeshPercentage, chinaPercentage);
 // prints 0.0670886075949367 2.1443037974683543 18.240506329113924
 
 const percentageOfWorld2 = function (population) {
-    const wordPopulation = 7900;
     return (population / wordPopulation) * 100;
 }
 
@@ -61,3 +61,14 @@ const bangladeshPercentage2 = percentageOfWorld2(169.4);
 
 console.log(slovakiaPercentage2, bangladeshPercentage2, chinaPercentage2);
 // prints 0.0670886075949367 2.1443037974683543 18.240506329113924
+
+// ASSIGNMENT 3: arrow functions:
+/* 1. Recreate the last assignment, but this time create an arrow function called
+'percentageOfWorld3' */
+
+const percentageOfWorld3 = population => (population / wordPopulation) * 100;
+const slovakiaPercentage3 = percentageOfWorld3(5.3);
+const chinaPercentage3 = percentageOfWorld3(1441);
+const bangladeshPercentage3 = percentageOfWorld3(169.4);
+
+console.log(slovakiaPercentage3, bangladeshPercentage3, chinaPercentage3);
