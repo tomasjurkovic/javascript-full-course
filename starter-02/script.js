@@ -9,13 +9,14 @@ if (passTest) {
     hasDriversLicense = true;
 }
 
-if (hasDriversLicense) console.log('I can drive'); 
+if (hasDriversLicense) console.log('I can drive');
 
 // reserved word: interface
 // const interface = 'Audio';
 */
 
 // FUNCTIONS:
+/*
 function logger() {
     console.log('My name is Tomas');
 }
@@ -37,3 +38,22 @@ console.log(appleJuice);
 
 const appleOrangesJuice = fruitProcessor(2, 4);
 console.log(appleOrangesJuice);
+*/
+
+// FUNCTION DECLARATIONS VS> EXPRESSIONS:
+
+// function declaration:
+console.log(calculateAge(1993));
+// difference is, that we can call declarated function even before declaration 
+
+function calculateAge(birthYear) {
+    const actualYear = new Date().getFullYear();
+    return actualYear - birthYear;
+}
+
+// function expression
+const calculateAge2 = function (birthYear) {
+    const actualYear = new Date().getFullYear();
+    return actualYear - birthYear;
+}
+console.log(calculateAge2(1990));
