@@ -72,3 +72,22 @@ const chinaPercentage3 = percentageOfWorld3(1441);
 const bangladeshPercentage3 = percentageOfWorld3(169.4);
 
 console.log(slovakiaPercentage3, bangladeshPercentage3, chinaPercentage3);
+
+// ASSIGNMENT 4: function calling other functions:
+/* 1. Create a function called 'describePopulation'. Use the function type you
+like the most. This function takes in two arguments: 'country' and
+'population', and returns a string like this: 'China has 1441 million people,
+which is about 18.2% of the world.'
+2. To calculate the percentage, 'describePopulation' call the
+'percentageOfWorld1' you created earlier
+3. Call 'describePopulation' with data for 3 countries of your choice */
+
+function describePopulation(country, countrypopulation) {
+    const countryPercentage = Number.parseFloat(percentageOfWorld1(countrypopulation)).toFixed(2);
+
+    return `${country} has ${countrypopulation} million people, which is about ${countryPercentage} percent of the world population.`;
+}
+
+console.log(describePopulation('Japan', 125.7));
+console.log(describePopulation('India', 1408));
+console.log(describePopulation('Kenya', 53.01));
