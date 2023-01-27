@@ -41,6 +41,7 @@ console.log(appleOrangesJuice);
 */
 
 // FUNCTION DECLARATIONS VS> EXPRESSIONS:
+/*
 const actualYear = new Date().getFullYear();
 
 // function declaration:
@@ -93,3 +94,26 @@ function fruitProcessor(apples, oranges) {
 }
 
 console.log(fruitProcessor(6, 2));
+*/
+
+
+// RECAP OF FUNCTIONS:
+const actualYear = new Date().getFullYear();
+
+const calcAge = function (birthYear) {
+    return actualYear - birthYear;
+}
+
+const yearsUntilRetirement = (birthYear, firstName) => {
+    const retirement = 65 - calcAge(birthYear);
+    if (retirement > 0) {
+        console.log(`${firstName} retires after ${retirement} years.`);
+        return retirement;
+    } else {
+        console.log(`${firstName} retired already.`);
+        return -1;
+    }
+}
+
+console.log(yearsUntilRetirement(1993, 'Tomas'));
+console.log(yearsUntilRetirement(1950, 'Papa Roach'));
