@@ -38,8 +38,9 @@ store the results into variables, and log them to the console
 the same populations)
 */
 
+const wordPopulation = 7900;
+
 function percentageOfWorld1(population) {
-    const wordPopulation = 7900;
     return (population / wordPopulation) * 100;
 }
 
@@ -51,7 +52,6 @@ console.log(slovakiaPercentage, bangladeshPercentage, chinaPercentage);
 // prints 0.0670886075949367 2.1443037974683543 18.240506329113924
 
 const percentageOfWorld2 = function (population) {
-    const wordPopulation = 7900;
     return (population / wordPopulation) * 100;
 }
 
@@ -61,3 +61,33 @@ const bangladeshPercentage2 = percentageOfWorld2(169.4);
 
 console.log(slovakiaPercentage2, bangladeshPercentage2, chinaPercentage2);
 // prints 0.0670886075949367 2.1443037974683543 18.240506329113924
+
+// ASSIGNMENT 3: arrow functions:
+/* 1. Recreate the last assignment, but this time create an arrow function called
+'percentageOfWorld3' */
+
+const percentageOfWorld3 = population => (population / wordPopulation) * 100;
+const slovakiaPercentage3 = percentageOfWorld3(5.3);
+const chinaPercentage3 = percentageOfWorld3(1441);
+const bangladeshPercentage3 = percentageOfWorld3(169.4);
+
+console.log(slovakiaPercentage3, bangladeshPercentage3, chinaPercentage3);
+
+// ASSIGNMENT 4: function calling other functions:
+/* 1. Create a function called 'describePopulation'. Use the function type you
+like the most. This function takes in two arguments: 'country' and
+'population', and returns a string like this: 'China has 1441 million people,
+which is about 18.2% of the world.'
+2. To calculate the percentage, 'describePopulation' call the
+'percentageOfWorld1' you created earlier
+3. Call 'describePopulation' with data for 3 countries of your choice */
+
+function describePopulation(country, countrypopulation) {
+    const countryPercentage = Number.parseFloat(percentageOfWorld1(countrypopulation)).toFixed(2);
+
+    return `${country} has ${countrypopulation} million people, which is about ${countryPercentage} percent of the world population.`;
+}
+
+console.log(describePopulation('Japan', 125.7));
+console.log(describePopulation('India', 1408));
+console.log(describePopulation('Kenya', 53.01));

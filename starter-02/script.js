@@ -41,19 +41,55 @@ console.log(appleOrangesJuice);
 */
 
 // FUNCTION DECLARATIONS VS> EXPRESSIONS:
+const actualYear = new Date().getFullYear();
 
 // function declaration:
 console.log(calculateAge(1993));
 // difference is, that we can call declarated function even before declaration 
 
 function calculateAge(birthYear) {
-    const actualYear = new Date().getFullYear();
     return actualYear - birthYear;
 }
 
 // function expression
 const calculateAge2 = function (birthYear) {
-    const actualYear = new Date().getFullYear();
     return actualYear - birthYear;
 }
 console.log(calculateAge2(1990));
+
+// ARROW FUNCTION:
+const calculateAge3 = birthYear => actualYear - birthYear;
+console.log(calculateAge3(1678));
+
+// when we have 1 parameter and multiple lines of code:
+const yearsUntilRetirement = birthYear => {
+    const actualAge = actualYear - birthYear;
+    const retirement = 65 - actualAge;
+    return retirement;
+}
+
+const tomasCanRetireAfter = yearsUntilRetirement(1993);
+console.log(tomasCanRetireAfter);
+
+// when we have multiple parameters:
+const whenPersonRetires = (birthYear, firstName) => {
+    const actualAge = actualYear - birthYear;
+    const retirement = 65 - actualAge;
+    return `${firstName} retires in ${retirement} years.`;
+}
+
+console.log(whenPersonRetires(1993, 'Tomas'));
+
+// FUNCTIONS CALLING OTHER FUNCTIONS:
+function cutFruit(fruit) {
+    return fruit * 3;
+}
+
+function fruitProcessor(apples, oranges) {
+    const applePieces = cutFruit(apples);
+    const orangePieces = cutFruit(oranges);
+    const juice = `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange.`;
+    return juice;
+}
+
+console.log(fruitProcessor(6, 2));
