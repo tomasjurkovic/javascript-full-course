@@ -79,3 +79,17 @@ const whenPersonRetires = (birthYear, firstName) => {
 }
 
 console.log(whenPersonRetires(1993, 'Tomas'));
+
+// FUNCTIONS CALLING OTHER FUNCTIONS:
+function cutFruit(fruit) {
+    return fruit * 3;
+}
+
+function fruitProcessor(apples, oranges) {
+    const applePieces = cutFruit(apples);
+    const orangePieces = cutFruit(oranges);
+    const juice = `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange.`;
+    return juice;
+}
+
+console.log(fruitProcessor(6, 2));
