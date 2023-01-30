@@ -98,6 +98,7 @@ console.log(fruitProcessor(6, 2));
 
 
 // RECAP OF FUNCTIONS:
+/*
 const actualYear = new Date().getFullYear();
 
 const calcAge = function (birthYear) {
@@ -117,3 +118,53 @@ const yearsUntilRetirement = (birthYear, firstName) => {
 
 console.log(yearsUntilRetirement(1993, 'Tomas'));
 console.log(yearsUntilRetirement(1950, 'Papa Roach'));
+*/
+
+// ARRAYS INTRO:
+const friend1 = 'Michael';
+const friend2 = 'Steven';
+const friend3 = 'Peter';
+
+// array is like a big container to store values:
+const friends = ['Michael', 'Steven', 'Peter']; // the same but better
+console.log(friends);
+
+const y = new Array(1991, 1984, 2008, 2020) // other solution to create arrays
+console.log(friends[0]); // prints Michael
+
+console.log(friends.length); // prints 3
+console.log(friends[friends.length - 1]); // prints Peter (tha last element of array)
+
+friends[2] = 'Jay';
+console.log(friends); // Michael, Steven, Jay is printed in console
+
+// array is not primitive value, so we can mutate arrays,
+// but we cannot replace the whole array values like this:
+// friends = ['Bob', 'Alice'];
+
+// it allows me to do this:
+const firstName = 'Jonas';
+const jonas = [firstName, 'Schmedtman', 2037 - 1991, 'teacher', friends];
+
+console.log(jonas);
+console.log(jonas.length);
+
+// exercise:
+const actualYear = new Date().getFullYear();
+
+const calcAge = function (birthYear) {
+    return actualYear - birthYear;
+}
+
+const years = [1999, 1967, 1965, 2002, 2021];
+
+console.log(calcAge(years)); // prints NaN, because array is not a nunber
+
+const age1 = calcAge(years[0]);
+const age2 = calcAge(years[1]);
+const age3 = calcAge(years[years.length - 1]);
+
+console.log(age1, age2, age3);
+
+const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length - 1])];
+console.log(ages);
