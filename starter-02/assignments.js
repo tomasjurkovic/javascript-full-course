@@ -145,3 +145,19 @@ if (neighbours.includes('Germany') === false) {
 neighbours[1] = 'Czechia'; // new official title
 
 console.log(neighbours);
+
+// LECTURE: Introduction to Objects
+
+/* 1. Create an object called 'myCountry' for a country of your choice, containing
+properties 'country', 'capital', 'language', 'population' and
+'neighbours' (an array like we used in previous assignments) */
+
+const myCountry = {
+    country: 'Slovakia',
+    capital: 'Bratislava',
+    language: 'Slovak',
+    population: 5.3,
+    neighbours: neighbours
+}
+
+console.log(myCountry);
