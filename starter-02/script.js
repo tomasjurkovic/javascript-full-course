@@ -121,6 +121,7 @@ console.log(yearsUntilRetirement(1950, 'Papa Roach'));
 */
 
 // ARRAYS INTRO:
+/*
 const friend1 = 'Michael';
 const friend2 = 'Steven';
 const friend3 = 'Peter';
@@ -168,3 +169,46 @@ console.log(age1, age2, age3);
 
 const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length - 1])];
 console.log(ages);
+*/
+
+// BASIC ARRAY OPERATIONS:
+const friends = ['Michael', 'Steven', 'Peter'];
+
+// push: adds elements to the end of array
+const newLenght = friends.push('David'); // it pushes David to the last index of friends array
+console.log(friends);
+console.log(newLenght);
+
+// unshift: adds elements to the beginning of array
+friends.unshift("Bruce");
+console.log(friends); // prints ['Bruce', 'Michael', 'Steven', 'Peter', 'David']
+
+// pop: removes last element from the end of array
+const popped = friends.pop();
+console.log(popped); // returns popped element 'David'
+console.log(friends); // prints ['Bruce', 'Michael', 'Steven', 'Peter']
+
+// shift: removes first element from the end of array
+const shifted = friends.shift();
+console.log(shifted); // returns shifted element 'Bruce'
+console.log(friends); // prints ['Michael', 'Steven', 'Peter']
+
+// indexOf: returns index of element in array
+console.log(friends.indexOf('Steven')); //returns 1 as 'Steven' is the second element in array
+console.log(friends.indexOf('Django')) // returns -1, because this element is not present in array
+
+// includes: returns boolean value if element is present in array:
+console.log(friends.includes('Benjamin')); // prints false
+console.log(friends.includes('Michael')); // prints true
+
+friends.push(23);
+console.log(friends.includes('23')); // prints true because of strict equality
+console.log(friends.includes(23)); // prints true 
+
+if (friends.includes('Peter')) {
+    console.log('You have a friend called Peter');
+}
+
+// this is from chatGPT: it filters specific item from array
+const friendsWithout23 = friends.filter(friend => friend !== 23);
+console.log(friendsWithout23); // returns only ['Michael', 'Steven', 'Peter']
