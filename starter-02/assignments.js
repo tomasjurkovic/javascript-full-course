@@ -91,3 +91,29 @@ function describePopulation(country, countrypopulation) {
 console.log(describePopulation('Japan', 125.7));
 console.log(describePopulation('India', 1408));
 console.log(describePopulation('Kenya', 53.01));
+
+// ASSIGNMENT 4: ARRAYS
+/* 1. Create an array containing 4 population values of 4 countries of your choice.
+You may use the values you have been using previously. Store this array into a
+variable called 'populations'
+2. Log to the console whether the array has 4 elements or not (true or false)
+3. Create an array called 'percentages' containing the percentages of the
+world population for these 4 population values. Use the function
+'percentageOfWorld1' that you created earlier to compute the 4
+percentage values */
+
+const hungaryPopulation = 9.7;
+const mongoliaPopulation = 3.3;
+const brazilPopulation = 214.3;
+const nigerPopulation = 25.2;
+
+const populations = [hungaryPopulation,
+    mongoliaPopulation, brazilPopulation, nigerPopulation];
+console.log(populations.length === 4); // prints true
+
+const percentages = [percentageOfWorld1(hungaryPopulation),
+percentageOfWorld1(mongoliaPopulation),
+percentageOfWorld1(brazilPopulation),
+percentageOfWorld1(nigerPopulation)];
+
+console.log(percentages);
