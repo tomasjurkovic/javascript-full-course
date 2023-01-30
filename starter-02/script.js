@@ -172,6 +172,7 @@ console.log(ages);
 */
 
 // BASIC ARRAY OPERATIONS:
+/*
 const friends = ['Michael', 'Steven', 'Peter'];
 
 // push: adds elements to the end of array
@@ -212,3 +213,17 @@ if (friends.includes('Peter')) {
 // this is from chatGPT: it filters specific item from array
 const friendsWithout23 = friends.filter(friend => friend !== 23);
 console.log(friendsWithout23); // returns only ['Michael', 'Steven', 'Peter']
+*/
+
+// INTRO TO OBJECTS:
+
+const jonas = {
+    firstName: 'Jonas',
+    lastName: 'Schmedtmann',
+    age: 2023 - 1991,
+    job: 'teacher',
+    friends: ['Michael', 'Piotr', 'Stewie']
+};
+
+console.log(jonas);
+console.log(jonas.job);
