@@ -227,3 +227,32 @@ const jonas = {
 
 console.log(jonas);
 console.log(jonas.job);
+
+// DOT AND BRACKET NOTATION:
+console.log(jonas['lastName']); // returns same result
+
+const nameKey = 'Name';
+
+console.log(jonas['last' + nameKey]);
+console.log(jonas['last' + nameKey]); // we can insert there computed expression
+
+// console.log(jonas.'last' + nameKey); // does not woerk - unexpected string
+const interestedIn = prompt('What do you want to know about Jonas? Choose between firstName. lastName, age, job and friends');
+
+if (jonas[interestedIn]) {
+    console.log(jonas[interestedIn]); // returns ['Michael', 'Piotr', 'Stewie']
+} else {
+    console.log('Select only value that is allowed!')
+}
+
+console.log(jonas.interestedIn); // returns undifined, because we did not declare intersetedIn on jonas object
+
+jonas.location = 'Portugal';
+jonas['twitter'] = '@jonasschmedtmann';
+
+console.log(jonas);
+
+// challenge:
+// jonas has 3 friends and his best friend is Michael.
+
+console.log(`${jonas.firstName} has ${jonas.friends.length} friends and his best friend is ${jonas.friends[0]}.`);
