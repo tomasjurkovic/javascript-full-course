@@ -220,15 +220,37 @@ console.log(friendsWithout23); // returns only ['Michael', 'Steven', 'Peter']
 const jonas = {
     firstName: 'Jonas',
     lastName: 'Schmedtmann',
-    age: 2023 - 1991,
+    birthYear: 1991,
     job: 'teacher',
-    friends: ['Michael', 'Piotr', 'Stewie']
+    friends: ['Michael', 'Piotr', 'Stewie'],
+    hasDriverLicense: false,
+    hasDriverLicenseString: function () {
+        if (this.hasDriverLicense) {
+            this.driverLicenseStatement = "has driver's license";
+        } else {
+            this.driverLicenseStatement = "has not driver's license";
+        }
+        return this.driverLicenseStatement;
+
+    },
+    // calcAge: function (birthYear) {
+    //     return 2023 - birthYear;
+    // }
+    // calcAge: function () {
+    //     // console.log(this);
+    //     return 2023 - this.birthYear;
+    // }
+    calcAge: function () {
+        this.age = 2023 - this.birthYear;
+        return this.age;
+    }
 };
 
 console.log(jonas);
 console.log(jonas.job);
 
 // DOT AND BRACKET NOTATION:
+/*
 console.log(jonas['lastName']); // returns same result
 
 const nameKey = 'Name';
@@ -237,7 +259,7 @@ console.log(jonas['last' + nameKey]);
 console.log(jonas['last' + nameKey]); // we can insert there computed expression
 
 // console.log(jonas.'last' + nameKey); // does not woerk - unexpected string
-const interestedIn = prompt('What do you want to know about Jonas? Choose between firstName. lastName, age, job and friends');
+const interestedIn = prompt('What do you want to know about Jonas? Choose between firstName. lastName, birthYear, job and friends');
 
 if (jonas[interestedIn]) {
     console.log(jonas[interestedIn]); // returns ['Michael', 'Piotr', 'Stewie']
@@ -246,6 +268,7 @@ if (jonas[interestedIn]) {
 }
 
 console.log(jonas.interestedIn); // returns undifined, because we did not declare intersetedIn on jonas object
+*/
 
 jonas.location = 'Portugal';
 jonas['twitter'] = '@jonasschmedtmann';
@@ -256,3 +279,21 @@ console.log(jonas);
 // jonas has 3 friends and his best friend is Michael.
 
 console.log(`${jonas.firstName} has ${jonas.friends.length} friends and his best friend is ${jonas.friends[0]}.`);
+
+// OBJECT METHODS:
+console.log(jonas.calcAge());
+// console.log(jonas['calcAge']());
+console.log(jonas.age); // most efficient solution
+
+// small challlege:
+// Jonas is a 46-year old teacher and he has/has not a driver licence
+console.log(jonas.hasDriverLicenseString());
+
+console.log(`
+${jonas.firstName} is a ${jonas.age}-years old ${jonas.job} and he ${jonas.driverLicenseStatement}.
+`);
+
+// other better solution:
+console.log(`
+${jonas.firstName} is a ${jonas.age}-years old ${jonas.job} and he has ${jonas.hasDriverLicense ? 'a' : 'no'} driver's license.
+`);
