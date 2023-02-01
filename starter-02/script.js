@@ -302,7 +302,56 @@ ${jonas.firstName} is a ${jonas.age}-years old ${jonas.job} and he has ${jonas.h
 */
 
 // THE FOR LOOPS:
-
+/*
 for (let rep = 1; rep <= 10; rep++) {
     console.log(`Lifting weights repetition ${rep}`);
+}
+*/
+
+// LOOPING ARRAYS, BREAKING & CONTINUING:
+const jonasArray = [
+    'Jonas',
+    'Schmedtmann',
+    1991,
+    'teacher',
+    ['Michael', 'Piotr', 'Stewie'],
+    true
+];
+
+const types = [];
+
+for (let i = 0; i < jonasArray.length; i++) {
+    console.log(jonasArray[i], typeof jonasArray[i]);
+
+    // filling types array:
+    // types[i] = typeof jonasArray[i]; // one way
+    types.push(typeof jonasArray[i]) // better cleaner way
+}
+
+console.log(types);
+
+// challenge: calc current years and add them to the new array:
+const years = [2002, 1998, 1987, 1942, 2021, 2013];
+const currentAges = [];
+
+for (let i = 0; i < years.length; i++) {
+    currentAges.push(2023 - years[i]);
+}
+
+console.log(currentAges);
+
+// continue and break:
+
+// continue
+console.log('ONLY STRINGS!')
+for (let i = 0; i < jonasArray.length; i++) {
+    if (typeof jonasArray[i] !== 'string') continue;
+    console.log(jonasArray[i], typeof jonasArray[i]);
+}
+
+// break:
+console.log('BREAK WHEN NUMBER!')
+for (let i = 0; i < jonasArray.length; i++) {
+    if (typeof jonasArray[i] === 'number') break;
+    console.log(jonasArray[i], typeof jonasArray[i]);
 }
