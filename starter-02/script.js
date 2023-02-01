@@ -46,7 +46,7 @@ const actualYear = new Date().getFullYear();
 
 // function declaration:
 console.log(calculateAge(1993));
-// difference is, that we can call declarated function even before declaration 
+// difference is, that we can call declarated function even before declaration
 
 function calculateAge(birthYear) {
     return actualYear - birthYear;
@@ -204,7 +204,7 @@ console.log(friends.includes('Michael')); // prints true
 
 friends.push(23);
 console.log(friends.includes('23')); // prints true because of strict equality
-console.log(friends.includes(23)); // prints true 
+console.log(friends.includes(23)); // prints true
 
 if (friends.includes('Peter')) {
     console.log('You have a friend called Peter');
@@ -216,7 +216,7 @@ console.log(friendsWithout23); // returns only ['Michael', 'Steven', 'Peter']
 */
 
 // INTRO TO OBJECTS:
-
+/*
 const jonas = {
     firstName: 'Jonas',
     lastName: 'Schmedtmann',
@@ -248,6 +248,7 @@ const jonas = {
 
 console.log(jonas);
 console.log(jonas.job);
+* /
 
 // DOT AND BRACKET NOTATION:
 /*
@@ -269,6 +270,7 @@ if (jonas[interestedIn]) {
 
 console.log(jonas.interestedIn); // returns undifined, because we did not declare intersetedIn on jonas object
 */
+/*
 
 jonas.location = 'Portugal';
 jonas['twitter'] = '@jonasschmedtmann';
@@ -297,3 +299,10 @@ ${jonas.firstName} is a ${jonas.age}-years old ${jonas.job} and he ${jonas.drive
 console.log(`
 ${jonas.firstName} is a ${jonas.age}-years old ${jonas.job} and he has ${jonas.hasDriverLicense ? 'a' : 'no'} driver's license.
 `);
+*/
+
+// THE FOR LOOPS:
+
+for (let rep = 1; rep <= 10; rep++) {
+    console.log(`Lifting weights repetition ${rep}`);
+}
