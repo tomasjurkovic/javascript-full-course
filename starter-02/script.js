@@ -355,3 +355,16 @@ for (let i = 0; i < jonasArray.length; i++) {
     if (typeof jonasArray[i] === 'number') break;
     console.log(jonasArray[i], typeof jonasArray[i]);
 }
+
+// looping backwards:
+for (let j = jonasArray.length - 1; j >= 0; j--) {
+    console.log(jonasArray[j]);
+
+}
+
+for (let exercise = 1; exercise < 4; exercise++) {
+    console.log(`-------------- Starting exercise ${exercise}`);
+    for (let rep = 1; rep < 6; rep++) {
+        console.log(`Lifting weight repetition ${rep} of exerxise ${exercise}`);
+    }
+}
