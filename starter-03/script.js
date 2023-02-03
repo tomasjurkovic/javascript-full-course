@@ -8,4 +8,6 @@ if (x === 23) {
 }
 const calcAge = birthyear => 2023 - birthyear;
 
-console.log();
+console.log(calcAge(1980));
+
+// TODO: BUG:
