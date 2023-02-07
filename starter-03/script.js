@@ -61,3 +61,26 @@ const amplitude2 = calcTempAmplitude(temperatures3, temperatures4);
 
 console.log(`First amplitude is: ${amplitude}, 
 The second amplitude is: ${amplitude2}`);
+
+// debugging:
+
+const measureKelvin = function () {
+	const measurement = {
+		type: 'temp',
+		unit: 'celsius',
+		// fix with Number()
+		value: Number(prompt('Degrees celsius:')),
+	};
+
+	// debug:
+	// debugger; // to open sources in browser and stops the code there
+	console.log(typeof measurement.value);
+	console.log(measurement);
+	console.table(measurement);
+
+	const kelvin = measurement.value + 273;
+	return kelvin;
+};
+
+// identify a bug:
+console.log(measureKelvin());
