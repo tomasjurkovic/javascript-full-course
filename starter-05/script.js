@@ -14,5 +14,14 @@ const modalEl = document.querySelector('#modal');
 // });
 
 for (let i = 0; i < openModalBtns.length; i++) {
-  console.log(openModalBtns[i]);
+  openModalBtns[i].addEventListener('click', function () {
+    console.log('button click');
+    modalEl.classList.remove('hidden'); // not use dot notation here
+    overlayEl.classList.remove('hidden');
+  });
 }
+
+closeModalBtn.addEventListener('click', () => {
+  modalEl.classList.add('hidden'); // not use dot notation here
+  overlayEl.classList.add('hidden');
+});
