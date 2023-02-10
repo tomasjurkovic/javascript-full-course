@@ -20,3 +20,16 @@ for (let i = 0; i < openModalBtns.length; i++) {
 }
 
 closeModalBtn.addEventListener('click', closeModal);
+
+// keyboard events examples:
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && !modalEl.classList.contains('hidden')) {
+    closeModal();
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && modalEl.classList.contains('hidden')) {
+    openModal();
+  }
+});
