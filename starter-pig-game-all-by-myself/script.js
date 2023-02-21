@@ -10,7 +10,9 @@ const diceEl = document.querySelector('.dice');
 const rollBtn = document.querySelector('.btn--roll');
 const holdBtn = document.querySelector('.btn--hold');
 const newBtn = document.querySelector('.btn--new');
-const winningScore = 100;
+const winningScore = 150;
+const currentPlayer1 = document.querySelector('.current-player--0');
+const currentPlayer2 = document.querySelector('.current0player--1');
 
 let currentScore, scores, playing, activePlayer;
 
@@ -28,6 +30,7 @@ const init = function () {
   player2El.classList.remove('player--winner');
   player1El.classList.add('player--active');
   player2El.classList.remove('player--active');
+  //   currentPlayer1.classList.remove('current--leader');
 };
 
 const switchPlayer = function () {
@@ -51,6 +54,18 @@ rollBtn.addEventListener('click', () => {
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
     } else {
+      // count down five points if one is rolled:
+      if (currentScore > 1) {
+        scores[activePlayer] -= 5;
+        document.getElementById(`score--${activePlayer}`).textContent =
+          scores[activePlayer];
+      }
+      if (currentScore > 20) {
+        scores[activePlayer] -= 10;
+        document.getElementById(`score--${activePlayer}`).textContent =
+          scores[activePlayer];
+      }
+
       switchPlayer();
     }
   }
@@ -61,6 +76,17 @@ holdBtn.addEventListener('click', () => {
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
+
+    // if (scores[0] > scores[1]) {
+    //   currentPlayer1.classList.add('current--leader');
+    //   currentPlayer2.classList.remove('current--leader');
+    // } else if (scores[0] < scores[1]) {
+    //   currentPlayer1.classList.remove('current--leader');
+    //   currentPlayer2.classList.add('current--leader');
+    // } else {
+    //   currentPlayer1.classList.remove('current--leader');
+    //   currentPlayer2.classList.remove('current--leader');
+    // }
 
     // check if it is worth more than or equals to 100
     if (scores[activePlayer] >= winningScore) {
