@@ -27,3 +27,24 @@ const addArrow = (a, b) => a + b;
 var varExprFunction = function (a, b) {
   return a + b;
 };
+
+// DELETE SHOPPING CARDS EXAMPLE:
+if (!numProducts) {
+  // undefined is a falsy value, so it will call that function even if var numProducts is declared below with value of 10
+  deleteShoppingCart();
+}
+
+var numProducts = 10; // declaration here!
+
+function deleteShoppingCart() {
+  console.log('All profucts deleted!');
+}
+
+let a = 1;
+var b = 2;
+const c = 3;
+
+console.log(a === window.a); // false
+console.log(b === window.b); // true
+console.log(c === window.c); // false
+// only B is part of properties on the window's object
