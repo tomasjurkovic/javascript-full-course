@@ -7,6 +7,7 @@ console.log(year); // same error as well
 console.log(addDecl(10, 50)); // result 60 is printed because of hoisting
 console.log(addExpr(60, 40)); // Temporal dead zone: Cannot access 'addExpr' before initialization
 console.log(addArrow(100, 500)); // same error as well
+console.log(varExprFunction(600, 400)); // it prints undefined because of weird var behaviour. Var are undefined before they are decalred in code.
 
 var me = 'Tomas';
 let job = 'tester';
@@ -17,8 +18,12 @@ function addDecl(a, b) {
   return a + b;
 }
 
-const addExpr = function addDecl(a, b) {
+const addExpr = function (a, b) {
   return a + b;
 };
 
 const addArrow = (a, b) => a + b;
+
+var varExprFunction = function (a, b) {
+  return a + b;
+};
