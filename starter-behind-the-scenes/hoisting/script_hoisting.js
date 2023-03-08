@@ -1,36 +1,24 @@
 'use strict';
 
-function calcAge(birthYear) {
-  const age = 2023 - birthYear;
-  function printAge() {
-    // creating new variable with same name as outer scope's variable
-    const firstName = 'Django'; // here in this scope firstName is Django, outside it is Tomas
-    let output = `You are ${age} years old and born in ${birthYear}.`;
-    console.log(output);
+console.log(me); // it is until initialization: undefinef
+console.log(job); // Temporal dead zone: script_hoisting.js:4 Uncaught ReferenceError: Cannot access 'job' before initialization
+console.log(year); // same error as well
 
-    if (birthYear >= 1981 && birthYear <= 1996) {
-      var millenial = true;
-      const str = `Oh, and you're a millenial, ${firstName}`;
-      console.log(str);
-      console.log(millenial);
+console.log(addDecl(10, 50)); // result 60 is printed because of hoisting
+console.log(addExpr(60, 40)); // Temporal dead zone: Cannot access 'addExpr' before initialization
+console.log(addArrow(100, 500)); // same error as well
 
-      function add(a, b) {
-        return a + b;
-      }
+var me = 'Tomas';
+let job = 'tester';
+const year = 1993;
 
-      // reassigning outer scope's variable
-      output = 'new output!';
-    }
-    // console.log(add(2, 3)); // Uncaught ReferenceError: add is not defined
-    // functions are block scope and cannot be reached this way outside of its scope in STRICT MODE
-    console.log(millenial); // possible, because var are function scope variables
-    // console.log(str); // script.js:13 Uncaught ReferenceError: str is not defined
-    console.log(output); // prints new output, because I redefined it
-  }
-  printAge();
-
-  return age;
+// functions:
+function addDecl(a, b) {
+  return a + b;
 }
 
-const firstName = 'Tomas';
-calcAge(1993);
+const addExpr = function addDecl(a, b) {
+  return a + b;
+};
+
+const addArrow = (a, b) => a + b;
