@@ -26,3 +26,16 @@ const tomas = {
 };
 
 tomas.calcAge();
+
+const matilda = {
+  year: 2012,
+};
+
+// method borroing:
+matilda.calcAge = tomas.calcAge;
+
+matilda.calcAge(); // this keyword looks like matilda object
+
+const f = tomas.calcAge;
+f(); // this is now undefined
+// Cannot read properties of undefined (reading 'year')
