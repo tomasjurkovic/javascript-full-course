@@ -4,8 +4,8 @@
 let age = 30;
 let oldAge = age;
 age = 31;
-console.log(age);
-console.log(oldAge);
+console.log(age); // returns 31
+console.log(oldAge); // returns 30
 
 // objects:
 
@@ -18,5 +18,5 @@ const friend = me;
 
 friend.age = 40;
 
-console.log('Friend:', friend);
-console.log('Me:', me);
+console.log('Friend:', friend); // returns Friend: {name: 'Tomas', age: 40}
+console.log('Me:', me); // returns Me: {name: 'Tomas', age: 40}
