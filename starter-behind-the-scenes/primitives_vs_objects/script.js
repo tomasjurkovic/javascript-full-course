@@ -20,3 +20,10 @@ friend.age = 40;
 
 console.log('Friend:', friend); // returns Friend: {name: 'Tomas', age: 40}
 console.log('Me:', me); // returns Me: {name: 'Tomas', age: 40}
+
+// only primitive variables created with const are imutable, we can change objects
+// that's why me and friend are same, because they have same refference in memory heap
+
+me.ara = 'It works';
+console.log(me, friend);
+// prints: {name: 'Tomas', age: 40, ara: 'It works'} {name: 'Tomas', age: 40, ara: 'It works'}
