@@ -84,3 +84,14 @@ console.log(restaurant.order(2, 0)); // prints ['Bruschetta', 'Risotto']
 //this is how we can do it with destructuring:
 const [starter, mainCourse] = restaurant.order(3, 1);
 console.log(starter, mainCourse);
+
+// nested arrays:
+const nested = [1, 2, [5, 6]];
+const [var1, , var2] = nested;
+console.log(var1, var2); // prints 1 (2) [5, 6]
+// var1 = 1
+// var2 = [5, 6]
+
+// destructuring inside destructuring:
+const [des1, , [des3, des4]] = nested;
+console.log(des1, des3, des4); // prints 1 5 6, because we destructured it
