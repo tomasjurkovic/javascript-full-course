@@ -47,6 +47,27 @@ console.log(restaurantName, hours, tags);
 const { menu = [], starterMenu: starters = [] } = restaurant;
 console.log(menu, starters); // menu is by default [] instead of undefined, starters are starterMenu, because it exists
 
+// mutating variables works differently:
+let aO = 111;
+let bO = 999;
+const obj = { aO: 23, bO: 7, cO: 14 };
+
+({ aO, bO } = obj); // it has to be in parenthesis to be working
+// not like this: { a, b } = obj
+console.log(aO, bO); // 23 7 is printed
+
+// nested objects:
+const {
+  fri: { open, close },
+} = openingHours;
+console.log(open, close); // 11 23 returns
+
+// it is possible to change its names"
+const {
+  fri: { open: from, close: to },
+} = openingHours;
+console.log(from, to); // 11 23 returns
+
 // const arr = [1, 3, 5];
 // const a = arr[0]; // 1
 // const b = arr[1]; // 3
