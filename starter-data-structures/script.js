@@ -27,3 +27,29 @@ const restaurant = {
     },
   },
 };
+
+const arr = [1, 3, 5];
+const a = arr[0]; // 1
+const b = arr[1]; // 3
+const c = arr[2]; // 5
+
+// destructuring:
+const [x, y, z] = arr;
+console.log(x, y, z); // prints 1 3 5
+// this is very easy how to declare variables
+// create 3 variables and each will get different value from array, from left to right
+// original array is not affected at all:
+console.log(arr);
+
+// what if more values?
+const arr2 = [4, 8, 16];
+const [i, j, k, l] = arr2;
+console.log(i, j, k, l); // l is undefined = 4 8 16 undefined
+console.log(arr2);
+
+// what if less values?
+const arr3 = [3, 9, 27, 81];
+const [p, r] = arr3;
+// it gets values only from first 2 elements of an array
+console.log(p, r);
+console.log(arr3); // not affected at all (4) [3, 9, 27, 81]
