@@ -43,6 +43,10 @@ const {
 } = restaurant;
 console.log(restaurantName, hours, tags);
 
+// set default values is possible:
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters); // menu is by default [] instead of undefined, starters are starterMenu, because it exists
+
 // const arr = [1, 3, 5];
 // const a = arr[0]; // 1
 // const b = arr[1]; // 3
