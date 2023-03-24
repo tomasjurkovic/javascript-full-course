@@ -11,7 +11,9 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
+  order: function (starerIndex, mainIndex) {
+    return [this.starterMenu[starerIndex], this.mainMenu[mainIndex]];
+  },
   openingHours: {
     thu: {
       open: 12,
@@ -77,3 +79,8 @@ console.log(main, secondary);
 [main, secondary] = [secondary, main];
 // in one line we just change both variables and added them their values but reversed
 console.log(main, secondary); // prints Vegetarian Italian
+
+console.log(restaurant.order(2, 0)); // prints ['Bruschetta', 'Risotto']
+//this is how we can do it with destructuring:
+const [starter, mainCourse] = restaurant.order(3, 1);
+console.log(starter, mainCourse);
