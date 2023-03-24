@@ -85,7 +85,7 @@ console.log(restaurant.order(2, 0)); // prints ['Bruschetta', 'Risotto']
 const [starter, mainCourse] = restaurant.order(3, 1);
 console.log(starter, mainCourse);
 
-// nested arrays:
+// nested destructuring:
 const nested = [1, 2, [5, 6]];
 const [var1, , var2] = nested;
 console.log(var1, var2); // prints 1 (2) [5, 6]
@@ -95,3 +95,9 @@ console.log(var1, var2); // prints 1 (2) [5, 6]
 // destructuring inside destructuring:
 const [des1, , [des3, des4]] = nested;
 console.log(des1, des3, des4); // prints 1 5 6, because we destructured it
+
+// default values:
+// useful when we do not know the lenght of the array
+const [q = 1, pi = 1, ar = 1] = [8, 9];
+console.log(q, pi, ar);
+// prints 8 9 1
