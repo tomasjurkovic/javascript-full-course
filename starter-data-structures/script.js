@@ -11,9 +11,6 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  order: function (starerIndex, mainIndex) {
-    return [this.starterMenu[starerIndex], this.mainMenu[mainIndex]];
-  },
   openingHours: {
     thu: {
       open: 12,
@@ -28,7 +25,27 @@ const restaurant = {
       close: 24,
     },
   },
+  order: function (starerIndex, mainIndex) {
+    return [this.starterMenu[starerIndex], this.mainMenu[mainIndex]];
+  },
+  orderDelivery: function ({
+    starerIndex = 1,
+    mainIndex = 0,
+    time = '20:00',
+    address = 'Kosice',
+  }) {
+    console.log(
+      `Order recieved! ${this.starterMenu[starerIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+    );
+  },
 };
+
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del Sole, 21',
+  startIndex: 2,
+  mainIndex: 2,
+});
 
 // DESTRUCTURING OBJECTS:
 // variables are same as properties in objects:
