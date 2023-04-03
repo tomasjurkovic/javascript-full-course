@@ -217,3 +217,18 @@ restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
 // new way:
 restaurant.orderPasta(...ingredients);
 b;
+
+// objects:
+const newRestaurant = {
+  foundedIn: 1998,
+  ...restaurant,
+  founder: 'Guiseppe Conte',
+};
+console.log(newRestaurant);
+
+// copying is possible
+// without affecting previous objects"
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Mama Mia';
+console.log(restaurant.name);
+console.log(restaurantCopy.name);
