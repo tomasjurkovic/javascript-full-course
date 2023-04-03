@@ -175,3 +175,11 @@ console.log(withoutSpreadOperator);
 // here we gets the same result with spread operator
 console.log(...goodNewArray); // 1 2 7 8 9
 console.log(1, 2, 7, 7, 9);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+
+// difference between spread operator and destructuirng is
+// spread operator takes all the elements form the array and it also
+// does not create new variables, so we can only use it in places where we otherwise
+// write comma separated values
