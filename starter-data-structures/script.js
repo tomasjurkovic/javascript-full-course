@@ -38,6 +38,9 @@ const restaurant = {
       `Order recieved! ${this.starterMenu[starerIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
+  },
 };
 
 restaurant.orderDelivery({
@@ -200,3 +203,17 @@ console.log(...str); // is the same as below
 console.log('T', 'o', 'm', 'a', 's');
 
 // console.log(`${...str} not working at all`); //Uncaught SyntaxError: Unexpected token '...' (at
+
+const ingredients = [
+  prompt("Let's make pasta! Ingredient 1?"),
+  prompt("Let's make pasta! Ingredient 2?"),
+  prompt("Let's make pasta! Ingredient 3?"),
+];
+console.log(ingredients);
+
+// old way:
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+
+// new way:
+restaurant.orderPasta(...ingredients);
+b;
