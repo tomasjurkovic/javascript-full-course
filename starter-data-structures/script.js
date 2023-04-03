@@ -156,3 +156,13 @@ console.log(des1, des3, des4); // prints 1 5 6, because we destructured it
 const [q = 1, pi = 1, ar = 1] = [8, 9];
 console.log(q, pi, ar);
 // prints 8 9 1
+
+// SPREAD OPERATOR:
+
+const arraya = [7, 8, 9];
+const badNewArray = [1, 2, arraya[0], arraya[1], arraya[2]]; // bad way old fashio
+console.log(badNewArray);
+// better solution to create new array
+const goodNewArray = [1, 2, ...arraya];
+console.log(goodNewArray);
+// both same, but nice and easy to create new array with ... spread operator
