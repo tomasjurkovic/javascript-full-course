@@ -174,7 +174,7 @@ console.log(withoutSpreadOperator);
 
 // here we gets the same result with spread operator
 console.log(...goodNewArray); // 1 2 7 8 9
-console.log(1, 2, 7, 7, 9);
+console.log(1, 2, 7, 8, 9);
 
 const newMenu = [...restaurant.mainMenu, 'Gnocci'];
 console.log(newMenu);
@@ -183,3 +183,20 @@ console.log(newMenu);
 // spread operator takes all the elements form the array and it also
 // does not create new variables, so we can only use it in places where we otherwise
 // write comma separated values
+
+// copy array:
+const mainMenuCopy = [...restaurant.mainMenu];
+console.log(mainMenuCopy); // prints ['Pizza', 'Pasta', 'Risotto']
+
+// join two or more arrays together:
+const joinTwoArrays = [...arraya, ...mainMenuCopy];
+console.log(joinTwoArrays); // prints [7, 8, 9, 'Pizza', 'Pasta', 'Risotto']
+
+// iterables: arrays, string, maps, sets. NOT OBJECTS
+const str = 'Tomas';
+const letters = [...str, ' ', 'J.'];
+console.log(letters);
+console.log(...str); // is the same as below
+console.log('T', 'o', 'm', 'a', 's');
+
+// console.log(`${...str} not working at all`); //Uncaught SyntaxError: Unexpected token '...' (at
