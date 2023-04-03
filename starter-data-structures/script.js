@@ -38,6 +38,9 @@ const restaurant = {
       `Order recieved! ${this.starterMenu[starerIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
+  },
 };
 
 restaurant.orderDelivery({
@@ -156,3 +159,76 @@ console.log(des1, des3, des4); // prints 1 5 6, because we destructured it
 const [q = 1, pi = 1, ar = 1] = [8, 9];
 console.log(q, pi, ar);
 // prints 8 9 1
+
+// SPREAD OPERATOR:
+
+const arraya = [7, 8, 9];
+const badNewArray = [1, 2, arraya[0], arraya[1], arraya[2]]; // bad way old fashio
+console.log(badNewArray);
+// better solution to create new array
+const goodNewArray = [1, 2, ...arraya];
+console.log(goodNewArray);
+// both same, but nice and easy to create new array with ... spread operator
+
+const withoutSpreadOperator = [1, 2, arraya];
+console.log(withoutSpreadOperator);
+// then all arraya will be then inseted inside the new array
+// it will look like this: [1, 2, Array(3)]
+
+// here we gets the same result with spread operator
+console.log(...goodNewArray); // 1 2 7 8 9
+console.log(1, 2, 7, 8, 9);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+
+// difference between spread operator and destructuirng is
+// spread operator takes all the elements form the array and it also
+// does not create new variables, so we can only use it in places where we otherwise
+// write comma separated values
+
+// copy array:
+const mainMenuCopy = [...restaurant.mainMenu];
+console.log(mainMenuCopy); // prints ['Pizza', 'Pasta', 'Risotto']
+
+// join two or more arrays together:
+const joinTwoArrays = [...arraya, ...mainMenuCopy];
+console.log(joinTwoArrays); // prints [7, 8, 9, 'Pizza', 'Pasta', 'Risotto']
+
+// iterables: arrays, string, maps, sets. NOT OBJECTS
+const str = 'Tomas';
+const letters = [...str, ' ', 'J.'];
+console.log(letters);
+console.log(...str); // is the same as below
+console.log('T', 'o', 'm', 'a', 's');
+
+// console.log(`${...str} not working at all`); //Uncaught SyntaxError: Unexpected token '...' (at
+
+const ingredients = [
+  prompt("Let's make pasta! Ingredient 1?"),
+  prompt("Let's make pasta! Ingredient 2?"),
+  prompt("Let's make pasta! Ingredient 3?"),
+];
+console.log(ingredients);
+
+// old way:
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+
+// new way:
+restaurant.orderPasta(...ingredients);
+b;
+
+// objects:
+const newRestaurant = {
+  foundedIn: 1998,
+  ...restaurant,
+  founder: 'Guiseppe Conte',
+};
+console.log(newRestaurant);
+
+// copying is possible
+// without affecting previous objects"
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Mama Mia';
+console.log(restaurant.name);
+console.log(restaurantCopy.name);
