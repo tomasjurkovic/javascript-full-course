@@ -166,3 +166,12 @@ console.log(badNewArray);
 const goodNewArray = [1, 2, ...arraya];
 console.log(goodNewArray);
 // both same, but nice and easy to create new array with ... spread operator
+
+const withoutSpreadOperator = [1, 2, arraya];
+console.log(withoutSpreadOperator);
+// then all arraya will be then inseted inside the new array
+// it will look like this: [1, 2, Array(3)]
+
+// here we gets the same result with spread operator
+console.log(...goodNewArray); // 1 2 7 8 9
+console.log(1, 2, 7, 7, 9);
