@@ -232,3 +232,37 @@ const restaurantCopy = { ...restaurant };
 restaurantCopy.name = 'Ristorante Mama Mia';
 console.log(restaurant.name);
 console.log(restaurantCopy.name);
+
+// rest pattern:
+// 1. destructuring:
+
+// SPREAD OPERATOR:
+// spread, because on the RIGHT side of =
+const array1 = [1, 2, ...[3, 4]];
+const [a1, b1, ...others] = [1, 2, 3, 4, 5];
+console.log(a1, b1, others); // prints 1 2 [3, 4, 5]
+
+const [pizza, , rissoto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza, rissoto, otherFood); // prints Pizza Risotto (4) ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
+
+// OBJECTS:
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+// 2. functions:
+
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length - 1; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+
+add(2, 3);
+add(5, 5, 587, 55);
+add(85, 805, 577, 4, 1, 74);
