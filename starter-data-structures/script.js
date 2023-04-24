@@ -41,6 +41,11 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
   },
+
+  orderPizza: function (mainIngredient, ...ohterIngredients) {
+    console.log(mainIngredient);
+    console.log(ohterIngredients);
+  },
 };
 
 restaurant.orderDelivery({
@@ -234,10 +239,12 @@ console.log(restaurant.name);
 console.log(restaurantCopy.name);
 
 // rest pattern:
+// The spread operator spreads the values in an array or a string across one or more arguments. Rest operator allows us to pass an indefinite number of arguments to function by accumulating these several values into an array.
+
 // 1. destructuring:
 
 // SPREAD OPERATOR:
-// spread, because on the RIGHT side of =
+// spread, because on the RIGHT side of = while REST is on the LEFT side of =
 const array1 = [1, 2, ...[3, 4]];
 const [a1, b1, ...others] = [1, 2, 3, 4, 5];
 console.log(a1, b1, others); // prints 1 2 [3, 4, 5]
@@ -265,4 +272,16 @@ const add = function (...numbers) {
 
 add(2, 3);
 add(5, 5, 587, 55);
-add(85, 805, 577, 4, 1, 74);
+add(85, 805, 577, 4, 1, 74); // returns sum of each calling of fuction
+
+const manyData = [852, 574, 52148, 5845];
+add(...manyData); // prints 53574 as a sum
+
+// order pizza example:
+restaurant.orderPizza('mushrooms', 'onions', 'olives', 'spinach');
+// prints mushrooms
+// (3) ['onions', 'olives', 'spinach']
+
+restaurant.orderPizza('cheese');
+// prints cheese
+// []
