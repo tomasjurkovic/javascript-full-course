@@ -306,8 +306,7 @@ const guests2 = restaurant.numGuests || 10;
 console.log(guests2);
 console.log();
 
-// AND OPERATOR:0
-
+// AND OPERATOR:
 console.log('------AND-------'); // opposite of OR operator
 console.log(0 && 'Tomas'); // 0 returns (falsy value is returned firt)
 console.log(7 && 'Tomas'); // Tomas returns - only last value is return, no falsy value
