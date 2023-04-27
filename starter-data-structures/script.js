@@ -285,3 +285,41 @@ restaurant.orderPizza('mushrooms', 'onions', 'olives', 'spinach');
 restaurant.orderPizza('cheese');
 // prints cheese
 // []
+
+
+// short circuiting:
+// OR operator:
+console.log('---------OR---------');
+// use ANY data type, return ANY data type
+console.log(3 || 'Tomas'); // 3
+console.log('' || 'Tomas'); // Tomas
+console.log(true || undefined); // true
+console.log(null || 0); // 0 (even it's falsy)
+console.log(null || 0 || undefined || 'Hello' || 23 || null); // Hello - first truthy value
+
+// classic way:
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1); // res. num. geuests does not exist - 10 returns
+
+// short cicruiting:
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+console.log();
+
+// AND OPERATOR:
+console.log('------AND-------'); // opposite of OR operator
+console.log(0 && 'Tomas'); // 0 returns (falsy value is returned firt)
+console.log(7 && 'Tomas'); // Tomas returns - only last value is return, no falsy value
+console.log('Hello' && 23 && null && 'ars'); // null returns as a first falsy value
+
+// old way:
+if(restaurant.orderPizza) {
+  restaurant.orderPizza('mushroom', 'spinach');
+}
+
+// short circuiting:
+restaurant.orderPizza && restaurant.orderPizza('vegan cheese', 'corn', 'shitake')
+// restaurant.numGuests = 0;
+// NULLISH operator ??:
+const guests3 = restaurant.numGuests ?? 50;
+console.log(guests3);
