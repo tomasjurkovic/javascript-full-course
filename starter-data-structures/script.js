@@ -41,6 +41,11 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
   },
+
+  orderPizza: function (mainIngredient, ...ohterIngredients) {
+    console.log(mainIngredient);
+    console.log(ohterIngredients);
+  },
 };
 
 restaurant.orderDelivery({
@@ -204,19 +209,19 @@ console.log('T', 'o', 'm', 'a', 's');
 
 // console.log(`${...str} not working at all`); //Uncaught SyntaxError: Unexpected token '...' (at
 
-const ingredients = [
-  prompt("Let's make pasta! Ingredient 1?"),
-  prompt("Let's make pasta! Ingredient 2?"),
-  prompt("Let's make pasta! Ingredient 3?"),
-];
-console.log(ingredients);
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt("Let's make pasta! Ingredient 2?"),
+//   prompt("Let's make pasta! Ingredient 3?"),
+// ];
+// console.log(ingredients);
 
-// old way:
-restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+// // old way:
+// restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
 
-// new way:
-restaurant.orderPasta(...ingredients);
-b;
+// // new way:
+// restaurant.orderPasta(...ingredients);
+// b;
 
 // objects:
 const newRestaurant = {
@@ -232,3 +237,132 @@ const restaurantCopy = { ...restaurant };
 restaurantCopy.name = 'Ristorante Mama Mia';
 console.log(restaurant.name);
 console.log(restaurantCopy.name);
+
+// rest pattern:
+// The spread operator spreads the values in an array or a string across one or more arguments. Rest operator allows us to pass an indefinite number of arguments to function by accumulating these several values into an array.
+
+// 1. destructuring:
+
+// SPREAD OPERATOR:
+// spread, because on the RIGHT side of = while REST is on the LEFT side of =
+const array1 = [1, 2, ...[3, 4]];
+const [a1, b1, ...others] = [1, 2, 3, 4, 5];
+console.log(a1, b1, others); // prints 1 2 [3, 4, 5]
+
+const [pizza, , rissoto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza, rissoto, otherFood); // prints Pizza Risotto (4) ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
+
+// OBJECTS:
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+// 2. functions:
+
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length - 1; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+
+add(2, 3);
+add(5, 5, 587, 55);
+add(85, 805, 577, 4, 1, 74); // returns sum of each calling of fuction
+
+const manyData = [852, 574, 52148, 5845];
+add(...manyData); // prints 53574 as a sum
+
+// order pizza example:
+restaurant.orderPizza('mushrooms', 'onions', 'olives', 'spinach');
+// prints mushrooms
+// (3) ['onions', 'olives', 'spinach']
+
+restaurant.orderPizza('cheese');
+// prints cheese
+// []
+
+
+// short circuiting:
+// OR operator:
+console.log('---------OR---------');
+// use ANY data type, return ANY data type
+console.log(3 || 'Tomas'); // 3
+console.log('' || 'Tomas'); // Tomas
+console.log(true || undefined); // true
+console.log(null || 0); // 0 (even it's falsy)
+console.log(null || 0 || undefined || 'Hello' || 23 || null); // Hello - first truthy value
+
+// classic way:
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1); // res. num. geuests does not exist - 10 returns
+
+// short cicruiting:
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+console.log();
+
+// AND OPERATOR:
+console.log('------AND-------'); // opposite of OR operator
+console.log(0 && 'Tomas'); // 0 returns (falsy value is returned firt)
+console.log(7 && 'Tomas'); // Tomas returns - only last value is return, no falsy value
+console.log('Hello' && 23 && null && 'ars'); // null returns as a first falsy value
+
+// old way:
+if(restaurant.orderPizza) {
+  restaurant.orderPizza('mushroom', 'spinach');
+}
+
+// short circuiting:
+restaurant.orderPizza && restaurant.orderPizza('vegan cheese', 'corn', 'shitake')
+// restaurant.numGuests = 0;
+// NULLISH operator ??:
+const guests3 = restaurant.numGuests ?? 50;
+console.log(guests3);
+
+// LOGICAL ASSIGNMENT OPERATORS:
+const rest1 = {
+  name: 'Capri',
+  numGuests: 0, // 0 is a falsy value, so OR operator converts it to 10
+}
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+}
+
+// OR assignment operator:
+
+// if no number of guest is inserted in res1&2 objects, than 10 is returned
+// rest2.numGuests = rest2.numGuests || 10;
+// rest1.numGuests = rest1.numGuests || 10;
+
+// the same as before, but very handy looking
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10;
+
+// ?? nulish assignment operator:
+// solving zero (falsy value) with nullish assignment operator
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+console.log(rest1);
+console.log(rest2);
+
+// AND assignment operator:
+
+// example when we want to anonymize name of the owner:
+// rest1.owner = rest1.owner && '<Anonymous>'; // owner property is undefined when doing console.log()
+// rest2.owner = rest2.owner && '<Anonymous>'; 
+
+// better way:
+rest1.owner &&= '<Anonymous>'; // now owner property is not displayed when doing console.log()
+rest2.owner &&= '<Anonymous>';
+
+console.log('After anonymizing owners: ');
+console.log(rest1); 
+console.log(rest2);
