@@ -76,10 +76,20 @@ const players1 = game.players[0];
 const players2 = game.players[1];
 
 // step 2: 
-// const gk1 = 
-
 const [gk1, ...fieldPlayers1] = players1;
 const [gk2, ...fieldPlayers2] = players2;
 
 console.log(gk1, fieldPlayers1);
 console.log(fieldPlayers2);
+
+// step 3:
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+// step 4:
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+
+// optional
+const players2Final = [...players2, 'Reus', 'Bellingham', 'Can']
+console.log(players1Final);
+console.log(players2Final);
