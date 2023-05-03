@@ -366,3 +366,34 @@ rest2.owner &&= '<Anonymous>';
 console.log('After anonymizing owners: ');
 console.log(rest1); 
 console.log(rest2);
+
+// LOOPING ARRAY:
+const fullMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// for of loop:
+for (const item of fullMenu) {
+  console.log(item);
+}
+
+// for of loop using entries
+for (const [item, element] of fullMenu.entries()) {
+  console.log(`${item + 1}: ${element}`);
+  // prints:
+  // 1: Focaccia
+  // 2: Bruschetta
+  // 3: Garlic Bread
+  // 4: Caprese Salad
+  // 5: Pizza
+  // 6: Pasta
+  // 7: Risotto
+}
+
+console.log([...fullMenu.entries()]);
+
+// for in loop:
+for (const key in fullMenu) {
+  if (Object.hasOwnProperty.call(fullMenu, key)) {
+    const element = fullMenu[key];
+    console.log(element);
+  }
+}
