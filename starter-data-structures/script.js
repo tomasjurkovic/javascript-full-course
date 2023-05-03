@@ -209,19 +209,19 @@ console.log('T', 'o', 'm', 'a', 's');
 
 // console.log(`${...str} not working at all`); //Uncaught SyntaxError: Unexpected token '...' (at
 
-const ingredients = [
-  prompt("Let's make pasta! Ingredient 1?"),
-  prompt("Let's make pasta! Ingredient 2?"),
-  prompt("Let's make pasta! Ingredient 3?"),
-];
-console.log(ingredients);
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt("Let's make pasta! Ingredient 2?"),
+//   prompt("Let's make pasta! Ingredient 3?"),
+// ];
+// console.log(ingredients);
 
-// old way:
-restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+// // old way:
+// restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
 
-// new way:
-restaurant.orderPasta(...ingredients);
-b;
+// // new way:
+// restaurant.orderPasta(...ingredients);
+// b;
 
 // objects:
 const newRestaurant = {
@@ -323,3 +323,46 @@ restaurant.orderPizza && restaurant.orderPizza('vegan cheese', 'corn', 'shitake'
 // NULLISH operator ??:
 const guests3 = restaurant.numGuests ?? 50;
 console.log(guests3);
+
+// LOGICAL ASSIGNMENT OPERATORS:
+const rest1 = {
+  name: 'Capri',
+  numGuests: 0, // 0 is a falsy value, so OR operator converts it to 10
+}
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+}
+
+// OR assignment operator:
+
+// if no number of guest is inserted in res1&2 objects, than 10 is returned
+// rest2.numGuests = rest2.numGuests || 10;
+// rest1.numGuests = rest1.numGuests || 10;
+
+// the same as before, but very handy looking
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10;
+
+// ?? nulish assignment operator:
+// solving zero (falsy value) with nullish assignment operator
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+console.log(rest1);
+console.log(rest2);
+
+// AND assignment operator:
+
+// example when we want to anonymize name of the owner:
+// rest1.owner = rest1.owner && '<Anonymous>'; // owner property is undefined when doing console.log()
+// rest2.owner = rest2.owner && '<Anonymous>'; 
+
+// better way:
+rest1.owner &&= '<Anonymous>'; // now owner property is not displayed when doing console.log()
+rest2.owner &&= '<Anonymous>';
+
+console.log('After anonymizing owners: ');
+console.log(rest1); 
+console.log(rest2);
