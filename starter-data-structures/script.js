@@ -4,6 +4,23 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+const allWeekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const hours = {
+    [allWeekdays[3]]: {
+      open: 12,
+      close: 22,
+    },
+    [allWeekdays[4]]: {
+      open: 11,
+      close: 23,
+    },
+    [allWeekdays[5]]: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+};
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -11,20 +28,7 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+  hours, // es6 enhanced obejct literals with exactly same name
   order: function (starerIndex, mainIndex) {
     return [this.starterMenu[starerIndex], this.mainMenu[mainIndex]];
   },
@@ -38,7 +42,8 @@ const restaurant = {
       `Order recieved! ${this.starterMenu[starerIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
-  orderPasta: function (ing1, ing2, ing3) {
+  // this is already easier -> no need using function keyword
+  orderPasta(ing1, ing2, ing3) {
     console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
   },
 
@@ -56,17 +61,17 @@ restaurant.orderDelivery({
 });
 
 // DESTRUCTURING OBJECTS:
-// variables are same as properties in objects:
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+// // variables are same as properties in objects:
+// const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
 
-// different names of varibales than object properties:
-const {
-  name: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
-console.log(restaurantName, hours, tags);
+// // different names of varibales than object properties:
+// const {
+//   name: restaurantName,
+//   openingHours: hours,
+//   categories: tags,
+// } = restaurant;
+// console.log(restaurantName, hours, tags);
 
 // set default values is possible:
 const { menu = [], starterMenu: starters = [] } = restaurant;
@@ -84,13 +89,13 @@ console.log(aO, bO); // 23 7 is printed
 // nested objects:
 const {
   fri: { open, close },
-} = openingHours;
+} = hours;
 console.log(open, close); // 11 23 returns
 
 // it is possible to change its names"
 const {
   fri: { open: from, close: to },
-} = openingHours;
+} = hours;
 console.log(from, to); // 11 23 returns
 
 const arr = [1, 3, 5];
@@ -257,7 +262,7 @@ const [pizza, , rissoto, ...otherFood] = [
 console.log(pizza, rissoto, otherFood); // prints Pizza Risotto (4) ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
 
 // OBJECTS:
-const { sat, ...weekdays } = restaurant.openingHours;
+const { sat, ...weekdays } = restaurant.hours;
 console.log(weekdays);
 
 // 2. functions:
@@ -397,3 +402,6 @@ for (const key in fullMenu) {
     console.log(element);
   }
 }
+
+// ENHANCED OBJECT LITERALS:
+console.log(restaurant);
