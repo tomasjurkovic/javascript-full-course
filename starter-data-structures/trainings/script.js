@@ -6,6 +6,7 @@ const restaurant = {
     categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
     starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
     mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+    repeatingArray: ["one", "two", 'one', 'three', 'one', 'three', 'four', 'three', 'one', 'two'],
     capacity: {
         interior: 55,
         balcony: 10,
@@ -60,3 +61,13 @@ const { capacity:
 } = restaurant;
 
 console.log(vipSection);
+
+const allCategories = [...restaurant.categories, 'vegan', 'american', 'mexican', 'asian', 'gluten-free'];
+
+console.log(allCategories);
+
+const printRepeated = function (...items) {
+    console.log(`${items.length} same items is included in the array`);
+};
+
+printRepeated('ara', 'jira', 'ara', 'jira');
