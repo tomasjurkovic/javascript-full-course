@@ -157,3 +157,16 @@ for (const goalscorer of game.scored) {
     console.log(`Goal ${index}: ${goalscorer}`);
     index++;
 }
+
+// step 2:
+
+const oddsValues = Object.values(game.odds);
+let average = 0;
+console.log(oddsValues);
+for (let value of oddsValues) {
+    average += value;
+}
+
+// values are: [21.33, 3.25, 6.5]
+// printed is: 10.36
+console.log(average/oddsValues.length);
