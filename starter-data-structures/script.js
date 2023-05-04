@@ -454,3 +454,44 @@ if (users.length > 0) {
 const emptyUsers = [];
 
 console.log(emptyUsers[0]?.name ?? ' Array is empty'); // returns the second string
+
+// Looping Objects:
+// PROPERTY NAMES (keys):
+const properties = Object.keys(hours); // it creates array with values
+console.log(properties); // array is returned: ['thu', 'fri', 'sat']
+console.log(`We are open on ${properties.length} days`);
+
+for (const day of Object.keys(properties)) {
+  console.log(day); // logs accordingly thu, fri, sat
+}
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+
+console.log(openStr);
+
+// PROPERTY VALUES:
+const values = Object.values(hours);
+console.log(values); // returns array containing another objects according to hour object
+//  [{…}, {…}, {…}]
+
+for (const openingHour of Object.values(values)) {
+  console.log(openingHour); // logs accordingly 3 objects: {open: 12, close: 22} ...
+}
+
+// PROPERTY ENTRIES:
+const entries = Object.entries(hours);
+console.log(entries); // it transformed object into array
+// [Array(2), Array(2), Array(2)]
+
+// looping through object:
+// let's write the sentence for each day, when restaurant opens and closes
+// we need to destructure the variables in for loop:
+// for simpler object just [key, value] would be enough
+// but hours contains nested objects inside itself
+for (const [key, {open, close} /* there is object */] of entries) {
+  console.log(`On ${key} the restaurant opens at ${open} and closes at ${close}.`);
+}
