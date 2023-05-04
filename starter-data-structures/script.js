@@ -405,3 +405,52 @@ for (const key in fullMenu) {
 
 // ENHANCED OBJECT LITERALS:
 console.log(restaurant);
+
+// OPTIONAL CHAINING:
+
+// what if we wanted to add opening hours for monday:
+// without optional chaining:
+if (restaurant.hours && restaurant.hours.mon) console.log(restaurant.hours.mon.open);
+
+// console.log(restaurant.hours.mon.open) // error returns 
+//caught TypeError: Cannot read properties of undefined (reading 'open' at script.js:415:34
+
+
+// WITH optional chaining:
+console.log(restaurant.hours.mon?.open); // if not optional is returned
+console.log(restaurant.hours?.mon?.open) // also we can check if both values exist
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  const open = restaurant.hours[day]?.open ?? 'no time'; // default value if open is not defined
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// optional chaining works also on methods
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist'); // executed method that exists
+console.log(restaurant.orderRisoto?.(0, 1) ?? 'Method does not exist'); // returns Method does not exist
+
+// without optional chaining it returns:
+// console.log(restaurant.orderRisoto(0, 1)); // returns staurant.orderRisoto is not a function
+ 
+// it even works on arrays to check if it is empty:
+
+const users = [
+  {name: 'Tomas',
+email: 'tomas@me.com'}
+];
+
+console.log(users[0]?.name ?? 'User array is empty'); // returns Tomas
+console.log(users[1]?.name ?? 'User array is empty'); // returns the second string
+
+// before we know this:
+if (users.length > 0) {
+  console.log(users[0].name);
+} else {
+  console.log('User array is empty');
+}
+
+const emptyUsers = [];
+
+console.log(emptyUsers[0]?.name ?? ' Array is empty'); // returns the second string
