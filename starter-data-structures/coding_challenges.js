@@ -170,3 +170,17 @@ for (let value of oddsValues) {
 // values are: [21.33, 3.25, 6.5]
 // printed is: 10.36
 console.log(average/oddsValues.length);
+
+// step 3:
+const teamOdds = Object.entries(game.odds);
+console.log(game.odds);
+
+
+for (const [team, odd] of teamOdds) {
+    const teamName = game[team]; 
+    // using bracket notation to accessing object properties
+    const message = team === 'x' ? 'draw' : `victory ${teamName}`;
+    // using ternary operation to validate if team === 'x', 
+    // if yes I'm replacing it with draw if no i'm using victory ${teamName}
+    console.log(`Odd of ${message}: ${odd}`);
+}
