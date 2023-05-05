@@ -191,3 +191,42 @@ const scorers = {
     Hummels: 1,
     Levandowski: 2, 
 }
+
+const arrayScorers = ['Gnabry', 'Lewandowski', 'Hummels', 'Lewandowski']
+
+// for array we use array.entries():
+for (const [i, scorer] of arrayScorers.entries()) {
+    console.log(i, scorer);
+}
+
+// for objects we use Object.entries(objectName)
+for (const [scorer, numberOfGoals] of Object.entries(scorers)) {
+    console.log(scorer, numberOfGoals);
+}
+
+// STEP 1 Jonas:
+for (const [i, player] of game.scored.entries()) {
+    console.log(`Goal ${i + 1}: ${player}`);
+}
+
+console.log(game.scored.entries());
+
+// STEP 2:
+const odds = Object.values(game.odds);
+let avrg = 0;
+for (const odd of odds) {
+    avrg += odd;
+}
+
+avrg /= odds.length;
+console.log(avrg);
+
+// STEP 4:
+
+const scorers2 = {};
+for (const player of game.scored) {
+  scorers2[player] ? scorers2[player]++ : (scorers2[player] = 1);
+  if (scorers2[player]) console.log(scorers2[player]);
+}
+
+console.log(scorers2);
