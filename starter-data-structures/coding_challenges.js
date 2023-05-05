@@ -61,7 +61,7 @@ const game = {
         ],
         ],
     score: '4:0',
-    scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+    scored: ['Lewandowski', 'Gnabry', 'Lewandowski',
     'Hummels'],
     date: 'Nov 9th, 2037',
     odds: {
@@ -123,3 +123,109 @@ printGoals(...game.scored);
 // step 7:
 team1 < team2 && console.log('Team 1 is more likely to win.');
 team1 > team2 && console.log('Team  is more likely to win.');
+
+
+// CHALLENGE 2:
+
+// Let's continue with our football betting app! Keep using the 'game' variable from 
+// before.
+// Your tasks:
+// 1. Loop over the game.scored array and print each player name to the console, 
+// along with the goal number (Example: "Goal 1: Lewandowski")
+// 2. Use a loop to calculate the average odd and log it to the console (We already 
+// studied how to calculate averages, you can go check if you don't remember)
+// 3. Print the 3 odds to the console, but in a nice formatted way, exactly like this:
+// Odd of victory Bayern Munich: 1.33
+// Odd of draw: 3.25
+// Odd of victory Borrussia Dortmund: 6.5
+// Get the team names directly from the game object, don't hardcode them 
+// (except for "draw"). Hint: Note how the odds and the game objects have the 
+// same property names �
+// 4. Bonus: Create an object called 'scorers' which contains the names of the 
+// players who scored as properties, and the number of goals as the value. In this 
+// game, it will look like this:
+// {
+//  Gnarby: 1,
+//  Hummels: 1,
+//  Lewandowski: 2
+// }
+
+
+// step 1:
+let index = 1;
+for (const goalscorer of game.scored) { 
+    console.log(`Goal ${index}: ${goalscorer}`);
+    index++;
+}
+
+// step 2:
+
+const oddsValues = Object.values(game.odds);
+let average = 0;
+console.log(oddsValues);
+for (let value of oddsValues) {
+    average += value;
+}
+
+// values are: [21.33, 3.25, 6.5]
+// printed is: 10.36
+console.log(average/oddsValues.length);
+
+// step 3:
+const teamOdds = Object.entries(game.odds);
+console.log(game.odds);
+
+
+for (const [team, odd] of teamOdds) {
+    const teamName = game[team]; 
+    // using bracket notation to accessing object properties
+    const message = team === 'x' ? 'draw' : `victory ${teamName}`;
+    // using ternary operation to validate if team === 'x', 
+    // if yes I'm replacing it with draw if no i'm using victory ${teamName}
+    console.log(`Odd of ${message}: ${odd}`);
+}
+
+// step 4:
+const scorers = {
+    Gnabry: 1,
+    Hummels: 1,
+    Levandowski: 2, 
+}
+
+const arrayScorers = ['Gnabry', 'Lewandowski', 'Hummels', 'Lewandowski']
+
+// for array we use array.entries():
+for (const [i, scorer] of arrayScorers.entries()) {
+    console.log(i, scorer);
+}
+
+// for objects we use Object.entries(objectName)
+for (const [scorer, numberOfGoals] of Object.entries(scorers)) {
+    console.log(scorer, numberOfGoals);
+}
+
+// STEP 1 Jonas:
+for (const [i, player] of game.scored.entries()) {
+    console.log(`Goal ${i + 1}: ${player}`);
+}
+
+console.log(game.scored.entries());
+
+// STEP 2:
+const odds = Object.values(game.odds);
+let avrg = 0;
+for (const odd of odds) {
+    avrg += odd;
+}
+
+avrg /= odds.length;
+console.log(avrg);
+
+// STEP 4:
+
+const scorers2 = {};
+for (const player of game.scored) {
+  scorers2[player] ? scorers2[player]++ : (scorers2[player] = 1);
+}
+
+console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
