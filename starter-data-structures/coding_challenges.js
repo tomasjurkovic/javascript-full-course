@@ -184,3 +184,10 @@ for (const [team, odd] of teamOdds) {
     // if yes I'm replacing it with draw if no i'm using victory ${teamName}
     console.log(`Odd of ${message}: ${odd}`);
 }
+
+// step 4:
+const scorers = {
+    Gnabry: 1,
+    Hummels: 1,
+    Levandowski: 2, 
+}
