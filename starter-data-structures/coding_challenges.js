@@ -61,7 +61,7 @@ const game = {
         ],
         ],
     score: '4:0',
-    scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+    scored: ['Lewandowski', 'Gnabry', 'Lewandowski',
     'Hummels'],
     date: 'Nov 9th, 2037',
     odds: {
@@ -226,7 +226,6 @@ console.log(avrg);
 const scorers2 = {};
 for (const player of game.scored) {
   scorers2[player] ? scorers2[player]++ : (scorers2[player] = 1);
-  if (scorers2[player]) console.log(scorers2[player]);
 }
 
-console.log(scorers2);
+console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
