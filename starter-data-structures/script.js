@@ -608,3 +608,47 @@ console.log(rest.get(arrayForMap)); // now it works - returns: Test for retrievi
 // we can do it with DOM elements:
 rest.set(document.querySelector('h1'), 'Heading');
 console.log(rest);
+
+// creating map in different way:
+const question = new Map([
+  ['question', 'What is the best programming language?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct answer'],
+  [false, 'Try again!'],
+])
+
+console.log(question);
+
+// similar to object.entries
+console.log(Object.entries(hours));
+
+// we can convert object.entries to maps easily:
+const hoursMap = new Map(Object.entries(hours));
+console.log(hoursMap);
+
+// quiz app:
+console.log(question.get('question'));
+// maps iteration:
+for(const [key, value] of question) {
+  if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+const answer = Number(prompt(`question.get(question) 
+\n 1/ ${question.get(1)}
+\n 2/ ${question.get(2)}
+\n 3/ ${question.get(3)}`));
+
+console.log(question.get(question.get('correct') === answer));
+
+// converting map to array:
+// just use destructuring...
+console.log([...question]);
+
+// also we have same methods as keys, values and entries on maps:
+console.log(question.entries());
+console.log(question.values());
+console.log(question.keys());
+
