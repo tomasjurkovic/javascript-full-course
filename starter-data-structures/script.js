@@ -495,3 +495,68 @@ console.log(entries); // it transformed object into array
 for (const [key, {open, close} /* there is object */] of entries) {
   console.log(`On ${key} the restaurant opens at ${open} and closes at ${close}.`);
 }
+
+// SETS:
+// set is collection of unique values 
+// introduced in ES6
+
+const orderSet = new Set([
+  'Pizza',
+  'Pasta',
+  'Pasta',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+
+console.log(orderSet);
+// prints: only unique values:
+// 0: "Pizza"
+// 1: "Pasta"
+// 2: "Risotto"
+
+console.log(new Set('Jonas')); // prints Set(5) {'J', 'o', 'n', 'a', 's'}
+
+console.log(orderSet.size); // 3 is returned
+
+// check if pizza or bread is there
+console.log(orderSet.has('Pizza')); // trur
+console.log(orderSet.has('Bread')); // false
+
+// add method:
+orderSet.add('Salad');
+orderSet.add('Salad'); // it's set, so only 1 unique value was added
+
+console.log(orderSet); // Set(4) {'Pizza', 'Pasta', 'Risotto', 'Salad'}
+
+// also there is delete method:
+orderSet.delete('Pasta');
+
+console.log(orderSet); // prints Set(3) {'Pizza', 'Risotto', 'Salad'}
+
+// and there is clear method to delete all values:
+// orderSet.clear();
+// console.log(orderSet); // prints Set(0) {size: 0}
+
+// looping sets:
+for (const order of orderSet) {
+  console.log(order); // prints: Pizza, Pasta, Risotto in each line
+}
+
+// main usecase is remove duplicate values
+
+// example:
+const staff = ['Waiter', 'Chef', 'Waiter', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+
+const staffUnique = new Set(staff);
+console.log(staffUnique); // prints Set(3) {'Waiter', 'Chef', 'Manager'}
+
+// make this staff array of unique values
+const staffUniqueA = [...new Set(staff)];
+console.log(staffUniqueA); // prints ['Waiter', 'Chef', 'Manager']
+
+// if we want to know the size, it would be easy to do so:
+console.log(new Set(['Waiter', 'Chef', 'Waiter', 'Waiter', 'Manager', 'Chef', 'Waiter']).size);
+
+// if we need to know how many letters are there:
+console.log(new Set('HowManyLettersAreInThisKindaDeutchWord').size); // print 23
