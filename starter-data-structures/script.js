@@ -560,3 +560,51 @@ console.log(new Set(['Waiter', 'Chef', 'Waiter', 'Waiter', 'Manager', 'Chef', 'W
 
 // if we need to know how many letters are there:
 console.log(new Set('HowManyLettersAreInThisKindaDeutchWord').size); // print 23
+
+// MAPS:
+// lot more useful than sets
+// data structure to map values to keys - key value pairs
+// key can be any type in maps - string, number, booolean, array, another map...
+
+const rest = new Map(); // empty map created
+
+rest.set('name', 'Classico Italiano'); // similar to add method
+rest.set(1, 'Firenze, Italy'); // it creates values to map at the end of kv pair
+console.log(rest.set(2, 'Lisbon, Portugal')); // it does not only add values, it also returns whole map
+rest.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :)')
+  .set(false, 'We are closed :(');
+
+console.log(rest.get('name')); 
+// this is how we get access to values of keys in maps
+// returns Classico Italiano
+console.log(rest.get(true)); // returns We are open :)
+console.log(rest.get(1)); // returns Firenze, Italy
+
+const time = 20;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+// has method: if map contains specific kyes:
+console.log(rest.has('categories'));
+
+// delete method: deletes kv pairs from map
+rest.delete(2);
+console.log(rest);
+
+// size method:
+console.log(rest.size) // 7 is returned as 7 KV pairs were returned
+
+// setting array value as a key:
+rest.set([1, 2], 'Test')
+console.log(rest);
+console.log(rest.get([1, 2])); // it won't work, because key is this [1, 2] object in the memory
+
+const arrayForMap = [1, 2, 3];
+rest.set(arrayForMap, 'Test for retrieving values');
+console.log(rest.get(arrayForMap)); // now it works - returns: Test for retrieving values
+
+// we can do it with DOM elements:
+rest.set(document.querySelector('h1'), 'Heading');
+console.log(rest);
