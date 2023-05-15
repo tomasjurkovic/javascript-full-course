@@ -282,3 +282,12 @@ let averageEvent = 0;
 
  const msg = `An event happened, on average, every ${Math.round(averageEvent/90)} minutes`;
  console.log(msg);
+ // prints: An event happened, on average, every 7 minutes
+
+ // task 4: 
+for (const [minute, event] of gameEvents.entries()) {
+    const half = minute <= 45 ? `[FIRST HALF]` : `[SECOND HALF]`;
+    console.log(`${half} ${minute}: ${event}`);
+};
+// prints all events in style like this:
+// [FIRST HALF] 17: ⚽ GOAL
