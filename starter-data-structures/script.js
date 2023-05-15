@@ -700,3 +700,59 @@ const checkMiddleSeat = function(seat) {
 console.log(checkMiddleSeat('785A')); // prints false
 console.log(checkMiddleSeat('75E')); // prints true
 console.log(checkMiddleSeat('4B')); // prints true
+
+// to UPPER or LOWER case
+console.log(airline.toLowerCase()); // prints narodny dopravca
+console.log(airline.toUpperCase()); // prints NARODNY DOPRAVCA
+console.log('baba yaga'.toUpperCase()); // prints BABA YAGA
+
+// fix capitalisation in passenger name:
+const passenger = 'tOmaS' // it should be Tomas
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect = passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect); // prints Tomas
+
+// fuction based on this:
+const correctPassengerName = function(passengerName) {
+  const lower = passengerName.toLowerCase();
+  return lower[0].toUpperCase() + lower.slice(1)
+}
+
+// examples:
+console.log(correctPassengerName('JinaYAh')); // prints Jinayah
+console.log(correctPassengerName('urSHUlA')); // prints Urshula
+
+// comparing emails:
+const email = 'hello@tomas.io';
+const loginEmail = ' Hello@Tomas.Io  \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+// there are even trimStart or trimEnd which removes empty spaces from start or end
+console.log(trimmedEmail); // prints hello@tomas.io
+
+const normalizedEmail = loginEmail.toLowerCase().trim(); // possible to do it in one space
+console.log(normalizedEmail); // prints hello@tomas.io
+
+// function:
+const normalizeEmail = function(email) {
+  return email.toLowerCase().trim();
+}
+
+console.log(normalizeEmail(loginEmail)); // prints hello@tomas.io
+console.log(email === normalizeEmail(email)); // prints true
+
+// replacing characters
+const priceGB = '288,97£'
+const priceUS = priceGB.replace('£', '$').replace(',', '.'); // using chaining
+console.log(priceUS);
+
+// replacing WORDS:
+const announcement = 'All passangers come to boarding door 23. Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+// All passangers come to boarding gate 23. Boarding door 23
+// only the first door was replaced
+
+// there is even replaceAll method <3
+console.log(announcement.replaceAll('door', 'gate'));
+// prints All passangers come to boarding gate 23. Boarding gate 23
