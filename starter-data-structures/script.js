@@ -636,19 +636,149 @@ for(const [key, value] of question) {
   if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
 }
 
-const answer = Number(prompt(`question.get(question) 
-\n 1/ ${question.get(1)}
-\n 2/ ${question.get(2)}
-\n 3/ ${question.get(3)}`));
+// const answer = Number(prompt(`question.get(question) 
+// \n 1/ ${question.get(1)}
+// \n 2/ ${question.get(2)}
+// \n 3/ ${question.get(3)}`));
 
-console.log(question.get(question.get('correct') === answer));
+// console.log(question.get(question.get('correct') === answer));
 
-// converting map to array:
-// just use destructuring...
-console.log([...question]);
+// // converting map to array:
+// // just use destructuring...
+// console.log([...question]);
 
-// also we have same methods as keys, values and entries on maps:
-console.log(question.entries());
-console.log(question.values());
-console.log(question.keys());
+// // also we have same methods as keys, values and entries on maps:
+// console.log(question.entries());
+// console.log(question.values());
+// console.log(question.keys());
 
+// Working with strings:
+const airline = 'Narodny dopravca';
+const plane = 'A320';
+
+console.log(plane[0]); // prints A
+console.log(plane[1]); // prints 3
+console.log(plane[2]); // prints 2
+console.log('B737'[1]); // prints 7 - works the same
+
+console.log(airline.length); // prints 16
+console.log('steward'.length); // prints 7
+
+console.log(airline.indexOf('r')); 
+// prints 2 because r is on 2nd index for the first time
+console.log(airline.lastIndexOf('r')); 
+// prints 11 because r is on 11th index for the last time
+console.log(airline.indexOf('ryba')); // prints -1, because it's not there
+console.log(airline.indexOf('prav')); 
+// prints 10, becasue it's there and p of prav is on the 10th index
+
+// slice method
+// it does not mutate string, because it's not possible
+console.log(airline.slice(8)); // prints only dopravca
+console.log(airline.slice(2,7)); // prints only rodny
+
+console.log(airline.slice(0, airline.indexOf(' '))); 
+// extracts only first word Narodny
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); 
+// prints only the last word dopravca (+ 1 means that no ' ' is printed)
+
+// negative indexes:
+console.log(airline.slice(-2)); // prints ca - last two indexes
+console.log(airline.slice(1, -1)); 
+// prints arodny dopravc - just not first and last characters
+
+// exercise:
+// write a function that recieve airplane seats and check if it is middle seat or not:
+
+const checkMiddleSeat = function(seat) {
+  // B and E are the middle seats
+  // seat consists only of numbers and letters from A to F
+  const middleSeat = seat.slice(-1);
+  return middleSeat === 'B' || middleSeat === 'E' ? true : false
+}
+
+console.log(checkMiddleSeat('785A')); // prints false
+console.log(checkMiddleSeat('75E')); // prints true
+console.log(checkMiddleSeat('4B')); // prints true
+
+// to UPPER or LOWER case
+console.log(airline.toLowerCase()); // prints narodny dopravca
+console.log(airline.toUpperCase()); // prints NARODNY DOPRAVCA
+console.log('baba yaga'.toUpperCase()); // prints BABA YAGA
+
+// fix capitalisation in passenger name:
+const passenger = 'tOmaS' // it should be Tomas
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect = passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect); // prints Tomas
+
+// fuction based on this:
+const correctPassengerName = function(passengerName) {
+  const lower = passengerName.toLowerCase();
+  return lower[0].toUpperCase() + lower.slice(1)
+}
+
+// examples:
+console.log(correctPassengerName('JinaYAh')); // prints Jinayah
+console.log(correctPassengerName('urSHUlA')); // prints Urshula
+
+// comparing emails:
+const email = 'hello@tomas.io';
+const loginEmail = ' Hello@Tomas.Io  \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+// there are even trimStart or trimEnd which removes empty spaces from start or end
+console.log(trimmedEmail); // prints hello@tomas.io
+
+const normalizedEmail = loginEmail.toLowerCase().trim(); // possible to do it in one space
+console.log(normalizedEmail); // prints hello@tomas.io
+
+// function:
+const normalizeEmail = function(email) {
+  return email.toLowerCase().trim();
+}
+
+console.log(normalizeEmail(loginEmail)); // prints hello@tomas.io
+console.log(email === normalizeEmail(email)); // prints true
+
+// replacing characters
+const priceGB = '288,97£'
+const priceUS = priceGB.replace('£', '$').replace(',', '.'); // using chaining
+console.log(priceUS);
+
+// replacing WORDS:
+const announcement = 'All passangers come to boarding door 23. Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+// All passangers come to boarding gate 23. Boarding door 23
+// only the first door was replaced
+
+// there is even replaceAll method <3
+console.log(announcement.replaceAll('door', 'gate'));
+// prints All passangers come to boarding gate 23. Boarding gate 23
+
+// booleans:
+const plane2 = 'A320neo';
+console.log(plane2.includes('A320')); // prints true
+console.log(plane2.includes('Boeing')); // prints false
+console.log(plane2.startsWith('A320')); // prints true
+console.log(plane2.startsWith('B')); // prints false
+console.log(plane2.endsWith('0neo')); // prints true
+console.log(plane2.endsWith('ng')); // prints false
+
+if(plane2.includes('320') && plane2.endsWith('neo')) {
+  console.log('it is an Airbus');
+}
+
+const checkBaggege = function (items) {
+    const baggege = items.toLowerCase();
+    if(baggege.includes('knife') || baggege.includes('gun')) {
+      console.log('You are not allowed to on board!');
+    } else {
+      console.log('Welcome aboard!');
+    }
+}
+
+checkBaggege('I have some food and a pocket knife'); // prints: You are not allowed to on board!
+checkBaggege('Got some socks and camera'); // prints: Welcome aboard!
+checkBaggege('SOCKS AND MACHINE GUN'); // prints: You are not allowed to on board!
