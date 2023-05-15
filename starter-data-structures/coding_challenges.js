@@ -267,6 +267,12 @@ console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
  // I converted this to set, so I got only the unique values with no duplicates
  // it prints: {'⚽ GOAL', '� Substitution', '� Yellow card', '� Red card'}
 
+// this was just a set, I forgot to create an array:
+const events2 = [...new Set(gameEvents.values())];
+console.log(events2);
+// now it prints an array:
+// ['⚽ GOAL', '� Substitution', '� Yellow card', '� Red card']
+
  // task 2:
  // I remove the yellow card from 64 minute by using this 'delete' method
  gameEvents.delete(64);
@@ -283,6 +289,12 @@ let averageEvent = 0;
  const msg = `An event happened, on average, every ${Math.round(averageEvent/90)} minutes`;
  console.log(msg);
  // prints: An event happened, on average, every 7 minutes
+
+ // Jonas's solution:
+ const time = [...gameEvents.keys()].pop(); 
+ // it returns element that was cut from the array
+ console.log(`An event happened, on average, every ${time/gameEvents.size} minutes`);
+// prints An event happened, on average, every 9.2 minutes
 
  // task 4: 
 for (const [minute, event] of gameEvents.entries()) {
