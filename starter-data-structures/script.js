@@ -636,19 +636,67 @@ for(const [key, value] of question) {
   if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
 }
 
-const answer = Number(prompt(`question.get(question) 
-\n 1/ ${question.get(1)}
-\n 2/ ${question.get(2)}
-\n 3/ ${question.get(3)}`));
+// const answer = Number(prompt(`question.get(question) 
+// \n 1/ ${question.get(1)}
+// \n 2/ ${question.get(2)}
+// \n 3/ ${question.get(3)}`));
 
-console.log(question.get(question.get('correct') === answer));
+// console.log(question.get(question.get('correct') === answer));
 
-// converting map to array:
-// just use destructuring...
-console.log([...question]);
+// // converting map to array:
+// // just use destructuring...
+// console.log([...question]);
 
-// also we have same methods as keys, values and entries on maps:
-console.log(question.entries());
-console.log(question.values());
-console.log(question.keys());
+// // also we have same methods as keys, values and entries on maps:
+// console.log(question.entries());
+// console.log(question.values());
+// console.log(question.keys());
 
+// Working with strings:
+const airline = 'Narodny dopravca';
+const plane = 'A320';
+
+console.log(plane[0]); // prints A
+console.log(plane[1]); // prints 3
+console.log(plane[2]); // prints 2
+console.log('B737'[1]); // prints 7 - works the same
+
+console.log(airline.length); // prints 16
+console.log('steward'.length); // prints 7
+
+console.log(airline.indexOf('r')); 
+// prints 2 because r is on 2nd index for the first time
+console.log(airline.lastIndexOf('r')); 
+// prints 11 because r is on 11th index for the last time
+console.log(airline.indexOf('ryba')); // prints -1, because it's not there
+console.log(airline.indexOf('prav')); 
+// prints 10, becasue it's there and p of prav is on the 10th index
+
+// slice method
+// it does not mutate string, because it's not possible
+console.log(airline.slice(8)); // prints only dopravca
+console.log(airline.slice(2,7)); // prints only rodny
+
+console.log(airline.slice(0, airline.indexOf(' '))); 
+// extracts only first word Narodny
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); 
+// prints only the last word dopravca (+ 1 means that no ' ' is printed)
+
+// negative indexes:
+console.log(airline.slice(-2)); // prints ca - last two indexes
+console.log(airline.slice(1, -1)); 
+// prints arodny dopravc - just not first and last characters
+
+// exercise:
+// write a function that recieve airplane seats and check if it is middle seat or not:
+
+const checkMiddleSeat = function(seat) {
+  // B and E are the middle seats
+  // seat consists only of numbers and letters from A to F
+  const middleSeat = seat.slice(-1);
+  return middleSeat === 'B' || middleSeat === 'E' ? true : false
+}
+
+console.log(checkMiddleSeat('785A')); // prints false
+console.log(checkMiddleSeat('75E')); // prints true
+console.log(checkMiddleSeat('4B')); // prints true
