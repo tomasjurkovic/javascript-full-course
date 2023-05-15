@@ -273,3 +273,12 @@ console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
  console.log(gameEvents);
  // it returns map without the 64 key-value pair: 
  // {17 => '⚽ GOAL', 36 => '� Substitution', 47 => '⚽ GOAL', 61 => '� Substitution', 69 => '� Red card', …}
+
+ // task 3:
+let averageEvent = 0;
+ for (const minute of gameEvents.keys()) {
+    averageEvent += minute;
+ }
+
+ const msg = `An event happened, on average, every ${Math.round(averageEvent/90)} minutes`;
+ console.log(msg);
