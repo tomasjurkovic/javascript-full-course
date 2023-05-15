@@ -268,3 +268,8 @@ console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
  // it prints: {'⚽ GOAL', '� Substitution', '� Yellow card', '� Red card'}
 
  // task 2:
+ // I remove the yellow card from 64 minute by using this 'delete' method
+ gameEvents.delete(64);
+ console.log(gameEvents);
+ // it returns map without the 64 key-value pair: 
+ // {17 => '⚽ GOAL', 36 => '� Substitution', 47 => '⚽ GOAL', 61 => '� Substitution', 69 => '� Red card', …}
