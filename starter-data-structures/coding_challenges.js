@@ -266,3 +266,5 @@ console.log(scorers2); // prints: {Lewandowski: 2, Gnabry: 1, Hummels: 1}
  console.log(events); 
  // I converted this to set, so I got only the unique values with no duplicates
  // it prints: {'⚽ GOAL', '� Substitution', '� Yellow card', '� Red card'}
+
+ // task 2:
