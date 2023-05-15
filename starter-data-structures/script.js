@@ -756,3 +756,29 @@ console.log(announcement.replace('door', 'gate'));
 // there is even replaceAll method <3
 console.log(announcement.replaceAll('door', 'gate'));
 // prints All passangers come to boarding gate 23. Boarding gate 23
+
+// booleans:
+const plane2 = 'A320neo';
+console.log(plane2.includes('A320')); // prints true
+console.log(plane2.includes('Boeing')); // prints false
+console.log(plane2.startsWith('A320')); // prints true
+console.log(plane2.startsWith('B')); // prints false
+console.log(plane2.endsWith('0neo')); // prints true
+console.log(plane2.endsWith('ng')); // prints false
+
+if(plane2.includes('320') && plane2.endsWith('neo')) {
+  console.log('it is an Airbus');
+}
+
+const checkBaggege = function (items) {
+    const baggege = items.toLowerCase();
+    if(baggege.includes('knife') || baggege.includes('gun')) {
+      console.log('You are not allowed to on board!');
+    } else {
+      console.log('Welcome aboard!');
+    }
+}
+
+checkBaggege('I have some food and a pocket knife'); // prints: You are not allowed to on board!
+checkBaggege('Got some socks and camera'); // prints: Welcome aboard!
+checkBaggege('SOCKS AND MACHINE GUN'); // prints: You are not allowed to on board!
