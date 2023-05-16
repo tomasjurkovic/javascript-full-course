@@ -782,3 +782,33 @@ const checkBaggege = function (items) {
 checkBaggege('I have some food and a pocket knife'); // prints: You are not allowed to on board!
 checkBaggege('Got some socks and camera'); // prints: Welcome aboard!
 checkBaggege('SOCKS AND MACHINE GUN'); // prints: You are not allowed to on board!
+
+// PART 3:
+// SPLIT: divide string into multiple parts based on a sign:
+console.log('a+very+nice+string'.split('+'));
+// prints: ['a', 'very', 'nice', 'string']
+console.log('tomas jurkovic'.split());
+// prints: ['tomas jurkovic']
+
+// we can use destructuring like here:
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(firstName); // prints Jonas
+console.log(lastName); // prints Schmedtmann
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+// prints Mr. Jonas SCHMEDTMANN - there are empty spaces because of arguments in join method
+
+const capitalizeName = function(name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    // other solution:
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()))
+  }
+  return namesUpper.join(' ')
+}
+const passengerX = 'jessica ann smith davis';
+console.log(capitalizeName(passengerX));
+// prints Jessica Ann Smith Davis
