@@ -782,3 +782,73 @@ const checkBaggege = function (items) {
 checkBaggege('I have some food and a pocket knife'); // prints: You are not allowed to on board!
 checkBaggege('Got some socks and camera'); // prints: Welcome aboard!
 checkBaggege('SOCKS AND MACHINE GUN'); // prints: You are not allowed to on board!
+
+// PART 3:
+// SPLIT: divide string into multiple parts based on a sign:
+console.log('a+very+nice+string'.split('+'));
+// prints: ['a', 'very', 'nice', 'string']
+console.log('tomas jurkovic'.split());
+// prints: ['tomas jurkovic']
+
+// we can use destructuring like here:
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(firstName); // prints Jonas
+console.log(lastName); // prints Schmedtmann
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+// prints Mr. Jonas SCHMEDTMANN - there are empty spaces because of arguments in join method
+
+const capitalizeName = function(name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    // other solution:
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()))
+  }
+  return namesUpper.join(' ')
+}
+const passengerX = 'jessica ann smith davis';
+console.log(capitalizeName(passengerX));
+// prints Jessica Ann Smith Davis
+
+// padding:
+const message = 'Go to gate 23!'
+console.log(message.padStart(25, '+')); 
+// prints: +++++++++++Go to gate 23!
+// first argument is lenght of the entire string!
+// second arguemnt adds selected character(s) before
+console.log('Tomas'.padStart(25, '+'));
+// prints: ++++++++++++++++++++Tomas
+// there is similar padEnd, which do the same but at the end of string
+console.log('Tomas'.padStart(25, '+').padEnd(35, ':)'));
+// prints ++++++++++++++++++++Tomas:):):):):)
+
+// function that adds masking to creditcard number:
+// mine that worked just with strings:
+const maskCreditCard = function(number) {
+  return number.slice(0,4) + ' '.padEnd(16, '**** ') + number.slice(-4);
+};
+
+console.log(maskCreditCard('11110000555544442484'));
+
+const maskCreditCardBetter = function(number) {
+  const str = String(number); // number + ''; it works the same
+  return str.slice(-4).padStart(str.length, '*');
+};
+
+console.log(maskCreditCardBetter(44054455121245457778));
+console.log(maskCreditCardBetter('4405445551921294564577718'));
+
+// REPEAT:
+const message2 = 'Bad weather... All Departures Delyaed... ';
+console.log(message2.repeat(3)); // just a multiplicator
+// prints Bad weather... All Departures Delyaed... Bad weather... All Departures Delyaed... Bad weather... All Departures Delyaed... 
+
+const planesInLine = function(n) {
+  console.log(`There are ${n} planes in the line ${'✈️'.repeat(n)}`);
+}
+
+planesInLine(10);
+// prints There are 10 planes in the line ✈️✈️✈️✈️✈️✈️✈️✈️✈️✈️
