@@ -342,17 +342,14 @@ const btn1 = document.querySelector('button');
 
 btn1.addEventListener('click', function() {
     const text = document.querySelector('textarea').value;
-    const textBetter = text.replace(' ', '');
     const splitText = text.split('\n');
-    console.log(splitText);
+    let iterator = 1; 
     for (const word of splitText) {
         const lowerReplaced = word.trim().toLowerCase().replace('_', ' ');
-        // console.log(airline.slice(airline.lastIndexOf(' ') + 1)); 
-        console.log(
-            // lowerReplaced.slice(lowerReplaced.indexOf(' ') + 1)
-            // + 
-            lowerReplaced.slice(lowerReplaced.indexOf(' '))
-            );
+        const part1 = lowerReplaced.slice(0, lowerReplaced.indexOf(' '));
+        const part2 = lowerReplaced.slice(lowerReplaced.indexOf(' '));
+        const part2UpperCase = part2.trim().slice(0, 1).toUpperCase() + part2.trim().slice(1);
+        console.log(part1 + part2UpperCase + ' ' + '✅'.repeat(iterator));
+        iterator++;
     }
-    console.log(splitText);
 })
