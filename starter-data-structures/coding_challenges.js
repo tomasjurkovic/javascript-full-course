@@ -303,3 +303,58 @@ for (const [minute, event] of gameEvents.entries()) {
 };
 // prints all events in style like this:
 // [FIRST HALF] 17: ⚽ GOAL
+
+// CODING CHALLENGE 4:
+// Write a program that receives a list of variable names written in underscore_case 
+// and convert them to camelCase.
+// The input will come from a textarea inserted into the DOM (see code below to 
+// insert the elements), and conversion will happen when the button is pressed.
+// Test data (pasted to textarea, including spaces):
+// underscore_case
+// first_name
+// Some_Variable 
+//  calculate_AGE
+// delayed_departure
+// Should produce this output (5 separate console.log outputs):
+// underscoreCase ✅
+// firstName ✅✅
+// someVariable ✅✅✅
+// calculateAge ✅✅✅✅
+// delayedDeparture ✅✅✅✅✅
+// Hints:
+// § Remember which character defines a new line in the textarea �
+// § The solution only needs to work for a variable made out of 2 words, like a_b
+// § Start without worrying about the ✅. Tackle that only after you have the variable 
+// name conversion working �
+// § This challenge is difficult on purpose, so start watching the solution in case 
+// you're stuck. Then pause and continue!
+// Afterwards, test with your own test data
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+const btn1 = document.querySelector('button'); 
+
+btn1.addEventListener('click', function() {
+    const text = document.querySelector('textarea').value;
+    const splitText = text.split('\n');
+    let iterator = 1; 
+    for (const word of splitText) {
+        const lowerReplaced = word.trim().toLowerCase().replace('_', ' ');
+        const part1 = lowerReplaced.slice(0, lowerReplaced.indexOf(' '));
+        const part2 = lowerReplaced.slice(lowerReplaced.indexOf(' '));
+        const part2UpperCase = part2.trim().slice(0, 1).toUpperCase() + part2.trim().slice(1);
+        console.log((part1 + part2UpperCase).padEnd(20) + ' ' + '✅'.repeat(iterator));
+        iterator++;
+    }
+
+    // jonas's solution:
+    for (const [i, row] of splitText.entries()) {
+        const [first, second] = row.toLowerCase().trim().split('_');
+        const output = `${first}${second.replace(
+            second[0],
+            second[0].toUpperCase()
+        )}`;
+    console.log(output.padEnd(20) + '✅'.repeat(i+1));
+    }
+})
