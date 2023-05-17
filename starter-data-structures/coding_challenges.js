@@ -348,8 +348,7 @@ btn1.addEventListener('click', function() {
         iterator++;
     }
 
-    // jonas;s solution:
-    let iteration = 1;
+    // jonas's solution:
     for (const [i, row] of splitText.entries()) {
         const [first, second] = row.toLowerCase().trim().split('_');
         const output = `${first}${second.replace(
