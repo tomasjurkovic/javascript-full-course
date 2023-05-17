@@ -333,11 +333,6 @@ for (const [minute, event] of gameEvents.entries()) {
 document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 
-
-
-const textAreaElementTextContent = document.querySelector('textarea').value;
-console.log(textAreaElementTextContent);
-
 const btn1 = document.querySelector('button'); 
 
 btn1.addEventListener('click', function() {
@@ -349,7 +344,18 @@ btn1.addEventListener('click', function() {
         const part1 = lowerReplaced.slice(0, lowerReplaced.indexOf(' '));
         const part2 = lowerReplaced.slice(lowerReplaced.indexOf(' '));
         const part2UpperCase = part2.trim().slice(0, 1).toUpperCase() + part2.trim().slice(1);
-        console.log(part1 + part2UpperCase + ' ' + '✅'.repeat(iterator));
+        console.log((part1 + part2UpperCase).padEnd(20) + ' ' + '✅'.repeat(iterator));
         iterator++;
+    }
+
+    // jonas;s solution:
+    let iteration = 1;
+    for (const [i, row] of splitText.entries()) {
+        const [first, second] = row.toLowerCase().trim().split('_');
+        const output = `${first}${second.replace(
+            second[0],
+            second[0].toUpperCase()
+        )}`;
+    console.log(output.padEnd(20) + '✅'.repeat(i+1));
     }
 })
