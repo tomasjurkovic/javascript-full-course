@@ -42,3 +42,40 @@ createBooking(773, 5);
 createBooking(undefined, undefined, 45);
 // prints {flightNum: undefined, numPassangers: 1, price: 45}
 // because numPassangers is 1 if undefined
+
+
+// passing arguments:
+const flight = 'LH234';
+const jonas = {
+    name: 'Jonas Schmedtmann',
+    passport: 221653215,
+};
+
+const checkIn = function(flightNum, passenger) {
+    flightNum = 'LH999';
+    passenger.name = 'Mr. ' + passenger.name;
+
+    if(passenger.passport === 221653215) {
+        alert('Check in');
+    } else {
+        alert('Wrong passport!');
+    }
+}
+checkIn(flight, jonas)
+console.log(flight, jonas);
+// name was changed: {name: 'Mr. Jonas Schmedtmann', passport: 221653215}
+// flight was not changed, because primitives are not changeable
+
+// it is same like this:
+const flightNum = flight // just a refference
+const passenger = jonas 
+// if we change passenger, we change jonas, cuz they are the same object
+
+const newPassport = function(person) {
+    person.passport = Math.trunc(Math.random() * 10000000);
+}
+
+newPassport(jonas);
+console.log(flight, jonas);
+checkIn(flight, jonas); 
+// now it's not possible to checkin, because passport was changed
