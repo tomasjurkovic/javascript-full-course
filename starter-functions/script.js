@@ -78,4 +78,41 @@ const newPassport = function(person) {
 newPassport(jonas);
 console.log(flight, jonas);
 checkIn(flight, jonas); 
-// now it's not possible to checkin, because passport was changed
+// now it's not possible to checkin, because passport was changedt
+
+// FIRST CLASS FUNCTIONS:
+// means that all functions are values
+// we can:
+// A/ store functions into variables
+const add = (a, b) => a + b;
+// B/ store functions as object properties
+const counter = {
+    value: 23,
+    increment: function() {
+        this.value++;
+    }
+}
+// C/ pass function as arguments to OTHER functions
+const greet = () => console.log('Hey Tomas');
+// btnClose.addEventListener('click', greet);
+
+// D/ return functions FROM functions
+
+// E/ call methods on functions
+// counter.increment.bind(someOtherObject);
+
+// HIGHER-ORDER FUNCTIONS:
+// 1. function that receives another function as an argument:
+const greet2 = () => console.log('Hey Tomas');
+// btnClose.addEventListener('click', greet2);
+// addEventListener is higher order function
+// greet is callback function, which will be called later when click event happens
+
+// 2. function that returns new function:
+function count() {
+    let counter = 0;
+    return function() {
+        counter++;
+    }
+}
+// this returns a function 
