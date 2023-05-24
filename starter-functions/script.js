@@ -116,3 +116,46 @@ function count() {
     }
 }
 // this returns a function 
+
+// FUNCTIONS ACCEPTING CALLBACK FUNCTIONS:
+
+const oneWord = function(str) {
+    return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function(str) {
+    const [first, ...others] = str.split(' ');
+    return [first.toUpperCase(), ...others].join(' ');
+};
+
+const transformer = function(str, fn) {
+    console.log(`Original string: ${str}`);
+    console.log(`Transformed string: ${fn(str)}`);
+    console.log(`Transform by: ${fn.name}`); // functions can have properties
+}
+
+transformer('JavaScript is the best', upperFirstWord);
+/* Original string: JavaScript is the best
+Transformed string: JAVASCRIPT is the best
+Transform by: upperFirstWord */
+
+transformer('JavaScript is the best', oneWord);
+/* Original string: JavaScript is the best
+Transformed string: javascriptisthebest
+Transform by: oneWord */
+
+const high5 = function() {
+    console.log('👋');
+}
+
+document.body.addEventListener('click', high5); 
+
+['Adam', 'Boris', 'Cyril'].forEach(high5);
+// high5 is a callback function in these exmples
+// JS uses callbacks all the time
+// higher level functions can focus on important stuff - 
+// doing only that neccessery part
+// but using abstraction we can create 'lower level' functions
+// that can be used as callback functions in higher order functions
+// we are more abstract
+// this is really useful for doing my code more reusable
