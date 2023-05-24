@@ -159,3 +159,40 @@ document.body.addEventListener('click', high5);
 // that can be used as callback functions in higher order functions
 // we are more abstract
 // this is really useful for doing my code more reusable
+
+// Function returning a new function
+// actually opposite of previous one
+
+const greet3 = function(greeting) {
+    return function(name) {
+        console.log(`${greeting} ${name}`);
+    }
+};
+
+const greeterHey = greet3('Hey');
+// this function is saved to variable and since it's just a function again
+// it can be called with parameter as below 
+greeterHey('Tomas'); // prints Hey Tomas
+greeterHey('Jacob'); // prints Hey Jacob
+// works because of closures
+
+// all in one go:
+greet3('Hello')('Michal');
+// looks weird but works
+// prints Hello Michal
+
+// challenge: write it as arrow function
+// I tried this>
+// const greetArrow = (greeting) => function(name) {
+//     console.log(`${greeting} ${name}`);
+// }
+
+// simple in one line:
+const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
+
+const greetAhoy = greetArrow('Ahoy');
+greetAhoy('Slovensko');
+// prints Ahoy Slovensko
+
+greetArrow('Hi')('Jack');
+// prints Hi Jack
