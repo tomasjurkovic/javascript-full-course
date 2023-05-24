@@ -78,4 +78,84 @@ const newPassport = function(person) {
 newPassport(jonas);
 console.log(flight, jonas);
 checkIn(flight, jonas); 
-// now it's not possible to checkin, because passport was changed
+// now it's not possible to checkin, because passport was changedt
+
+// FIRST CLASS FUNCTIONS:
+// means that all functions are values
+// we can:
+// A/ store functions into variables
+const add = (a, b) => a + b;
+// B/ store functions as object properties
+const counter = {
+    value: 23,
+    increment: function() {
+        this.value++;
+    }
+}
+// C/ pass function as arguments to OTHER functions
+const greet = () => console.log('Hey Tomas');
+// btnClose.addEventListener('click', greet);
+
+// D/ return functions FROM functions
+
+// E/ call methods on functions
+// counter.increment.bind(someOtherObject);
+
+// HIGHER-ORDER FUNCTIONS:
+// 1. function that receives another function as an argument:
+const greet2 = () => console.log('Hey Tomas');
+// btnClose.addEventListener('click', greet2);
+// addEventListener is higher order function
+// greet is callback function, which will be called later when click event happens
+
+// 2. function that returns new function:
+function count() {
+    let counter = 0;
+    return function() {
+        counter++;
+    }
+}
+// this returns a function 
+
+// FUNCTIONS ACCEPTING CALLBACK FUNCTIONS:
+
+const oneWord = function(str) {
+    return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function(str) {
+    const [first, ...others] = str.split(' ');
+    return [first.toUpperCase(), ...others].join(' ');
+};
+
+const transformer = function(str, fn) {
+    console.log(`Original string: ${str}`);
+    console.log(`Transformed string: ${fn(str)}`);
+    console.log(`Transform by: ${fn.name}`); // functions can have properties
+}
+
+transformer('JavaScript is the best', upperFirstWord);
+/* Original string: JavaScript is the best
+Transformed string: JAVASCRIPT is the best
+Transform by: upperFirstWord */
+
+transformer('JavaScript is the best', oneWord);
+/* Original string: JavaScript is the best
+Transformed string: javascriptisthebest
+Transform by: oneWord */
+
+const high5 = function() {
+    console.log('👋');
+}
+
+document.body.addEventListener('click', high5); 
+
+['Adam', 'Boris', 'Cyril'].forEach(high5);
+// high5 is a callback function in these exmples
+// JS uses callbacks all the time
+// higher level functions can focus on important stuff - 
+// doing only that neccessery part
+// but using abstraction we can create 'lower level' functions
+// that can be used as callback functions in higher order functions
+// we are more abstract
+// this is really useful for doing my code more reusable
