@@ -196,3 +196,67 @@ greetAhoy('Slovensko');
 
 greetArrow('Hi')('Jack');
 // prints Hi Jack
+
+// calling methods:
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
+    // before:
+    // book: function () {},
+    // now:
+    book(flightNum, name) {
+        console.log(
+            `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+        );
+        this.bookings.push({flight: `${this.iataCode}${flightNum}`, name});
+    },
+};
+
+lufthansa.book(238, 'Tomas Jurkovic');
+lufthansa.book(223, 'John Smith');
+
+const eurowings = {
+    airline: 'Eurowings',
+    iataCode: 'EW',
+    bookings: [],
+    // not copying same book method:
+
+}
+
+// with this it is possible to call book method with many other airlines objects
+const book = lufthansa.book;
+
+// does not work
+// book(23, 'Sarah Wiliams');
+
+// .call() method could just call a book method and the first argument
+// is this keyword
+book.call(eurowings, 23, 'Sarah Williams');
+// peints Sarah Williams booked a seat on Eurowings flight EW23
+
+book.call(lufthansa, 778, 'Diego Simeone');
+// Diego Simeone booked a seat on Lufthansa flight LH778
+
+const swiss = {
+    airline: 'Swiss Air Lines',
+    iataCode: 'LX',
+    bookings: [],
+};
+
+book.call(swiss, 999, 'Diego Simeone');
+// Diego Simeone booked a seat on Swiss Air Lines flight LX999
+
+// apply method:
+// it accepts data in arrat
+const flightData = [583, 'Graham Potter']
+book.apply(swiss, flightData);
+console.log(swiss);
+
+book.call(swiss, ...flightData) // exactly the same but better
+console.log(swiss);
+// 0: {flight: 'LX999', name: 'Diego Simeone'}
+// 1: {flight: 'LX583', name: 'Graham Potter'}
+// 2: {flight: 'LX583', name: 'Graham Potter'}
+
+// call method > applu method
