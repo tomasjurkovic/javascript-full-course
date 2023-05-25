@@ -259,4 +259,26 @@ console.log(swiss);
 // 1: {flight: 'LX583', name: 'Graham Potter'}
 // 2: {flight: 'LX583', name: 'Graham Potter'}
 
-// call method > applu method
+// call method > apply method
+
+// BIND method:
+// bind allows us to manually set this keyword to anything we want
+// book.call(eurowings, 23, 'Sarah Williams');
+
+// now it is possible to call for eurowings all the time
+const bookEW = book.bind(eurowings);
+bookEW(203, 'Steven Seagal');
+// Steven Seagal booked a seat on Eurowings flight EW203
+
+// same for all other airlines:
+const bookLH = book.bind(lufthansa);
+const bookSW = book.bind(swiss);
+
+bookLH(203, 'Steven Seagal');
+
+// we can do this for all params:
+const bookEW23 = book.bind(eurowings, 23);
+
+// now only one param is needed:
+bookEW23('Tomas Jurkovic');
+// prints Tomas Jurkovic booked a seat on Eurowings flight EW23
