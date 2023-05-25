@@ -278,7 +278,27 @@ bookLH(203, 'Steven Seagal');
 
 // we can do this for all params:
 const bookEW23 = book.bind(eurowings, 23);
+// and also all params if needed:
+const bookEW23MS = book.bind(eurowings, 23, 'Michael Saylor');
 
 // now only one param is needed:
 bookEW23('Tomas Jurkovic');
 // prints Tomas Jurkovic booked a seat on Eurowings flight EW23
+
+bookEW23MS();
+// prints Michael Saylor booked a seat on Eurowings flight EW23
+
+// with Event Listeners:
+lufthansa.planes = 300;
+lufthansa.buyPlane = function() {
+    console.log(this); // {airline: 'Lufthansa', iataCode: 'LH', bookings: Array(4), planes: 305, book: ƒ, …}
+    this.planes++;
+    console.log(`${this.airline} bought a new plane. They actually have ${this.planes} planes.`);
+}
+
+document.querySelector('.buy')
+    .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+// bind is important anyway we don't know what is this method, it will be button itself
+// when bind is applied with lufthansa argument, it is crystal clear that this keyword is lufthansa
+
+lufthansa.buyPlane();
