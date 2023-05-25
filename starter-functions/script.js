@@ -309,7 +309,38 @@ console.log(addTax(0.1, 200)); // prints 220
 
 // for this example this keyword is not important, so null is a standard 
 // second argument sets rate to 0.23
+
+
 const addVAT = addTax.bind(null, 0.23);
-console.log(addVAT(150)); 
+console.log(addVAT(150)); // prints 184.5
 
 // order of argument really do matter...
+
+// challenge create a function that returns a function:
+// example is same as before here:
+const addTaxRate = function(rate) {
+    return function(value) {
+        return value + rate * value;
+    }
+};
+
+const addVat23 = addTaxRate(0.23);
+console.log(addVat23(100)); // prints 123
+console.log(addVat23(333)); // prints 409.59000000000003
+
+
+
+// const greet3 = function(greeting) {
+//     return function(name) {
+//         console.log(`${greeting} ${name}`);
+//     }
+// };
+
+// simple in one line:
+// const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
+
+// const greetAhoy = greetArrow('Ahoy');
+// greetAhoy('Slovensko');
+// // prints Ahoy Slovensko
+
+// greetArrow('Hi')('Jack');
