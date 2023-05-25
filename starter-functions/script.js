@@ -327,20 +327,3 @@ const addTaxRate = function(rate) {
 const addVat23 = addTaxRate(0.23);
 console.log(addVat23(100)); // prints 123
 console.log(addVat23(333)); // prints 409.59000000000003
-
-
-
-// const greet3 = function(greeting) {
-//     return function(name) {
-//         console.log(`${greeting} ${name}`);
-//     }
-// };
-
-// simple in one line:
-// const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
-
-// const greetAhoy = greetArrow('Ahoy');
-// greetAhoy('Slovensko');
-// // prints Ahoy Slovensko
-
-// greetArrow('Hi')('Jack');
