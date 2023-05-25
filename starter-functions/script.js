@@ -302,3 +302,14 @@ document.querySelector('.buy')
 // when bind is applied with lufthansa argument, it is crystal clear that this keyword is lufthansa
 
 lufthansa.buyPlane();
+
+// partial application:
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200)); // prints 220
+
+// for this example this keyword is not important, so null is a standard 
+// second argument sets rate to 0.23
+const addVAT = addTax.bind(null, 0.23);
+console.log(addVAT(150)); 
+
+// order of argument really do matter...
