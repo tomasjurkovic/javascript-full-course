@@ -45,31 +45,23 @@ const poll = {
     // This generates [0, 0, 0, 0]. More in the next section!
     answers: new Array(4).fill(0),
     registerNewAnswer() {
-        const answer = Number(prompt(
-            `${this.question}\n${this.options.join('\n')}\nWrite your number.`
+        // get an answer:
+        const answer = Number(
+            prompt(
+                `${this.question}\n${this.options.join('\n')}\nWrite your number.`
             ));
 
-        if (answer >= 0 && answer <= 3) {
+        // update the answers:
+        typeof answer === 'number' && 
+            answer < this.answers.length && 
             this.answers[answer]++;
-            console.log(this.answers);
-        } else {
-            console.log('Only numbers from 0 to 3 are allowed');
-        }
+    
         console.log(this.answers);
     },
-
 };
 
 // task 2:
-const answerBtn = document.querySelector('.poll');
+document
+    .querySelector('.poll')
+    .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-// const answer = Number(prompt(`What is your favourite programming language? \n
-//         0: Javascript \n
-//         1: Python \n
-//         2: Rust \n
-//         3: C++`));
-
-// console.log(answer);
-
-
-answerBtn.addEventListener('click', poll.registerNewAnswer().bind(poll));
