@@ -44,25 +44,32 @@ const poll = {
     options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
     // This generates [0, 0, 0, 0]. More in the next section!
     answers: new Array(4).fill(0),
-    registerNewAnswer(option) {
-        const option = promt(`What is your favourite programming language? \n
-        0: Javascript \n
-        1: Python \n
-        2: Rust \n
-        3: C++`);
+    registerNewAnswer() {
+        const answer = Number(prompt(
+            `${this.question}\n${this.options.join('\n')}\nWrite your number.`
+            ));
 
-        if (option >= 0 && option <= 3) {
-            this.answers.push(this.options[option]);
+        if (answer >= 0 && answer <= 3) {
+            this.answers[answer]++;
+            console.log(this.answers);
         } else {
             console.log('Only numbers from 0 to 3 are allowed');
         }
-
-        this.answers.push(this.options[option]);
         console.log(this.answers);
-    }
+    },
+
 };
 
 // task 2:
 const answerBtn = document.querySelector('.poll');
 
-answerBtn.addEventListener('click', poll.registerNewAnswer(option).bind(poll));
+// const answer = Number(prompt(`What is your favourite programming language? \n
+//         0: Javascript \n
+//         1: Python \n
+//         2: Rust \n
+//         3: C++`));
+
+// console.log(answer);
+
+
+answerBtn.addEventListener('click', poll.registerNewAnswer().bind(poll));
