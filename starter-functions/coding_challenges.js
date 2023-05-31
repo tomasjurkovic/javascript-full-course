@@ -38,54 +38,100 @@ Hints: Use many of the tools you learned about in this and the last section �
 GOOD LUCK �
 */
 
-// task 1:
+// tasks 1, 3, 4:
 const poll = {
     question: "What is your favourite programming language?",
     options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
     // This generates [0, 0, 0, 0]. More in the next section!
     answers: new Array(4).fill(0),
-   
     registerNewAnswer() {
-        // get an answer:
-        const answer = Number(
-            prompt(
-                `${this.question}\n${this.options.join('\n')}\nWrite your number.`
-            ));
-        // update the answers:
-        typeof answer === 'number' && 
-            answer < this.answers.length && 
+        const answer = Number(prompt(
+            `${this.question}\n${this.options.join('\n')}\n(Write option number)`
+        ));
+
+        if(answer >= 0 && this.answers.length) {
             this.answers[answer]++;
-    
+        }
         this.displayResults();
-        this.displayResults('string');
+        this.displayResults('string'); // this is for string else part
     },
     displayResults(type = 'array') {
-        if (typeof type === 'array') {
+        if(type === 'array') {
             console.log(this.answers);
-        } else if (typeof type === 'string') {
-            console.log(`Poll results are ${this.answers.join(', ')}`);
+        } 
+        else if (type === 'string') {
+            console.log(`Poll results are ${this.answers.join(', ')}.`);
         }
     },
-};
+}
 
 // task 2:
-document
-    .querySelector('.poll')
-    .addEventListener('click', poll.registerNewAnswer.bind(poll));
+const pollBtn = document.querySelector('.poll');
 
-// task 3:
-// 3. Create a method 'displayResults' which displays the poll results. The
-// method takes a string as an input (called 'type'), which can be either 'string'
-// or 'array'. If type is 'array', simply display the results array as it is, using
-// console.log(). This should be the default option. If type is 'string', display a
-// string like "Poll results are 13, 2, 4, 1".
+pollBtn.addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-//task 4
-// 4. Run the 'displayResults' method at the end of each
-// 'registerNewAnswer' method call.
+// task 5:
+const testData1 = [5, 2, 3];
+const testData2 = [1, 5, 3, 9, 6, 1];
 
-// Test data for bonus:
-// § Data 1: [5, 2, 3]
-// § Data 2: [1, 5, 3, 9, 6, 1]
+poll.displayResults.call({answers: testData1});
+// prints [5, 2, 3]
+poll.displayResults.call({answers: testData1}, 'string'); 
+// prints Poll results are 5, 2, 3. - because of second argument
+poll.displayResults.call({answers: testData2});
+// prints [1, 5, 3, 9, 6, 1]
+poll.displayResults.call({answers: testData2}, 'string');
+// prints Poll results are 1, 5, 3, 9, 6, 1.
 
-poll.displayResults.call({answers: [5, 2, 3]})
+// previous solution:
+// // task 1:
+// const poll = {
+//     question: "What is your favourite programming language?",
+//     options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+//     // This generates [0, 0, 0, 0]. More in the next section!
+//     answers: new Array(4).fill(0),
+   
+//     registerNewAnswer() {
+//         // get an answer:
+//         const answer = Number(
+//             prompt(
+//                 `${this.question}\n${this.options.join('\n')}\nWrite your number.`
+//             ));
+//         // update the answers:
+//         typeof answer === 'number' && 
+//             answer < this.answers.length && 
+//             this.answers[answer]++;
+    
+//         this.displayResults();
+//         this.displayResults('string');
+//     },
+//     displayResults(type = 'array') {
+//         if (typeof type === 'array') {
+//             console.log(this.answers);
+//         } else if (typeof type === 'string') {
+//             console.log(`Poll results are ${this.answers.join(', ')}`);
+//         }
+//     },
+// };
+
+// // task 2:
+// document
+//     .querySelector('.poll')
+//     .addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+// // task 3:
+// // 3. Create a method 'displayResults' which displays the poll results. The
+// // method takes a string as an input (called 'type'), which can be either 'string'
+// // or 'array'. If type is 'array', simply display the results array as it is, using
+// // console.log(). This should be the default option. If type is 'string', display a
+// // string like "Poll results are 13, 2, 4, 1".
+
+// //task 4
+// // 4. Run the 'displayResults' method at the end of each
+// // 'registerNewAnswer' method call.
+
+// // Test data for bonus:
+// // § Data 1: [5, 2, 3]
+// // § Data 2: [1, 5, 3, 9, 6, 1]
+
+// poll.displayResults.call({answers: [5, 2, 3]})
