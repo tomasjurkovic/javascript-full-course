@@ -211,6 +211,10 @@ const lufthansa = {
         );
         this.bookings.push({flight: `${this.iataCode}${flightNum}`, name});
     },
+    changeIataCode(aitaCode) {
+        this.aitaCode = aitaCode;
+        console.log(`New iataCode for ${this.airline} is ${this.aitaCode}`);
+    },
 };
 
 lufthansa.book(238, 'Tomas Jurkovic');
@@ -327,3 +331,12 @@ const addTaxRate = function(rate) {
 const addVat23 = addTaxRate(0.23);
 console.log(addVat23(100)); // prints 123
 console.log(addVat23(333)); // prints 409.59000000000003
+
+// my little exercise:
+const changeIata = lufthansa.changeIataCode;
+const changeIataEW = changeIata.bind(eurowings);
+const changeIataSW = changeIata.bind(swiss);
+changeIataSW('SUI'); // prints New iataCode for Swiss Air Lines is SUI 
+changeIataEW('EU'); // prints New iataCode for Eurowings is EU
+lufthansa.changeIataCode('LFT'); // prints New iataCode for Lufthansa is LFT
+// there is no need to bind it when it's inside the lufthansa object
