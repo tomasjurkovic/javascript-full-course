@@ -340,3 +340,22 @@ changeIataSW('SUI'); // prints New iataCode for Swiss Air Lines is SUI
 changeIataEW('EU'); // prints New iataCode for Eurowings is EU
 lufthansa.changeIataCode('LFT'); // prints New iataCode for Lufthansa is LFT
 // there is no need to bind it when it's inside the lufthansa object
+
+// imidiately invoked function expressions:
+
+const runOnce = function () {
+    console.log('this will never run again');
+}
+
+// this can be run many times
+runOnce();
+
+// this will allows it:
+(function() {
+    console.log('this will really never run again');
+})();
+// this pattern is called imidiately invoked function expression
+
+(() =>
+    console.log('this arrow function will really never run again'))
+();
