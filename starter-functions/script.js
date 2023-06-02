@@ -2,7 +2,7 @@
 
 const bookings = [];
 
-const createBooking = function(flightNum, numPassangers = 1, price = 199 * numPassangers) {
+const createBooking = function (flightNum, numPassangers = 1, price = 199 * numPassangers) {
     // ES6 way: setting defaulty in function definition - price = 199 if not set differently
 
     // setting default paramenters:
@@ -16,11 +16,11 @@ const createBooking = function(flightNum, numPassangers = 1, price = 199 * numPa
         flightNum,
         numPassangers,
         price
-    }
+    };
 
     console.log(booking);
     bookings.push(booking);
-}
+};
 
 createBooking();
 // prints {flightNum: undefined, numPassangers: undefined, price: undefined}
@@ -51,33 +51,33 @@ const jonas = {
     passport: 221653215,
 };
 
-const checkIn = function(flightNum, passenger) {
+const checkIn = function (flightNum, passenger) {
     flightNum = 'LH999';
     passenger.name = 'Mr. ' + passenger.name;
 
-    if(passenger.passport === 221653215) {
+    if (passenger.passport === 221653215) {
         alert('Check in');
     } else {
         alert('Wrong passport!');
     }
-}
-checkIn(flight, jonas)
+};
+checkIn(flight, jonas);
 console.log(flight, jonas);
 // name was changed: {name: 'Mr. Jonas Schmedtmann', passport: 221653215}
 // flight was not changed, because primitives are not changeable
 
 // it is same like this:
-const flightNum = flight // just a refference
-const passenger = jonas 
+const flightNum = flight; // just a refference
+const passenger = jonas;
 // if we change passenger, we change jonas, cuz they are the same object
 
-const newPassport = function(person) {
+const newPassport = function (person) {
     person.passport = Math.trunc(Math.random() * 10000000);
-}
+};
 
 newPassport(jonas);
 console.log(flight, jonas);
-checkIn(flight, jonas); 
+checkIn(flight, jonas);
 // now it's not possible to checkin, because passport was changedt
 
 // FIRST CLASS FUNCTIONS:
@@ -88,10 +88,10 @@ const add = (a, b) => a + b;
 // B/ store functions as object properties
 const counter = {
     value: 23,
-    increment: function() {
+    increment: function () {
         this.value++;
     }
-}
+};
 // C/ pass function as arguments to OTHER functions
 const greet = () => console.log('Hey Tomas');
 // btnClose.addEventListener('click', greet);
@@ -111,28 +111,28 @@ const greet2 = () => console.log('Hey Tomas');
 // 2. function that returns new function:
 function count() {
     let counter = 0;
-    return function() {
+    return function () {
         counter++;
-    }
+    };
 }
 // this returns a function 
 
 // FUNCTIONS ACCEPTING CALLBACK FUNCTIONS:
 
-const oneWord = function(str) {
+const oneWord = function (str) {
     return str.replace(/ /g, '').toLowerCase();
 };
 
-const upperFirstWord = function(str) {
+const upperFirstWord = function (str) {
     const [first, ...others] = str.split(' ');
     return [first.toUpperCase(), ...others].join(' ');
 };
 
-const transformer = function(str, fn) {
+const transformer = function (str, fn) {
     console.log(`Original string: ${str}`);
     console.log(`Transformed string: ${fn(str)}`);
     console.log(`Transform by: ${fn.name}`); // functions can have properties
-}
+};
 
 transformer('JavaScript is the best', upperFirstWord);
 /* Original string: JavaScript is the best
@@ -144,11 +144,11 @@ transformer('JavaScript is the best', oneWord);
 Transformed string: javascriptisthebest
 Transform by: oneWord */
 
-const high5 = function() {
+const high5 = function () {
     console.log('👋');
-}
+};
 
-document.body.addEventListener('click', high5); 
+document.body.addEventListener('click', high5);
 
 ['Adam', 'Boris', 'Cyril'].forEach(high5);
 // high5 is a callback function in these exmples
@@ -163,10 +163,10 @@ document.body.addEventListener('click', high5);
 // Function returning a new function
 // actually opposite of previous one
 
-const greet3 = function(greeting) {
-    return function(name) {
+const greet3 = function (greeting) {
+    return function (name) {
         console.log(`${greeting} ${name}`);
-    }
+    };
 };
 
 const greeterHey = greet3('Hey');
@@ -209,7 +209,7 @@ const lufthansa = {
         console.log(
             `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
         );
-        this.bookings.push({flight: `${this.iataCode}${flightNum}`, name});
+        this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
     },
     changeIataCode(aitaCode) {
         this.aitaCode = aitaCode;
@@ -226,7 +226,7 @@ const eurowings = {
     bookings: [],
     // not copying same book method:
 
-}
+};
 
 // with this it is possible to call book method with many other airlines objects
 const book = lufthansa.book;
@@ -253,11 +253,11 @@ book.call(swiss, 999, 'Diego Simeone');
 
 // apply method:
 // it accepts data in arrat
-const flightData = [583, 'Graham Potter']
+const flightData = [583, 'Graham Potter'];
 book.apply(swiss, flightData);
 console.log(swiss);
 
-book.call(swiss, ...flightData) // exactly the same but better
+book.call(swiss, ...flightData); // exactly the same but better
 console.log(swiss);
 // 0: {flight: 'LX999', name: 'Diego Simeone'}
 // 1: {flight: 'LX583', name: 'Graham Potter'}
@@ -294,11 +294,11 @@ bookEW23MS();
 
 // with Event Listeners:
 lufthansa.planes = 300;
-lufthansa.buyPlane = function() {
+lufthansa.buyPlane = function () {
     console.log(this); // {airline: 'Lufthansa', iataCode: 'LH', bookings: Array(4), planes: 305, book: ƒ, …}
     this.planes++;
     console.log(`${this.airline} bought a new plane. They actually have ${this.planes} planes.`);
-}
+};
 
 document.querySelector('.buy')
     .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
@@ -322,10 +322,10 @@ console.log(addVAT(150)); // prints 184.5
 
 // challenge create a function that returns a function:
 // example is same as before here:
-const addTaxRate = function(rate) {
-    return function(value) {
+const addTaxRate = function (rate) {
+    return function (value) {
         return value + rate * value;
-    }
+    };
 };
 
 const addVat23 = addTaxRate(0.23);
@@ -345,17 +345,99 @@ lufthansa.changeIataCode('LFT'); // prints New iataCode for Lufthansa is LFT
 
 const runOnce = function () {
     console.log('this will never run again');
-}
+};
 
 // this can be run many times
 runOnce();
 
 // this will allows it:
-(function() {
+(function () {
     console.log('this will really never run again');
 })();
 // this pattern is called imidiately invoked function expression
 
+// really works also for arrow funtions:
 (() =>
     console.log('this arrow function will really never run again'))
-();
+    ();
+
+// closures:
+const secureBooking = function() {
+    let passengerCount = 0;
+
+    return function () {
+        passengerCount++;
+        console.log(`${passengerCount} passengers`);
+    }
+}
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+
+// prints: 1 passengers
+// 2 passengers
+// 3 passengers
+// it is because of power of closures
+
+// a function has access to the variable env (VE)
+// of the execution context in which was created
+// VE attached to the function, exactly as it was at the time and place 
+// the function was created
+
+console.dir(booker);
+/* [[Scopes]]
+: 
+Scopes[3]
+0
+: 
+Closure (secureBooking)
+passengerCount : 3 */
+
+// more closures:
+
+// example 1:
+let f;
+const g = function () {
+    const a = 23;
+    f = function () {
+        console.log(a * 2);
+    }
+}
+
+const h = function () {
+    const b = 777;
+    f = function () {
+        console.log(b * 2);
+    }
+}
+
+g();
+f(); // prints 46, because of closures
+console.dir(f);
+
+// re-assigning f function
+h();
+f(); // prints 1554m because of closure
+f(); // prints 1554m because of closure - f has still value of function from h();
+console.dir(f);
+
+// example 2:
+const boardPassengers = function (n, wait) {
+    const perGroup = n / 3;
+
+    setTimeout(function(){
+        console.log(`We are now boarding all ${n} passengers`);
+        console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+    }, wait * 1000)
+    console.log(`Will start boarding in ${wait} seconds.`);
+};
+
+setTimeout(function(){
+    console.log('TIMER');
+}, 1000); // writes TIMER after 1 second
+
+const perGroup = 200; // if I comment previous one it would use this instead of n / 3 expression
+boardPassengers(180, 3);
