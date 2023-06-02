@@ -395,3 +395,49 @@ Scopes[3]
 : 
 Closure (secureBooking)
 passengerCount : 3 */
+
+// more closures:
+
+// example 1:
+let f;
+const g = function () {
+    const a = 23;
+    f = function () {
+        console.log(a * 2);
+    }
+}
+
+const h = function () {
+    const b = 777;
+    f = function () {
+        console.log(b * 2);
+    }
+}
+
+g();
+f(); // prints 46, because of closures
+console.dir(f);
+
+// re-assigning f function
+h();
+f(); // prints 1554m because of closure
+f(); // prints 1554m because of closure - f has still value of function from h();
+console.dir(f);
+
+// example 2:
+const boardPassengers = function (n, wait) {
+    const perGroup = n / 3;
+
+    setTimeout(function(){
+        console.log(`We are now boarding all ${n} passengers`);
+        console.log(`There are 3 groups, each with ${perGroup} passengers.`);
+    }, wait * 1000)
+    console.log(`Will start boarding in ${wait} seconds.`);
+};
+
+setTimeout(function(){
+    console.log('TIMER');
+}, 1000); // writes TIMER after 1 second
+
+const perGroup = 200; // if I comment previous one it would use this instead of n / 3 expression
+boardPassengers(180, 3);
