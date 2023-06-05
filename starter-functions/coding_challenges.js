@@ -154,4 +154,17 @@ GOOD LUCK */
 (function () {
     const header = document.querySelector('h1');
     header.style.color = 'red';
-    })();
+
+    document.querySelector('body').addEventListener('click', function() {
+        header.style.color = 'blue';
+    });
+
+    // I added this so it can change when events come infinite times
+    document.querySelector('body').addEventListener('mouseover', function() {
+        header.style.color = 'green';
+    });
+
+    // header is born in this function so I can use it and modify it within this
+    // outside it wont work, but here I can use it infinite times
+})();
+
