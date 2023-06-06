@@ -74,3 +74,49 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+
+// simple methods:
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// slice method:
+// does not affect arr
+console.log(arr.slice(2)); // prints ['c', 'd', 'e']
+console.log(arr.slice(1, 3)); // ['b', 'c'] is printed
+console.log(arr);
+
+// negative indexes works as well
+console.log(arr.slice(-1)); // prints ['e']
+
+// we can create shallow copy of object as well:
+console.log(arr.slice()); // with no arguments: ['a', 'b', 'c', 'd', 'e']
+// or like this with spread operator:
+console.log([...arr]); // prints ['a', 'b', 'c', 'd', 'e']
+
+// splice method:
+// does almost exactly the same as slice, but mutates the array:
+console.log(arr.splice(-1)); // prints ['a', 'b', 'c', 'd']
+console.log(arr); // prints ['a', 'b', 'c', 'd'], because splice(2) mutated it
+
+// second parameter is deleteCount:
+console.log(arr.splice(1, 2)); // prints deleted ['b', 'c']
+console.log(arr); // prints ['a', 'd'], that's what left
+
+// reverse method:
+// it reverses array items
+// it mutates original array
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+console.log(arr2.reverse());
+console.log(arr2); // prints ['f', 'g', 'h', 'i', 'j']
+
+// concat method:
+// it does not mutate original array
+const letters = arr.concat(arr2);
+console.log(letters); // prints ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'] 
+console.log([...arr, ...arr2]); // does the same, but using spread operator
+
+// join method:
+// it does not mutate original array
+console.log(letters.join(' + '));
+// prints: a + b + c + d + e + f + g + h + i + j
