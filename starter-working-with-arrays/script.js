@@ -120,3 +120,26 @@ console.log([...arr, ...arr2]); // does the same, but using spread operator
 // it does not mutate original array
 console.log(letters.join(' + '));
 // prints: a + b + c + d + e + f + g + h + i + j
+
+// new at method:
+// is available since 2022:
+// does no mutate previous array
+const simpleArray = [21, 12, 24, 66];
+console.log(simpleArray[0]); // prints 21
+console.log(simpleArray.at(0)); // does exactlty the same
+
+// what if we want to get the last element:
+// it is really easy
+console.log(simpleArray[simpleArray.length - 1]); // prints 66
+console.log(simpleArray.slice(-1)[0]); // prints 66
+console.log(simpleArray.at(-1)); // does the same - 66
+
+console.log(simpleArray.at(-2)); 
+// prints 24 as it is second last element in simpleArray
+
+console.log(simpleArray.at(1, 3)); // not doing what we think
+// only 12 is printed as second item in array
+
+// works with string as well:
+console.log('tomas'.at(3)); // prints 'a'
+console.log('tomas'.at(-1)); // prints 's' as a last character in string
