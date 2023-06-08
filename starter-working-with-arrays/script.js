@@ -71,7 +71,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -143,3 +143,50 @@ console.log(simpleArray.at(1, 3)); // not doing what we think
 // works with string as well:
 console.log('tomas'.at(3)); // prints 'a'
 console.log('tomas'.at(-1)); // prints 's' as a last character in string
+
+// LOOPING ARRATS
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// classical way
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}$`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}$`);
+  };
+};
+
+// easy with for each:
+console.log(`-----FOR EACH------`);
+// with callback funtcion with movement as argument:
+// order of arguments matter
+// 1. element
+// 2. index of array
+// 3 . whole arrat
+movements.forEach(function(movement, i, arr) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}$`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}$`);
+  };
+});
+
+// it is called one by one:
+/* You deposited 200$
+You deposited 450$
+You withdrew 400$
+You deposited 3000$
+You withdrew 650$
+You withdrew 130$
+You deposited 70$
+You deposited 1300$ */
+
+/* prints after the change:
+Movement 1: You deposited 200$
+You deposited 450$
+You withdrew 400$
+You deposited 3000$
+You withdrew 650$
+You withdrew 130$
+You deposited 70$
+You deposited 1300$ */
