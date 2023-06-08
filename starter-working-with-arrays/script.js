@@ -208,4 +208,15 @@ USD: United States dollar
 EUR: Euro
 GBP: Pound sterling */
 
+// sets:
 
+const currenciesUnique = new Set(['USD', 'EUR', 'GBP', 'EUR', 'YEN', 'USD']);
+console.log(currenciesUnique); // prints: {'USD', 'EUR', 'GBP', 'YEN'}
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}: ${value}`);
+});
+
+// works for sets as well, 
+// the second parameter is useless, but actually it follows same pattern
+// since sets do not have keys, then it is the same as values
+// _ is used for completely unnecessary arguments
