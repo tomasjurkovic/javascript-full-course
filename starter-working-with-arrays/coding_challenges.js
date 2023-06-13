@@ -28,3 +28,22 @@ Test data:
 § Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 Hints: Use tools from all lectures in this section so far �
 GOOD LUCK */
+
+const juliaDogs1 = [3, 5, 2, 12, 7];
+const juliaDogs2 = [9, 16, 6, 8, 3];
+const kateDogs1 = [4, 1, 15, 8, 3];
+const kateDogs2 = [10, 5, 6, 1, 4];
+
+const checkDogs = function name(dogsJulia, dogsKate) {
+  dogsJulia.splice(0, 1); // removes first dog
+  dogsJulia.splice(2, 2); // removes last two dogs, if they are cats.
+  const dogsTogether = dogsJulia.concat(dogsKate);
+
+  dogsTogether.forEach(function(dog, i) {
+    let dogAge = dog >= 3 ? `an adult and is ${dog} years old` : 'still a puppy';
+    console.log(`Dog number ${i + 1} is ${dogAge}`);
+  });
+}
+
+checkDogs([...juliaDogs1], [...kateDogs1]);
+checkDogs([...juliaDogs2], [...kateDogs2]);
