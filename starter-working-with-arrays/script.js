@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 34, -1000, 77, 14000, 7, -10],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -61,17 +61,35 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = '';
+  // deletes existing content...
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal'
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+      <div class="movements__date"></div>
+      <div class="movements__value">${mov}€</div>
+    </div>
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -120,3 +138,103 @@ console.log([...arr, ...arr2]); // does the same, but using spread operator
 // it does not mutate original array
 console.log(letters.join(' + '));
 // prints: a + b + c + d + e + f + g + h + i + j
+
+// new at method:
+// is available since 2022:
+// does no mutate previous array
+const simpleArray = [21, 12, 24, 66];
+console.log(simpleArray[0]); // prints 21
+console.log(simpleArray.at(0)); // does exactlty the same
+
+// what if we want to get the last element:
+// it is really easy
+console.log(simpleArray[simpleArray.length - 1]); // prints 66
+console.log(simpleArray.slice(-1)[0]); // prints 66
+console.log(simpleArray.at(-1)); // does the same - 66
+
+console.log(simpleArray.at(-2)); 
+// prints 24 as it is second last element in simpleArray
+
+console.log(simpleArray.at(1, 3)); // not doing what we think
+// only 12 is printed as second item in array
+
+// works with string as well:
+console.log('tomas'.at(3)); // prints 'a'
+console.log('tomas'.at(-1)); // prints 's' as a last character in string
+
+// LOOPING ARRATS
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// classical way
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}$`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}$`);
+  };
+};
+
+// easy with for each:
+console.log(`-----FOR EACH------`);
+// with callback funtcion with movement as argument:
+// order of arguments matter
+// 1. element
+// 2. index of array
+// 3 . whole arrat
+movements.forEach(function(movement, i, arr) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}$`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}$`);
+  };
+});
+
+// it is called one by one:
+/* You deposited 200$
+You deposited 450$
+You withdrew 400$
+You deposited 3000$
+You withdrew 650$
+You withdrew 130$
+You deposited 70$
+You deposited 1300$ */
+
+/* prints after the change:
+Movement 1: You deposited 200$
+You deposited 450$
+You withdrew 400$
+You deposited 3000$
+You withdrew 650$
+You withdrew 130$
+You deposited 70$
+You deposited 1300$ */
+
+// maps with forEach:
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+// arguments: 1. value, 2. key, 3. entire map
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+/* prints:
+USD: United States dollar
+EUR: Euro
+GBP: Pound sterling */
+
+// sets:
+
+const currenciesUnique = new Set(['USD', 'EUR', 'GBP', 'EUR', 'YEN', 'USD']);
+console.log(currenciesUnique); // prints: {'USD', 'EUR', 'GBP', 'YEN'}
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}: ${value}`);
+});
+
+// works for sets as well, 
+// the second parameter is useless, but actually it follows same pattern
+// since sets do not have keys, then it is the same as values
+// _ is used for completely unnecessary arguments
