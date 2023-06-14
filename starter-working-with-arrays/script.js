@@ -238,3 +238,10 @@ currenciesUnique.forEach(function (value, _, map) {
 // the second parameter is useless, but actually it follows same pattern
 // since sets do not have keys, then it is the same as values
 // _ is used for completely unnecessary arguments
+
+// map, filter and reduce methods:
+// first two creates new array // all does not affect original arrays
+// map returns an array containing the results of applying an operation on all original array elements
+// filter returns an array containing the array elements that apssed a specified test condition
+// reduce boils (reduces) all array eleemtns fown to one single value (fe. adding all elements together)
+// reduce only returns one value and affects the original array
