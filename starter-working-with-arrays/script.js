@@ -245,3 +245,27 @@ currenciesUnique.forEach(function (value, _, map) {
 // filter returns an array containing the array elements that apssed a specified test condition
 // reduce boils (reduces) all array eleemtns fown to one single value (fe. adding all elements together)
 // reduce only returns one value and affects the original array
+
+// map:
+const eurToUsd = 1.1;
+
+const movementsUsd = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+// this above in arrow function:
+const movementsUsdArrow = movements.map(mov => mov * eurToUsd)
+console.log(movementsUsdArrow);
+
+console.log(movements);
+console.log(movementsUsd);
+// prints [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+// what if we wanna to do it by for loop:
+const movementsUsdForOf = [];
+for (const mov of movements) {
+  movementsUsdForOf.push(mov * eurToUsd);
+} 
+
+console.log(movementsUsdForOf);
+// prints[220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
