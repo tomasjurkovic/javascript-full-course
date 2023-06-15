@@ -238,3 +238,116 @@ currenciesUnique.forEach(function (value, _, map) {
 // the second parameter is useless, but actually it follows same pattern
 // since sets do not have keys, then it is the same as values
 // _ is used for completely unnecessary arguments
+
+// map, filter and reduce methods:
+// first two creates new array // all does not affect original arrays
+// map returns an array containing the results of applying an operation on all original array elements
+// filter returns an array containing the array elements that apssed a specified test condition
+// reduce boils (reduces) all array eleemtns fown to one single value (fe. adding all elements together)
+// reduce only returns one value and affects the original array
+
+// map:
+const eurToUsd = 1.1;
+
+const movementsUsd = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+// this above in arrow function:
+const movementsUsdArrow = movements.map(mov => mov * eurToUsd)
+console.log(movementsUsdArrow);
+
+console.log(movements);
+console.log(movementsUsd);
+// prints [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+// what if we wanna to do it by for loop:
+const movementsUsdForOf = [];
+for (const mov of movements) {
+  movementsUsdForOf.push(mov * eurToUsd);
+} 
+
+console.log(movementsUsdForOf);
+// prints[220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+// map method has access to index and whole array
+// it is okay to have two or more return statements
+const movementsDescription = movements.map((mov, i) =>
+  `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${mov}$`
+);
+
+console.log(movementsDescription);
+// prints ['Movement 1: You deposited 200$', 'Movement 2: You deposited 450$', 
+// 'Movement 3: You withdrew -400$', 'Movement 4: You deposited 3000$', 
+// 'Movement 5: You withdrew -650$', 'Movement 6: You withdrew -130$', 
+// 'Movement 7: You deposited 70$', 'Movement 8: You deposited 1300$']
+
+// computing usrr names:
+// I tried a bit :)
+const user = 'Steven Thomas Williams'; // str
+const username = user.split(' ');
+let realusername = ''
+username.forEach(word => {
+  realusername += word.slice(0, 1).toLowerCase();
+});
+
+console.log(realusername);
+
+// but really:
+// split returns an array so we can use map there
+const username2 = user.toLowerCase()
+  .split(' ')
+  .map(name => name.slice(0, 1))
+  .join('');
+
+console.log(username2); // stw is returned
+
+// lets do it in function:
+const getUserName = function (user) {
+  const username = user.toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('');
+  return username;
+};
+
+console.log(getUserName(account1.owner)); // js returns 
+console.log(getUserName(account2.owner)); // jd returns
+console.log(getUserName('Tom Marvolo Riddle')); // tmr
+
+// do it in better way by modifying array what we have as an input
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('');
+  })
+};
+
+createUserNames(accounts);
+console.log(accounts);
+
+// filter method:
+// it has access to arr, i, and actual element
+// filter only deposites >0
+const deposites = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(movements); // prints [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(deposites); // prints [200, 450, 3000, 70, 1300]
+
+const depositeForOf = [];
+for (const mov of movements) {
+  if (mov > 0) {
+    depositeForOf.push(mov);
+  }
+};
+console.log(depositeForOf); // does the same, but it is better to use filter 
+// when it comes to really complicated code
+
+// create withdrawals:
+const withdrawals = movements.filter(mov => mov < 0); 
+// no need to with return if one line only
+console.log(withdrawals); // prints [-400, -650, -130]
