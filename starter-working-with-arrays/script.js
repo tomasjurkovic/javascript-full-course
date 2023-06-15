@@ -281,3 +281,50 @@ console.log(movementsDescription);
 // 'Movement 3: You withdrew -400$', 'Movement 4: You deposited 3000$', 
 // 'Movement 5: You withdrew -650$', 'Movement 6: You withdrew -130$', 
 // 'Movement 7: You deposited 70$', 'Movement 8: You deposited 1300$']
+
+// computing usrr names:
+// I tried a bit :)
+const user = 'Steven Thomas Williams'; // str
+const username = user.split(' ');
+let realusername = ''
+username.forEach(word => {
+  realusername += word.slice(0, 1).toLowerCase();
+});
+
+console.log(realusername);
+
+// but really:
+// split returns an array so we can use map there
+const username2 = user.toLowerCase()
+  .split(' ')
+  .map(name => name.slice(0, 1))
+  .join('');
+
+console.log(username2); // stw is returned
+
+// lets do it in function:
+const getUserName = function (user) {
+  const username = user.toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('');
+  return username;
+};
+
+console.log(getUserName(account1.owner)); // js returns 
+console.log(getUserName(account2.owner)); // jd returns
+console.log(getUserName('Tom Marvolo Riddle')); // tmr
+
+// do it in better way by modifying array what we have as an input
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('');
+  })
+};
+
+createUserNames(accounts);
+console.log(accounts);
