@@ -328,3 +328,26 @@ const createUserNames = function (accs) {
 
 createUserNames(accounts);
 console.log(accounts);
+
+// filter method:
+// it has access to arr, i, and actual element
+// filter only deposites >0
+const deposites = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(movements); // prints [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(deposites); // prints [200, 450, 3000, 70, 1300]
+
+const depositeForOf = [];
+for (const mov of movements) {
+  if (mov > 0) {
+    depositeForOf.push(mov);
+  }
+};
+console.log(depositeForOf); // does the same, but it is better to use filter 
+// when it comes to really complicated code
+
+// create withdrawals:
+const withdrawals = movements.filter(mov => mov < 0); 
+// no need to with return if one line only
+console.log(withdrawals); // prints [-400, -650, -130]
