@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 34, -1000, 77, 14000, 7, -10],
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 34, -1000, 77, 140, 7, -10, -205, 254],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -390,4 +390,13 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 }
 
-calcDisplayBalance(account1.movements)
+calcDisplayBalance(account1.movements);
+
+// maximum value from movements:
+const maxValue = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+  }, movements[0]
+);
+
+console.log(maxValue);
