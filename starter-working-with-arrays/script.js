@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 34, -1000, 77, 14000, 7, -10],
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 34, -1000, 77, 140, 7, -10, -205, 254],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -351,3 +351,52 @@ console.log(depositeForOf); // does the same, but it is better to use filter
 const withdrawals = movements.filter(mov => mov < 0); 
 // no need to with return if one line only
 console.log(withdrawals); // prints [-400, -650, -130]
+
+// reduce method:
+// acc is acculumator which a like a snowball
+// returns only one number
+const balance = movements.reduce((acc, cur, i, arr) => {
+  console.log(`Iteration ${i}: ${acc}`);
+  return acc + cur;
+}, 0); // zero is important that we start from zero,
+// it could be any other number, which we can start snowball effect
+
+// prints:
+/* Iteration 0: 0
+Iteration 1: 200
+Iteration 2: 650
+Iteration 3: 250
+Iteration 4: 3250
+Iteration 5: 2600
+Iteration 6: 2470
+Iteration 7: 2540 */
+
+console.log(balance); // prints 3840
+
+// how does it looks like in for of loop:
+let balance2 = 0;
+let index = 0;
+for (const mov of movements) {
+  console.log(`Iteration ${index}: ${balance2}`);
+  balance2 += mov;
+  index++;
+}
+
+// let it use in app:
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => 
+    acc + mov, 0
+  )
+  labelBalance.textContent = `${balance}€`;
+}
+
+calcDisplayBalance(account1.movements);
+
+// maximum value from movements:
+const maxValue = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+  }, movements[0]
+);
+
+console.log(maxValue);
