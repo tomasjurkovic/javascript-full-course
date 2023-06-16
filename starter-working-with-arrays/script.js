@@ -381,3 +381,13 @@ for (const mov of movements) {
   balance2 += mov;
   index++;
 }
+
+// let it use in app:
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => 
+    acc + mov, 0
+  )
+  labelBalance.textContent = `${balance}€`;
+}
+
+calcDisplayBalance(account1.movements)
