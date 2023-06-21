@@ -400,3 +400,13 @@ const maxValue = movements.reduce((acc, mov) => {
 );
 
 console.log(maxValue);
+
+// chaining methods together:
+// how much was deposited in USD:
+const depositedUsdTotal = movements
+  .map(mov => mov * 1.09)
+  .filter(mov => mov > 0)
+  .reduce((acc, mov) => 
+  acc + mov, 0);
+
+console.log(depositedUsdTotal);
