@@ -79,6 +79,20 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements);
 
+calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${outcomes}€`;
+}
+
+calcDisplaySummary(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -426,15 +440,15 @@ const depositedUsdTotal = movements
 
 // my simple solution
 // calculate income:
-const income = movements
-    .filter(mov => mov > 0)
-    .reduce((acc, mov) => acc + mov, 0);
+// const income = movements
+//     .filter(mov => mov > 0)
+//     .reduce((acc, mov) => acc + mov, 0);
 
-labelSumIn.textContent = `${income}€`
+// labelSumIn.textContent = `${income}€`
 
-// calculate outcome
-const outcome = movements
-    .filter(mov => mov < 0)
-    .reduce((acc, mov) => acc + mov, 0);
+// // calculate outcome
+// const outcome = movements
+//     .filter(mov => mov < 0)
+//     .reduce((acc, mov) => acc + mov, 0);
 
-labelSumOut.textContent = `${outcome}€`
+// labelSumOut.textContent = `${outcome}€`
