@@ -423,3 +423,18 @@ const depositedUsdTotal = movements
   .map(mov => mov * euroToUsd) // changed them to USD
   .reduce((acc, mov) => 
   acc + mov, 0); */
+
+// my simple solution
+// calculate income:
+const income = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+labelSumIn.textContent = `${income}€`
+
+// calculate outcome
+const outcome = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+labelSumOut.textContent = `${outcome}€`
