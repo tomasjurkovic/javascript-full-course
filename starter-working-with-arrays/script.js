@@ -79,6 +79,29 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`; 
+  // absolute value, so no - sign
+
+  const percInterest = 1.2;
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(dep => (dep * percInterest) - dep)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -400,3 +423,41 @@ const maxValue = movements.reduce((acc, mov) => {
 );
 
 console.log(maxValue);
+
+// chaining methods together:
+// how much was deposited in USD:
+const euroToUsd = 1.09;
+
+// PIPELINE:
+const depositedUsdTotal = movements
+  .filter(mov => mov > 0) // filter only positive values
+  .map((mov, i, arr) => {
+      console.log(arr);
+      return mov * euroToUsd; // if more lines, return is needed
+    }) // changed them to USD
+  .reduce((acc, mov) => 
+  acc + mov, 0); // reduce them to single value
+
+console.log(depositedUsdTotal);
+
+/* simple solution:
+const depositedUsdTotal = movements
+  .filter(mov => mov > 0) // filter only positive values
+  .map(mov => mov * euroToUsd) // changed them to USD
+  .reduce((acc, mov) => 
+  acc + mov, 0); */
+
+// my simple solution
+// calculate income:
+// const income = movements
+//     .filter(mov => mov > 0)
+//     .reduce((acc, mov) => acc + mov, 0);
+
+// labelSumIn.textContent = `${income}€`
+
+// // calculate outcome
+// const outcome = movements
+//     .filter(mov => mov < 0)
+//     .reduce((acc, mov) => acc + mov, 0);
+
+// labelSumOut.textContent = `${outcome}€`
