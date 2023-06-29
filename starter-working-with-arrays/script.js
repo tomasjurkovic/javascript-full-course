@@ -79,7 +79,7 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements);
 
-calcDisplaySummary = function (movements) {
+const calcDisplaySummary = function (movements) {
   const incomes = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
@@ -88,8 +88,17 @@ calcDisplaySummary = function (movements) {
   const outcomes = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${outcomes}€`;
-}
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`; 
+  // absolute value, so no - sign
+
+  const percInterest = 1.2;
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(dep => (dep * percInterest) - dep)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
 
 calcDisplaySummary(account1.movements);
 
