@@ -112,7 +112,7 @@ GOOD LUCK */
 
 const calcAverageHumanAgeChaining = (dogsAge) => {
   const averageAdultDogAge = dogsAge
-    .map(age => age = 2 ? age * 2 : 16 + age * 4)
+    .map(age => (age = 2 ? age * 2 : 16 + age * 4))
     .filter(humanAge => humanAge >= 18)
     .reduce((acc, cur, i, arr) => 
       acc + cur / arr.length, 0);
