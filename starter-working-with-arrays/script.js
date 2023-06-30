@@ -105,14 +105,23 @@ const calcDisplaySummary = function (acc) {
 // calcDisplaySummary(account1.movements);
 
 // calc balance
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => 
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => 
     acc + mov, 0
   )
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${acc.balance}€`;
 }
 
 // calcDisplayBalance(account1.movements);
+
+const updateUI = function (acc) {
+   // display movements
+   displayMovements(currentAccount.movements);
+   // display balance
+   calcDisplayBalance(currentAccount);
+   // display summary
+   calcDisplaySummary(currentAccount);
+}
 
 // Event handlers:
 let currentAccount;
@@ -131,14 +140,8 @@ btnLogin.addEventListener('click', function (e) {
     // clear input fields:
     inputLoginUsername.value = inputLoginPin.value = '';
     // inputLoginPin.blur(); // actually not needed, it happens automatically
-    // display movements
-    displayMovements(currentAccount.movements);
-    // display balance
-    calcDisplayBalance(currentAccount.movements);
-    // display summary
-    calcDisplaySummary(currentAccount);
+    updateUI(currentAccount);
   }
-  return currentAccount;
 });
 
 // transfer money feature:
@@ -147,12 +150,14 @@ btnTransfer.addEventListener('click', function (e) {
   const amount = Number(inputTransferAmount.value);
   const recieverAcount = accounts
     .find(acc => acc.username === inputTransferTo.value);
-
-  // currentAccount.find(acc => acc.username === inputLoginUsername.value); 
-  currentAccount.movements.push(-Math.abs(amount));
-  recieverAcount.movements.push(Math.abs(amount));
-  console.log(amount, recieverAcount);
-  console.log('MONEY ARE TRANSFERRED');
+  inputTransferTo.value = inputTransferAmount.value = '';
+  if (amount > 0 && 
+    currentAccount.balance >= amount && 
+    recieverAcount?.username !== currentAccount.username) {
+    currentAccount.movements.push(-amount);
+    recieverAcount.movements.push(amount);
+    updateUI(currentAccount);
+  }
 })
 
 /////////////////////////////////////////////////
