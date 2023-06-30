@@ -138,7 +138,22 @@ btnLogin.addEventListener('click', function (e) {
     // display summary
     calcDisplaySummary(currentAccount);
   }
+  return currentAccount;
 });
+
+// transfer money feature:
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault(); // once again prevent default behavior
+  const amount = Number(inputTransferAmount.value);
+  const recieverAcount = accounts
+    .find(acc => acc.username === inputTransferTo.value);
+
+  // currentAccount.find(acc => acc.username === inputLoginUsername.value); 
+  currentAccount.movements.push(-Math.abs(amount));
+  recieverAcount.movements.push(Math.abs(amount));
+  console.log(amount, recieverAcount);
+  console.log('MONEY ARE TRANSFERRED');
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
