@@ -77,7 +77,7 @@ const displayMovements = function(movements) {
   });
 };
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
 
 const calcDisplaySummary = function (movements) {
   const incomes = movements
@@ -100,7 +100,17 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
+
+// calc balance
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => 
+    acc + mov, 0
+  )
+  labelBalance.textContent = `${balance}€`;
+}
+
+// calcDisplayBalance(account1.movements);
 
 // Event handlers:
 let currentAccount;
@@ -119,13 +129,18 @@ btnLogin.addEventListener('click', function (e) {
     
     // change opacity so it's visible
     containerApp.style.opacity = 100;
-    // display summary
+
+    // display movements
+    displayMovements(currentAccount.movements);
 
     // display balance
+    calcDisplayBalance(currentAccount.movements);
 
     // display summary
+    calcDisplaySummary(currentAccount.movements);
+
   }
-})
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -429,16 +444,6 @@ for (const mov of movements) {
   balance2 += mov;
   index++;
 }
-
-// let it use in app:
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => 
-    acc + mov, 0
-  )
-  labelBalance.textContent = `${balance}€`;
-}
-
-calcDisplayBalance(account1.movements);
 
 // maximum value from movements:
 const maxValue = movements.reduce((acc, mov) => {
