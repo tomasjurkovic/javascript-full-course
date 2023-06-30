@@ -15,7 +15,7 @@ const account1 = {
 const account2 = {
   owner: 'Jessica Davis',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
+  interestRate: 5,
   pin: 2222,
 };
 
@@ -77,30 +77,68 @@ const displayMovements = function(movements) {
   });
 };
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outcomes = movements
+  const outcomes = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(outcomes)}€`; 
   // absolute value, so no - sign
 
-  const percInterest = 1.2;
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(dep => (dep * percInterest) - dep)
-    .filter(int => int >= 1)
+    .map(dep => (dep * acc.interestRate) / dep)
+    // .filter((int, i, arr) => {
+    //   console.log(arr);
+    //   return int >= 1;
+    // })
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
+
+// calc balance
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => 
+    acc + mov, 0
+  )
+  labelBalance.textContent = `${balance}€`;
+}
+
+// calcDisplayBalance(account1.movements);
+
+// Event handlers:
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  // form buttons reload the form, so we need to stop it
+  // hitting enter is same as click event, so it works as well
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // display message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}!`;
+    // change opacity so it's visible
+    containerApp.style.opacity = 100;
+    // clear input fields:
+    inputLoginUsername.value = inputLoginPin.value = '';
+    // inputLoginPin.blur(); // actually not needed, it happens automatically
+    // display movements
+    displayMovements(currentAccount.movements);
+    // display balance
+    calcDisplayBalance(currentAccount.movements);
+    // display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -405,16 +443,6 @@ for (const mov of movements) {
   index++;
 }
 
-// let it use in app:
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => 
-    acc + mov, 0
-  )
-  labelBalance.textContent = `${balance}€`;
-}
-
-calcDisplayBalance(account1.movements);
-
 // maximum value from movements:
 const maxValue = movements.reduce((acc, mov) => {
   if (acc > mov) return acc;
@@ -502,3 +530,5 @@ const filterJessicaAccount = accounts
 
 console.log(...filterJessicaAccount);
 // returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
+
+// login implementation:
