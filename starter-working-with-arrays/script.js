@@ -461,3 +461,44 @@ const depositedUsdTotal = movements
 //     .reduce((acc, mov) => acc + mov, 0);
 
 // labelSumOut.textContent = `${outcome}€`
+
+// find method:
+// returns only first element which satisfies the condition in method
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal); // returns only -400
+// find works similar method than filter
+// 2 differences:
+// 1. find returns not an array but a single value
+// 2. find returns only the first element
+
+console.log(accounts);
+const accountJessica = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(accountJessica);
+// return whole account object which owner's name is Jessica Davis
+// {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
+
+// it has to be perfect match
+// const accountJonas = accounts.find(acc => acc.owner === 'Jonas');
+// this would return undefined, because of not perfect match
+
+const accountJonas = accounts.find(acc => acc.owner === 'Jonas Schmedtmann');
+console.log(accountJonas);
+
+// challenge to do it with for of loop:
+const forJessicaAccount = function (accounts) {
+  for (const account of accounts) {
+    if (account.owner === 'Jessica Davis') {
+      console.log(account);
+    }
+  }
+}
+
+forJessicaAccount(accounts);
+// returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
+
+// do it with filter
+const filterJessicaAccount = accounts
+  .filter(acc => acc.owner === 'Jessica Davis');
+
+console.log(...filterJessicaAccount);
+// returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
