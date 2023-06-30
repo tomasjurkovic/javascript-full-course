@@ -102,6 +102,31 @@ const calcDisplaySummary = function (movements) {
 
 calcDisplaySummary(account1.movements);
 
+// Event handlers:
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  // form buttons reload the form, so we need to stop it
+  // hitting enter is same as click event, so it works as well
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    console.log('LOGIN');
+
+    // display message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}!`;
+    
+    // change opacity so it's visible
+    containerApp.style.opacity = 100;
+    // display summary
+
+    // display balance
+
+    // display summary
+  }
+})
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -502,3 +527,5 @@ const filterJessicaAccount = accounts
 
 console.log(...filterJessicaAccount);
 // returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
+
+// login implementation:
