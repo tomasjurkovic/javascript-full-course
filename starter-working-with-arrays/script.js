@@ -166,6 +166,7 @@ btnLoan.addEventListener('click', function (e) {
   const requestedAmmount = Number(inputLoanAmount.value);
   if (
     typeof requestedAmmount === "number" &&
+    requestedAmmount > 0 &&
     // bank's condition is that only accepts those requests for loan
     // that are higher than 1/10 of requested ammount
     currentAccount.movements.some(mov => mov >= (requestedAmmount * 0.1)
