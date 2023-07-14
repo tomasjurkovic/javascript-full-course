@@ -153,13 +153,12 @@ btnClose.addEventListener('click', function(e) {
     // use splice to delete one user the account array
     // only selected one is deleted based on its index:
     accounts.splice(accountToDelete, 1);
-    
-    // clear input fields:
-    inputClosePin.value = inputCloseUsername.value = '';
 
     // logging out:
     loggingOut(currentAccount);
   }
+  // clear input fields:
+  inputClosePin.value = inputCloseUsername.value = '';
 });
 
 /////////////////////////////////////////////////
