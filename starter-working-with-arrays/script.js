@@ -181,6 +181,23 @@ btnClose.addEventListener('click', function(e) {
   inputClosePin.value = inputCloseUsername.value = '';
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const requestedAmmount = Number(inputLoanAmount.value);
+  if (
+    typeof requestedAmmount === "number" &&
+    requestedAmmount > 0 &&
+    // bank's condition is that only accepts those requests for loan
+    // that are higher than 1/10 of requested ammount
+    currentAccount.movements.some(mov => mov >= (requestedAmmount * 0.1)
+    )) {
+      currentAccount.movements.push(requestedAmmount);
+      updateUI(currentAccount);
+    }
+  // clearing input loan form field:  
+  inputLoanAmount.value = '';
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -581,3 +598,27 @@ const loggingOut = function (account) {
   // logging off for user with deleted account
   currentAccount = '';
 }
+
+// some and every methods:
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+// checks only quality
+console.log(movements.includes(-130)); // true
+
+// checks condition:
+console.log(movements.some(mov => mov === -130)); // true, same as above
+
+// can be verified if some condition is present in an array
+const anyDeposites = movements.some(mov => mov > 500);
+console.log(anyDeposites); // prints true
+// because at least one item in aray are greater than 500
+
+const allDeposites = movements.every(mov => mov > 0);
+console.log(allDeposites); // prints false, 
+// because not all items in aray are greater than 0
+
+// Separate callback:
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
+// constant can be used as a callback function for many methods like some, every or filter
