@@ -142,7 +142,6 @@ btnLogin.addEventListener('click', function (e) {
 
 btnClose.addEventListener('click', function(e) {
   e.preventDefault();
-  console.log('delete');
   // checking if username and pin match current user
   if (
     inputCloseUsername.value === currentAccount.username &&
@@ -158,9 +157,8 @@ btnClose.addEventListener('click', function(e) {
     // clear input fields:
     inputClosePin.value = inputCloseUsername.value = '';
 
-    // user should be logged off (now only visually):
-    containerApp.style.opacity = 0;
-    labelWelcome.textContent = `User ${currentAccount.owner} was deleted!`;
+    // logging out:
+    loggingOut(currentAccount);
   }
 });
 
@@ -555,4 +553,12 @@ const filterJessicaAccount = accounts
 console.log(...filterJessicaAccount);
 // returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
 
-// login implementation:
+// login out implementation:
+const loggingOut = function (account) {
+  // user should be logged off (now only visually):
+  containerApp.style.opacity = 0;
+  labelWelcome.textContent = `User ${currentAccount.owner} was deleted!`;
+    
+  // logging off for user with deleted account
+  currentAccount = '';
+}
