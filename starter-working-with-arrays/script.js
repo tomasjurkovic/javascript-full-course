@@ -561,3 +561,20 @@ const loggingOut = function (account) {
   // logging off for user with deleted account
   currentAccount = '';
 }
+
+// some and every methods:
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+// checks only quality
+console.log(movements.includes(-130)); // true
+
+// checks condition:
+console.log(movements.some(mov => mov === -130)); // true, same as above
+
+// can be verified if some condition is present in an array
+const anyDeposites = movements.some(mov => mov > 500);
+console.log(anyDeposites); // prints true
+// because at least one item in aray are greater than 500
+
+const allDeposites = movements.every(mov => mov > 0);
+console.log(allDeposites); // prints false, 
+// because not all items in aray are greater than 0
