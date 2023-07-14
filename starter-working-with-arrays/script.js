@@ -105,14 +105,23 @@ const calcDisplaySummary = function (acc) {
 // calcDisplaySummary(account1.movements);
 
 // calc balance
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => 
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => 
     acc + mov, 0
   )
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${acc.balance}€`;
 }
 
 // calcDisplayBalance(account1.movements);
+
+const updateUI = function (acc) {
+   // display movements
+   displayMovements(currentAccount.movements);
+   // display balance
+   calcDisplayBalance(currentAccount);
+   // display summary
+   calcDisplaySummary(currentAccount);
+}
 
 // Event handlers:
 let currentAccount;
@@ -131,13 +140,62 @@ btnLogin.addEventListener('click', function (e) {
     // clear input fields:
     inputLoginUsername.value = inputLoginPin.value = '';
     // inputLoginPin.blur(); // actually not needed, it happens automatically
-    // display movements
-    displayMovements(currentAccount.movements);
-    // display balance
-    calcDisplayBalance(currentAccount.movements);
-    // display summary
-    calcDisplaySummary(currentAccount);
+    updateUI(currentAccount);
   }
+});
+
+// transfer money feature:
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault(); // once again prevent default behavior
+  const amount = Number(inputTransferAmount.value);
+  const recieverAcount = accounts
+    .find(acc => acc.username === inputTransferTo.value);
+  inputTransferTo.value = inputTransferAmount.value = '';
+  if (amount > 0 && 
+    currentAccount.balance >= amount && 
+    recieverAcount?.username !== currentAccount.username) {
+    currentAccount.movements.push(-amount);
+    recieverAcount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+})
+
+btnClose.addEventListener('click', function(e) {
+  e.preventDefault();
+  // checking if username and pin match current user
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+    ) {
+    // find current user's index in accounts array
+    const accountToDelete = accounts.findIndex(acc => acc === currentAccount);
+
+    // use splice to delete one user the account array
+    // only selected one is deleted based on its index:
+    accounts.splice(accountToDelete, 1);
+
+    // logging out:
+    loggingOut(currentAccount);
+  }
+  // clear input fields:
+  inputClosePin.value = inputCloseUsername.value = '';
+});
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const requestedAmmount = Number(inputLoanAmount.value);
+  if (
+    typeof requestedAmmount === "number" &&
+    requestedAmmount > 0 &&
+    // bank's condition is that only accepts those requests for loan
+    // that are higher than 1/10 of requested ammount
+    currentAccount.movements.some(mov => mov >= (requestedAmmount * 0.1)
+    )) {
+      currentAccount.movements.push(requestedAmmount);
+      updateUI(currentAccount);
+    }
+  // clearing input loan form field:  
+  inputLoanAmount.value = '';
 });
 
 /////////////////////////////////////////////////
@@ -531,4 +589,36 @@ const filterJessicaAccount = accounts
 console.log(...filterJessicaAccount);
 // returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
 
-// login implementation:
+// login out implementation:
+const loggingOut = function (account) {
+  // user should be logged off (now only visually):
+  containerApp.style.opacity = 0;
+  labelWelcome.textContent = `User ${currentAccount.owner} was deleted!`;
+    
+  // logging off for user with deleted account
+  currentAccount = '';
+}
+
+// some and every methods:
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+// checks only quality
+console.log(movements.includes(-130)); // true
+
+// checks condition:
+console.log(movements.some(mov => mov === -130)); // true, same as above
+
+// can be verified if some condition is present in an array
+const anyDeposites = movements.some(mov => mov > 500);
+console.log(anyDeposites); // prints true
+// because at least one item in aray are greater than 500
+
+const allDeposites = movements.every(mov => mov > 0);
+console.log(allDeposites); // prints false, 
+// because not all items in aray are greater than 0
+
+// Separate callback:
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
+// constant can be used as a callback function for many methods like some, every or filter
