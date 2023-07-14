@@ -140,6 +140,30 @@ btnLogin.addEventListener('click', function (e) {
   }
 });
 
+btnClose.addEventListener('click', function(e) {
+  e.preventDefault();
+  console.log('delete');
+  // checking if username and pin match current user
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+    ) {
+    // find current user's index in accounts array
+    const accountToDelete = accounts.findIndex(acc => acc === currentAccount);
+
+    // use splice to delete one user the account array
+    // only selected one is deleted based on its index:
+    accounts.splice(accountToDelete, 1);
+    
+    // clear input fields:
+    inputClosePin.value = inputCloseUsername.value = '';
+
+    // user should be logged off (now only visually):
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `User ${currentAccount.owner} was deleted!`;
+  }
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
