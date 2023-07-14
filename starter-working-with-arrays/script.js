@@ -192,9 +192,7 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.some(mov => mov >= (requestedAmmount * 0.1)
     )) {
       currentAccount.movements.push(requestedAmmount);
-      displayMovements(currentAccount.movements);
-      calcDisplayBalance(currentAccount.movements);
-      calcDisplaySummary(currentAccount);
+      updateUI(currentAccount);
     }
   // clearing input loan form field:  
   inputLoanAmount.value = '';
