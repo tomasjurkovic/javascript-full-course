@@ -615,3 +615,10 @@ console.log(anyDeposites); // prints true
 const allDeposites = movements.every(mov => mov > 0);
 console.log(allDeposites); // prints false, 
 // because not all items in aray are greater than 0
+
+// Separate callback:
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
+// constant can be used as a callback function for many methods like some, every or filter
