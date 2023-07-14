@@ -160,6 +160,27 @@ btnTransfer.addEventListener('click', function (e) {
   }
 })
 
+btnClose.addEventListener('click', function(e) {
+  e.preventDefault();
+  // checking if username and pin match current user
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+    ) {
+    // find current user's index in accounts array
+    const accountToDelete = accounts.findIndex(acc => acc === currentAccount);
+
+    // use splice to delete one user the account array
+    // only selected one is deleted based on its index:
+    accounts.splice(accountToDelete, 1);
+
+    // logging out:
+    loggingOut(currentAccount);
+  }
+  // clear input fields:
+  inputClosePin.value = inputCloseUsername.value = '';
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -551,4 +572,12 @@ const filterJessicaAccount = accounts
 console.log(...filterJessicaAccount);
 // returns {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'jd'}
 
-// login implementation:
+// login out implementation:
+const loggingOut = function (account) {
+  // user should be logged off (now only visually):
+  containerApp.style.opacity = 0;
+  labelWelcome.textContent = `User ${currentAccount.owner} was deleted!`;
+    
+  // logging off for user with deleted account
+  currentAccount = '';
+}
