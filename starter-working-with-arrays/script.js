@@ -161,6 +161,24 @@ btnClose.addEventListener('click', function(e) {
   inputClosePin.value = inputCloseUsername.value = '';
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const requestedAmmount = Number(inputLoanAmount.value);
+  if (
+    typeof requestedAmmount === "number" &&
+    // bank's condition is that only accepts those requests for loan
+    // that are higher than 1/10 of requested ammount
+    currentAccount.movements.some(mov => mov >= (requestedAmmount * 0.1)
+    )) {
+      currentAccount.movements.push(requestedAmmount);
+      displayMovements(currentAccount.movements);
+      calcDisplayBalance(currentAccount.movements);
+      calcDisplaySummary(currentAccount);
+    }
+  // clearing input loan form field:  
+  inputLoanAmount.value = '';
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
