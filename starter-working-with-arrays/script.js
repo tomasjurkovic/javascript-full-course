@@ -664,3 +664,41 @@ const overalBalanceFM = accounts
 
 console.log(overalBalanceFM);
 // easily with flatMap function in 2 steps
+
+// sort functions:
+// sort function mutates the sorted array
+const owners = ['Jonas', 'Zach', 'Adam', 'Marta']
+console.log(owners.sort());
+console.log(owners);
+// both prints ['Adam', 'Jonas', 'Marta', 'Zach']
+
+console.log(movements);
+console.log(movements.sort());
+// first prints:  [200, 450, -400, 3000, -650, -130, 70, 1300]
+// second prints: [-130, -400, -650, 1300, 200, 3000, 450, 70]
+// sort function works good for string by default, but not for numbers
+
+// if we return < 0 A, B
+// if we return > 0, B, A
+// ascending orded:
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+
+// better solution:
+movements.sort((a, b) => a - b);
+
+console.log(movements);
+// prints correct order for numbers now:
+// [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// descending order:
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (b > a) return -1;
+// });
+
+movements.sort((a, b) => b - a);
+console.log(movements);
+// prints [3000, 1300, 450, 200, 70, -130, -400, -650]
