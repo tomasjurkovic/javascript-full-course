@@ -637,15 +637,17 @@ console.log(arrStructured.flatMap(num => num * 10));
 
 console.log(accounts.flat());
 
-const accountMovements = accounts.map(acc => acc.movements);
-console.log(accountMovements);
-const allMovements = accountMovements.flat();
-console.log(allMovements);
-const sumOfMovements = allMovements.reduce((acc, current) => 
-  acc + current, 0
-);
+// old solution:
 
-console.log(sumOfMovements);
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const sumOfMovements = allMovements.reduce((acc, current) => 
+//   acc + current, 0
+// );
+
+// console.log(sumOfMovements);
 
 // we can use chaining:
 const overalBalance = accounts
@@ -655,6 +657,7 @@ const overalBalance = accounts
 
 console.log(overalBalance); // prints 17137
 
+// using flatMap
 const overalBalanceFM = accounts
   .flatMap(acc => acc.movements)
   .reduce((acc, mov) => acc + mov, 0);
