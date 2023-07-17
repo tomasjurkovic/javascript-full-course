@@ -622,3 +622,42 @@ console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
 // constant can be used as a callback function for many methods like some, every or filter
+
+// FLAT & FLAT MAP:
+const arrStructured = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arrStructured.flat()); 
+// prints in flat format: [1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[1, [2, 3]], [[4, 5], 6], 7, 8]
+console.log(arrDeep.flat()); // it flats just first dimension
+// it prints [1, Array(2), Array(2), 6, 7, 8]
+console.log(arrDeep.flat(2)); // with argument is going more deeper 2 sections
+// it prints [1, 2, 3, 4, 5, 6, 7, 8]
+console.log(arrStructured.flatMap(num => num * 10));
+
+console.log(accounts.flat());
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+const sumOfMovements = allMovements.reduce((acc, current) => 
+  acc + current, 0
+);
+
+console.log(sumOfMovements);
+
+// we can use chaining:
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalance); // prints 17137
+
+const overalBalanceFM = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalanceFM);
+// easily with flatMap function in 2 steps
