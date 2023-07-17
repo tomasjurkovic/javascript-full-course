@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function(movements) {
+const displayMovements = function(movements, sort = false) {
   containerMovements.innerHTML = '';
   // deletes existing content...
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal'
     const html = `
     <div class="movements__row">
@@ -196,6 +198,13 @@ btnLoan.addEventListener('click', function (e) {
     }
   // clearing input loan form field:  
   inputLoanAmount.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted; // give it opposite state after clicking on sorting button
 });
 
 /////////////////////////////////////////////////
@@ -622,3 +631,83 @@ console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
 // constant can be used as a callback function for many methods like some, every or filter
+
+// FLAT & FLAT MAP:
+const arrStructured = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arrStructured.flat()); 
+// prints in flat format: [1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[1, [2, 3]], [[4, 5], 6], 7, 8]
+console.log(arrDeep.flat()); // it flats just first dimension
+// it prints [1, Array(2), Array(2), 6, 7, 8]
+console.log(arrDeep.flat(2)); // with argument is going more deeper 2 sections
+// it prints [1, 2, 3, 4, 5, 6, 7, 8]
+console.log(arrStructured.flatMap(num => num * 10));
+
+console.log(accounts.flat());
+
+// old solution:
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const sumOfMovements = allMovements.reduce((acc, current) => 
+//   acc + current, 0
+// );
+
+// console.log(sumOfMovements);
+
+// we can use chaining:
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalance); // prints 17137
+
+// using flatMap
+const overalBalanceFM = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalanceFM);
+// easily with flatMap function in 2 steps
+
+// sort functions:
+// sort function mutates the sorted array
+const owners = ['Jonas', 'Zach', 'Adam', 'Marta']
+console.log(owners.sort());
+console.log(owners);
+// both prints ['Adam', 'Jonas', 'Marta', 'Zach']
+
+console.log(movements);
+console.log(movements.sort());
+// first prints:  [200, 450, -400, 3000, -650, -130, 70, 1300]
+// second prints: [-130, -400, -650, 1300, 200, 3000, 450, 70]
+// sort function works good for string by default, but not for numbers
+
+// if we return < 0 A, B
+// if we return > 0, B, A
+// ascending orded:
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+
+// better solution:
+movements.sort((a, b) => a - b);
+
+console.log(movements);
+// prints correct order for numbers now:
+// [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// descending order:
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (b > a) return -1;
+// });
+
+movements.sort((a, b) => b - a);
+console.log(movements);
+// prints [3000, 1300, 450, 200, 70, -130, -400, -650]
