@@ -711,3 +711,34 @@ console.log(movements);
 movements.sort((a, b) => b - a);
 console.log(movements);
 // prints [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+// more ways of creating and filling arrays:
+console.log(1, 2, 3, 4, 5, 6, 7);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+const x = new Array(7);
+console.log(x); // creates 7 empty elements [empty × 7] with nothing
+console.log(x[1]); // undefined
+console.log(x.map(() => 5)); // does not do anything here
+// still returns [empty × 7]
+
+// Fill method:
+// mutates underline array
+x.fill(1);
+console.log(x); // prints [1, 1, 1, 1, 1, 1, 1]
+
+x.fill(2, 3, 5); // first param is what to insert
+// second is where to start 
+// third is where to end
+console.log(x); // prints [1, 1, 1, 2, 2, 1, 1]
+// it fills third and fourth index only
+
+// FROM Method:
+const y = Array.from({length: 7}, () => 1);
+console.log(y); // prints [1, 1, 1, 1, 1, 1, 1]
+// works same as x.fill(1);
+
+const z = Array.from({length: 7}, (_, i) => i + 1);
+// current value = _ and we have to define it, so we can use secodn param
+// which is index, so code works
+console.log(z); // [1, 2, 3, 4, 5, 6, 7]
+
