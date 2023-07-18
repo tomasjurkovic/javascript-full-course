@@ -742,3 +742,8 @@ const z = Array.from({length: 7}, (_, i) => i + 1);
 // which is index, so code works
 console.log(z); // [1, 2, 3, 4, 5, 6, 7]
 
+// exercise: try to do array of 100 random roll dice rolls
+const oneHundredDiceRolls = Array.from({length: 100}, () => (
+  Math.trunc(Math.random() * 6) + 1
+));
+console.log(oneHundredDiceRolls);
