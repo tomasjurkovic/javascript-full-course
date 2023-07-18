@@ -747,3 +747,15 @@ const oneHundredDiceRolls = Array.from({length: 100}, () => (
   Math.trunc(Math.random() * 6) + 1
 ));
 console.log(oneHundredDiceRolls);
+
+// we can create arrays from other things:
+// from querySelectorAll:
+// get all movements form UI:
+
+// let put it in some event handler:
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(document.querySelectorAll('.movements__value'), 
+    el => Number(el.textContent.replace('€', '')) // now it's as a second argument
+  );
+  console.log(movementsUI);
+})
