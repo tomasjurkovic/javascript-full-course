@@ -759,3 +759,24 @@ labelBalance.addEventListener('click', function () {
   );
   console.log(movementsUI);
 })
+
+// more coding exercises:
+// 1. how much it was deposited in the bank:
+const bankDepositSum = accounts.flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((acc, cur) => acc + cur, 0);
+console.log(bankDepositSum);
+// step 1 creates one array of all movements while flatmap
+// step 2 filters only deposites
+// step 3 count all deposited value to the bank
+// prints 25692
+
+// 2. how many deposite there were in the bank with at least 100$?
+const numDepositesOver100$ = accounts.flatMap(acc => acc.movements)
+  .filter(mov => mov >= 1000).length;
+console.log(numDepositesOver100$);
+
+// another way:
+const numDepositesOver100$2 = accounts.flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+console.log(numDepositesOver100$2);
