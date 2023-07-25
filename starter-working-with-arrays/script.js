@@ -778,5 +778,9 @@ console.log(numDepositesOver100$);
 
 // another way:
 const numDepositesOver100$2 = accounts.flatMap(acc => acc.movements)
-  .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+  // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+  // count++ must be here replaced with ++count to work properly in this case
+  // otherwise it will still have 0 value...
+
 console.log(numDepositesOver100$2);
