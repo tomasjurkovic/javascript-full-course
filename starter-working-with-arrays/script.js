@@ -122,7 +122,7 @@ const updateUI = function (acc) {
    // display balance
    calcDisplayBalance(currentAccount);
    // display summary
-   calcDisplaySummary(currentAccount);
+   calcDisplaySummaryOnlyWithReduce(currentAccount);
 }
 
 // Event handlers:
@@ -789,9 +789,26 @@ console.log(numDepositesOver100$2);
 const { deposits, withdrawals } = accounts
   .flatMap(acc => acc.movements)
   .reduce((sums, cur) => {
-    cur > 0 ? sums.deposits += cur : sums.withdrawals += cur;
+    // cur > 0 ? sums.deposits += cur : sums.withdrawals += cur;
     sums[cur > 0 ? 'deposits' : 'withdrawals']
     return sums; // return is not impliced here
   }, {deposits: 0, withdrawals: 0}); // it is important to start here with an object
 
 console.log(deposits, withdrawals); // 25692 -8555
+
+// 4. use previous exercises and use only reduce method there:
+const calcDisplaySummaryOnlyWithReduce = function (acc) {
+  const incomes = acc.movements
+    .reduce((acc, mov) => acc + (mov > 0 ? mov : 0), 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = acc.movements
+    .reduce((acc, mov) => acc + (mov < 0 ? mov : 0), 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`; 
+  // absolute value, so no - sign
+
+  const interest = acc.movements
+    .map(dep => (dep * acc.interestRate) / dep)
+    .reduce((acc, mov) => acc + (mov > 0 ? mov : 0), 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
