@@ -476,9 +476,9 @@ console.log(depositeForOf); // does the same, but it is better to use filter
 // when it comes to really complicated code
 
 // create withdrawals:
-const withdrawals = movements.filter(mov => mov < 0); 
+const withdrawals2 = movements.filter(mov => mov < 0); 
 // no need to with return if one line only
-console.log(withdrawals); // prints [-400, -650, -130]
+console.log(withdrawals2); // prints [-400, -650, -130]
 
 // reduce method:
 // acc is acculumator which a like a snowball
@@ -784,3 +784,14 @@ const numDepositesOver100$2 = accounts.flatMap(acc => acc.movements)
   // otherwise it will still have 0 value...
 
 console.log(numDepositesOver100$2);
+
+// 3. create object that calculates all deposites and all withdrawals with reduce method:
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((sums, cur) => {
+    cur > 0 ? sums.deposits += cur : sums.withdrawals += cur;
+    sums[cur > 0 ? 'deposits' : 'withdrawals']
+    return sums; // return is not impliced here
+  }, {deposits: 0, withdrawals: 0}); // it is important to start here with an object
+
+console.log(deposits, withdrawals); // 25692 -8555
