@@ -812,3 +812,20 @@ const calcDisplaySummaryOnlyWithReduce = function (acc) {
     .reduce((acc, mov) => acc + (mov > 0 ? mov : 0), 0);
   labelSumInterest.textContent = `${interest}€`;
 };
+
+// 5. simple function covnvert to title caee:
+const convertTitleCase = function(title) {
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'of', 'in', 'with', 'without', 'off', 'out'];
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const titleCase = title.toLowerCase()
+    .split(' ')
+    .map(word => !exceptions.includes(word) ? capitalize(word) : word)
+    // .reduce((sentence, word) => sentence + ' ' + word, '');
+    .join(' '); // or use this above
+  return capitalize(titleCase);
+}
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title, but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+console.log(convertTitleCase('bitch OFF I did it, the world is great'));
