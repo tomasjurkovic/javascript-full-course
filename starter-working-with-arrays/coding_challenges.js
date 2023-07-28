@@ -181,3 +181,22 @@ const ownersEatTooMuch = dogs
 
 console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much.`);
 console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little.`);
+
+// 5. 
+/* Log to the console whether there is any dog eating exactly the amount of food
+that is recommended (just true or false) */
+const isThereAnyDogEatingExactAmountOfFood = dogs
+  .some(dog => dog.recommendedFood === dog.curFood);
+
+console.log(isThereAnyDogEatingExactAmountOfFood);
+
+// 6. 
+/* Log to the console whether there is any dog eating an okay amount of food
+(just true or false) 
+Being within a range 10% above and below the recommended portion means:
+current > (recommended * 0.90) && current < (recommended *
+1.10). Basically, the current portion should be between 90% and 110% of the
+recommended portion. */
+const isThereAnyDogEatingAlmostExactAmountOfFood = dogs
+  .some(dog => (dog.recommendedFood > dog.curFood * 0.9 || dog.recommendedFood < dog.curFood * 1.1));
+console.log(isThereAnyDogEatingAlmostExactAmountOfFood);
