@@ -164,3 +164,20 @@ const sarahsDog = dogs
 console.log(sarahsDog);
 const statement = `Sarah's dog ${sarahsDog.recommendedFood > sarahsDog.curFood ? 'does not ' : ''}eat too much`;
 console.log(statement);
+
+// task 3-4:
+/* Create an array containing all owners of dogs who eat too much
+('ownersEatTooMuch') and an array with all owners of dogs who eat too little
+('ownersEatTooLittle'). 
+Log a string to the console for each array created in 3., like this: "Matilda and
+Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat
+too little!" */
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.recommendedFood > dog.curFood)
+  .flatMap(dog => dog.owners)
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.recommendedFood < dog.curFood)
+  .flatMap(dog => dog.owners);
+
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much.`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little.`);
