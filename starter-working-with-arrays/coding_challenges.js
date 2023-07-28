@@ -198,5 +198,27 @@ current > (recommended * 0.90) && current < (recommended *
 1.10). Basically, the current portion should be between 90% and 110% of the
 recommended portion. */
 const isThereAnyDogEatingAlmostExactAmountOfFood = dogs
-  .some(dog => (dog.recommendedFood > dog.curFood * 0.9 || dog.recommendedFood < dog.curFood * 1.1));
+  .some(dog => (1.1 * dog.recommendedFood > dog.curFood * 0.9));
 console.log(isThereAnyDogEatingAlmostExactAmountOfFood);
+
+// 7.
+/* Create an array containing the dogs that are eating an okay amount of food (try
+to reuse the condition used in 6.) */
+const dogsEatingOkayAmounthOfFood = dogs
+  .filter(dog => 1.1 * dog.recommendedFood > dog.curFood * 0.9);
+console.log(dogsEatingOkayAmounthOfFood);
+
+// 8. 
+/* Create a shallow copy of the 'dogs' array and sort it by recommended food
+portion in an ascending order (keep in mind that the portions are inside the
+  array's objects �) */
+
+const dogsSorted = dogs.slice().sort((a, b) => a.recommendedFood - b.recommendedFood)
+console.log(dogsSorted);
+
+// descending:
+const dogsSortedDescending = dogs.slice().sort((a, b) => b.recommendedFood - a.recommendedFood)
+console.log(dogsSortedDescending);
+// or better:
+const dogsSortedDescending2 = dogsSorted.slice().reverse();
+console.log(dogsSortedDescending2);
