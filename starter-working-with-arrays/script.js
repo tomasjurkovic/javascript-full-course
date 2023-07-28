@@ -122,7 +122,7 @@ const updateUI = function (acc) {
    // display balance
    calcDisplayBalance(currentAccount);
    // display summary
-   calcDisplaySummary(currentAccount);
+   calcDisplaySummaryOnlyWithReduce(currentAccount);
 }
 
 // Event handlers:
@@ -476,9 +476,9 @@ console.log(depositeForOf); // does the same, but it is better to use filter
 // when it comes to really complicated code
 
 // create withdrawals:
-const withdrawals = movements.filter(mov => mov < 0); 
+const withdrawals2 = movements.filter(mov => mov < 0); 
 // no need to with return if one line only
-console.log(withdrawals); // prints [-400, -650, -130]
+console.log(withdrawals2); // prints [-400, -650, -130]
 
 // reduce method:
 // acc is acculumator which a like a snowball
@@ -711,3 +711,121 @@ console.log(movements);
 movements.sort((a, b) => b - a);
 console.log(movements);
 // prints [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+// more ways of creating and filling arrays:
+console.log(1, 2, 3, 4, 5, 6, 7);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+const x = new Array(7);
+console.log(x); // creates 7 empty elements [empty × 7] with nothing
+console.log(x[1]); // undefined
+console.log(x.map(() => 5)); // does not do anything here
+// still returns [empty × 7]
+
+// Fill method:
+// mutates underline array
+x.fill(1);
+console.log(x); // prints [1, 1, 1, 1, 1, 1, 1]
+
+x.fill(2, 3, 5); // first param is what to insert
+// second is where to start 
+// third is where to end
+console.log(x); // prints [1, 1, 1, 2, 2, 1, 1]
+// it fills third and fourth index only
+
+// FROM Method:
+const y = Array.from({length: 7}, () => 1);
+console.log(y); // prints [1, 1, 1, 1, 1, 1, 1]
+// works same as x.fill(1);
+
+const z = Array.from({length: 7}, (_, i) => i + 1);
+// current value = _ and we have to define it, so we can use secodn param
+// which is index, so code works
+console.log(z); // [1, 2, 3, 4, 5, 6, 7]
+
+// exercise: try to do array of 100 random roll dice rolls
+const oneHundredDiceRolls = Array.from({length: 100}, () => (
+  Math.trunc(Math.random() * 6) + 1
+));
+console.log(oneHundredDiceRolls);
+
+// we can create arrays from other things:
+// from querySelectorAll:
+// get all movements form UI:
+
+// let put it in some event handler:
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(document.querySelectorAll('.movements__value'), 
+    el => Number(el.textContent.replace('€', '')) // now it's as a second argument
+  );
+  console.log(movementsUI);
+})
+
+// more coding exercises:
+// 1. how much it was deposited in the bank:
+const bankDepositSum = accounts.flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((acc, cur) => acc + cur, 0);
+console.log(bankDepositSum);
+// step 1 creates one array of all movements while flatmap
+// step 2 filters only deposites
+// step 3 count all deposited value to the bank
+// prints 25692
+
+// 2. how many deposite there were in the bank with at least 100$?
+const numDepositesOver100$ = accounts.flatMap(acc => acc.movements)
+  .filter(mov => mov >= 1000).length;
+console.log(numDepositesOver100$);
+
+// another way:
+const numDepositesOver100$2 = accounts.flatMap(acc => acc.movements)
+  // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+  // count++ must be here replaced with ++count to work properly in this case
+  // otherwise it will still have 0 value...
+
+console.log(numDepositesOver100$2);
+
+// 3. create object that calculates all deposites and all withdrawals with reduce method:
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((sums, cur) => {
+    // cur > 0 ? sums.deposits += cur : sums.withdrawals += cur;
+    sums[cur > 0 ? 'deposits' : 'withdrawals']
+    return sums; // return is not impliced here
+  }, {deposits: 0, withdrawals: 0}); // it is important to start here with an object
+
+console.log(deposits, withdrawals); // 25692 -8555
+
+// 4. use previous exercises and use only reduce method there:
+const calcDisplaySummaryOnlyWithReduce = function (acc) {
+  const incomes = acc.movements
+    .reduce((acc, mov) => acc + (mov > 0 ? mov : 0), 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = acc.movements
+    .reduce((acc, mov) => acc + (mov < 0 ? mov : 0), 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`; 
+  // absolute value, so no - sign
+
+  const interest = acc.movements
+    .map(dep => (dep * acc.interestRate) / dep)
+    .reduce((acc, mov) => acc + (mov > 0 ? mov : 0), 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+// 5. simple function covnvert to title caee:
+const convertTitleCase = function(title) {
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'of', 'in', 'with', 'without', 'off', 'out'];
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const titleCase = title.toLowerCase()
+    .split(' ')
+    .map(word => !exceptions.includes(word) ? capitalize(word) : word)
+    // .reduce((sentence, word) => sentence + ' ' + word, '');
+    .join(' '); // or use this above
+  return capitalize(titleCase);
+}
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title, but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+console.log(convertTitleCase('bitch OFF I did it, the world is great'));
