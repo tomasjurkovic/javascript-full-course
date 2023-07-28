@@ -121,3 +121,46 @@ const calcAverageHumanAgeChaining = (dogsAge) => {
 
 console.log(calcAverageHumanAgeChaining(dogs1));
 console.log(calcAverageHumanAgeChaining(dogs2));
+
+// coding challenge 4:
+/* Julia and Kate are still studying dogs, and this time they are studying if dogs are 
+eating too much or too little.
+Eating too much means the dog's current food portion is larger than the 
+recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% 
+above and 10% below the recommended portion (see hint) */
+
+/* Hints:
+§ Use many different tools to solve these challenges, you can use the summary 
+lecture to choose between them �
+§ Being within a range 10% above and below the recommended portion means: 
+current > (recommended * 0.90) && current < (recommended * 
+1.10). Basically, the current portion should be between 90% and 110% of the 
+recommended portion.
+Test data: */
+const dogs = [
+{ weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+{ weight: 8, curFood: 200, owners: ['Matilda'] },
+{ weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+{ weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// task 1:
+/* 1. Loop over the 'dogs' array containing dog objects, and for each dog, calculate
+the recommended food portion and add it to the object as a new property. Do
+not create a new array, simply loop over the array. Forumla:
+recommendedFood = weight ** 0.75 * 28. (The result is in grams of
+food, and the weight needs to be in kg) */
+dogs.map(dog => dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28));
+console.log(dogs);
+
+// task 2: 
+/* Find Sarah's dog and log to the console whether it's eating too much or too
+little. Hint: Some dogs have multiple owners, so you first need to find Sarah in
+the owners array, and so this one is a bit tricky (on purpose) */
+const sarahsDog = dogs
+  .find(dog => dog.owners.includes('Sarah'));
+
+console.log(sarahsDog);
+const statement = `Sarah's dog ${sarahsDog.recommendedFood > sarahsDog.curFood ? 'does not ' : ''}eat too much`;
+console.log(statement);
