@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -292,3 +292,59 @@ console.log(Number.isFinite(2 + 0)); // true
 console.log(Number.isInteger(20)); // true
 console.log(Number.isInteger(20.0)); // true
 console.log(Number.isInteger(2 / 0)); // false
+
+// Mathe and Rounding:
+
+// square route:
+console.log(Math.sqrt(25));
+console.log(25 ** (1/2)); // same sa above
+
+// cubic route:
+console.log(8 ** (1/3));
+console.log(Math.cbrt(8));
+
+// max function:
+console.log(Math.max(25, 23, 28, 20, 11, 3)); // prints 28
+console.log(Math.max(25, 23, '28', 20, 11, 3)); // coertion works here, so 28
+console.log(Math.max(25, 23, '28px', 20, 11, 3)); // parseInt is not included, so NaN returns
+
+// min function:
+console.log(Math.min(2, 8, 255, 56, 1)); // 1
+
+// math.pi
+console.log(Math.PI * Number.parseFloat('10px') ** 2); // prints 314.1592653589793
+
+// math random:
+console.log(Math.trunc(Math.random() * 6) + 1);
+
+// randomInt:
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
+console.log(randomInt(45, 100));
+
+// rounding integers:
+// math.trunc - remove decimals after integers
+console.log(Math.trunc(23.3)); // prints 23
+// math.round: rounds it to closest integer:
+console.log(Math.round(23.4)); // prints 23
+console.log(Math.round(23.54)); // prints 24
+
+// math ceil: rounds up
+console.log(Math.ceil(23.4)); // prints 24
+console.log(Math.ceil('23.5')); // prints 24
+
+// math floor: rounds down
+console.log(Math.floor(23.4)); // prints 23
+console.log(Math.floor(23.4)); // prints 23
+
+// negative numbers:
+console.log(Math.round(-23.4)); // prints -23
+console.log(Math.floor(-23.4)); // prints -24
+console.log(Math.ceil(-23.4)); // prints -23
+
+// rounding decimals:
+console.log((2.7).toFixed(0)); // 3 - it is returned in string
+console.log((2.7).toFixed(3)); // 2.700 as a string
+console.log((2.754).toFixed(2)); // 2.75 as a string
+console.log((2.757).toFixed(2)); // 2.76 as a string
+console.log(+(2.754).toFixed(2)); // 2.75 as a number 
+// because of + sign and type coertion
