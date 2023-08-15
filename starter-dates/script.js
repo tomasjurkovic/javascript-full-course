@@ -348,3 +348,21 @@ console.log((2.754).toFixed(2)); // 2.75 as a string
 console.log((2.757).toFixed(2)); // 2.76 as a string
 console.log(+(2.754).toFixed(2)); // 2.75 as a number 
 // because of + sign and type coertion
+
+// reminder operator:
+console.log(5 % 2); // reminder is 1 - 5: 2 * 2 + 1
+console.log(5 / 2); // 2.5
+console.log(5 % 3); // reminder is 2
+console.log(5 / 3); // 1.6666666666666667
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(2)); // true
+console.log(isEven(21)); // false
+console.log(isEven(43)); // false
+
+labelBalance.addEventListener('click', function() {
+  [...document.querySelectorAll('.movements__row')].forEach(function(row, i) {
+      if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+      if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+})
