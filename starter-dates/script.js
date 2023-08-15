@@ -386,3 +386,45 @@ const PI = 3.14_15 // possible
 
 console.log(Number('230_000')); // this returns NaN, not working here as expected
 console.log(parseInt('230_000')); // prints only 230, the rest  behind _ is ignored 
+
+// big Ints:
+console.log(2 ** 53 - 1); // biggest integer: 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(2 ** 53 + 1) // it ads one less number: 9007199254740992 (there should be 3)
+
+// from 2022 we have bigInt:
+console.log(45945847451461548514851845148); // prints 4.594584745146154e+28
+// this could not be correct
+
+console.log(45945847451461548514851845148n);
+console.log(BigInt(44851845148)); // prints 44851845148n
+
+// adding:
+console.log(1000n + 1000n); // prints 2000n
+// multiplying: 
+console.log(36956525000000021521n * 51458215250000000000514165452145145n);
+// prints 1901716818342007357451252163636338365886479695615665545n
+
+const huge = 85298652n;
+const num = 55;
+// console.log(huge + num); // Uncaught TypeError: Cannot mix BigInt and other types, use explicit conversions
+console.log(huge + BigInt(num)); // works
+// prints 85298707n
+
+// logical comparision works:
+console.log(20n < 25); // true
+console.log(20n == 20); // true
+console.log(20n === 20); // false, because type coertion is not done here
+console.log(typeof 20n); // bigint prints
+
+// string concatination works:
+console.log(huge + ' is really big number');
+// 85298652 is really big number
+
+// console.log(Math.sqrt(16n)); // does not work
+
+// division does not work well, only adds first big int it found, not decimal numbers:
+console.log(12n / 3n); // prints 4n
+console.log(11n / 3n); // prints 3n (not float as below)
+console.log(11 / 3); // prints 3.6666666666666665
