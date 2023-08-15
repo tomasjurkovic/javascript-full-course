@@ -365,4 +365,24 @@ labelBalance.addEventListener('click', function() {
       if (i % 2 === 0) row.style.backgroundColor = 'orangered';
       if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
-})
+});
+
+// numeric operations:
+
+// thousand separator: 287,460,000,000
+const diameter = 287_460_000_000 // thousand separator in practice
+console.log(diameter); // prints 287460000000 (ignores _)
+
+const priceCents = 345_99;
+console.log(priceCents); // prints 34599
+console.log(priceCents + 1); // prints 34600
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+console.log(transferFee1 === transferFee2); // exact same: true
+
+const PI = 3.14_15 // possible
+// not possible 3._1415 3.14__15, 3_.14_15...
+
+console.log(Number('230_000')); // this returns NaN, not working here as expected
+console.log(parseInt('230_000')); // prints only 230, the rest  behind _ is ignored 
