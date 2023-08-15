@@ -428,3 +428,63 @@ console.log(huge + ' is really big number');
 console.log(12n / 3n); // prints 4n
 console.log(11n / 3n); // prints 3n (not float as below)
 console.log(11 / 3); // prints 3.6666666666666665
+
+// DATES section:
+// create a date:
+// there are four ways:
+// 1. simply use new Date:
+
+const now = new Date(); // prints now's date
+console.log(now); // it was Tue Aug 15 2023 16:21:16 GMT+0200 (Central European Summer Time)
+
+// 2. using string in good format
+console.log(new Date('Dec 16 1993, 16:12:05'));
+// prints Thu Dec 16 1993 16:12:05 GMT+0100 (Central European Standard Time)
+
+// using string in not that nice format, but javascript will do its best:
+console.log(new Date('December 12, 1993'));
+// prints Sun Dec 12 1993 00:00:00 GMT+0100 (Central European Standard Time)
+
+// using date that JavaScript created:
+console.log(new Date(account1.movementsDates[1]));
+// prints Mon Dec 23 2019 08:42:02 GMT+0100 (Central European Standard Time)
+
+console.log(new Date(2037, 10, 19, 15, 23, 1));
+// it is actual November - 10 (because it's index)
+// prints Thu Nov 19 2037 15:23:01 GMT+0100 (Central European Standard Time)
+
+// invalid date creation:
+console.log(new Date(2022, 10, 32));
+// it is not November 32, but December 02
+// Fri Dec 02 2022 00:00:00 GMT+0100 (Central European Standard Time)
+
+// first date:
+console.log(new Date(0));
+// it prints Thu Jan 01 1970 01:00:00 GMT+0100 (Central European Standard Time)
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+// Sun Jan 04 1970 01:00:00 GMT+0100 (Central European Standard Time)
+console.log(3 * 24 * 60 * 60 * 1000);
+// time stamp: 259200000;
+
+// working with dates:
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+
+// methods:
+console.log(future.getFullYear()); // prints 2037
+console.log(future.getMonth()); // prints 10
+console.log(future.getDate()); // prints 10
+console.log(future.getDay()); // prints 4 (it is day of week / thursday)
+console.log(future.getHours()); // prints 15
+console.log(future.getMinutes()); // prints 23
+console.log(future.getSeconds()); // prints 0
+console.log(future.toISOString()); // prints 2037-11-19T14:23:00.000Z
+
+console.log(future.getTime()); // get this timestamp: 2142253380000
+console.log(new Date(2142253380000));
+// prints Thu Nov 19 2037 15:23:00 GMT+0100 (Central European Standard Time)
+console.log(Date.now()); // actual time stamp was: 1692110731384
+
+console.log(future.setFullYear(2040));
+// we have also set months and set day and so on:
+console.log(future);
