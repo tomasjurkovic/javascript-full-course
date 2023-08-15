@@ -81,19 +81,26 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+    let movDate = new Date(acc.movementsDates[i]);
+    let movDay = `${movDate.getDate()}`.padStart(2, 0);
+    let movMonth = `${movDate.getMonth() + 1}`.padStart(2, 0);
+    let moveYear = `${movDate.getFullYear()}`.padStart(2, 0);
+    let movHour = `${movDate.getHours()}`.padStart(2, 0);
+    let movMin = `${movDate.getMinutes()}`.padStart(2, 0);
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${movDay}/${movMonth}/${moveYear}, ${movHour}:${movMin}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +149,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +161,11 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+// FAKE ALWAYS LOGGED IN:
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -170,6 +182,19 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    // create current date:
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    // mine:
+    // const lessThan10 = num => num < 10 ? '0' + num : num;
+    // labelDate.textContent = now;
+    // it would look weird
+    labelDate.textContent = `As of ${day}/${month}/${year}, ${hour}:${minutes}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +223,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    // Add transfer Date:
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +240,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add date and time of the loan request:
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -434,8 +466,8 @@ console.log(11 / 3); // prints 3.6666666666666665
 // there are four ways:
 // 1. simply use new Date:
 
-const now = new Date(); // prints now's date
-console.log(now); // it was Tue Aug 15 2023 16:21:16 GMT+0200 (Central European Summer Time)
+const rightNow = new Date(); // prints now's date
+console.log(rightNow); // it was Tue Aug 15 2023 16:21:16 GMT+0200 (Central European Summer Time)
 
 // 2. using string in good format
 console.log(new Date('Dec 16 1993, 16:12:05'));
@@ -488,3 +520,4 @@ console.log(Date.now()); // actual time stamp was: 1692110731384
 console.log(future.setFullYear(2040));
 // we have also set months and set day and so on:
 console.log(future);
+// prints now Mon Nov 19 2040 15:23:00 GMT+0100 (Central European Standard Time)
