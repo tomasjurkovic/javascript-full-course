@@ -177,6 +177,22 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
+// formating dates:
+// experimenting with API:
+
+const now2 = new Date();
+const options =  {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long', // short, numeric, narrow
+  year: '2-digit', // '2-digit
+  weekday: 'long' // short, narrow
+}; 
+const locale = navigator.language;
+
+labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now2);
+
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -540,3 +556,4 @@ console.log(+future); // was sometime: 2236947780000
 const future2 = new Date(2037, 3, 14);
 const d2 = new Date(2037, 3, 4);
 console.log(calcDaysPassed(future2, d2)); // prints 10
+
