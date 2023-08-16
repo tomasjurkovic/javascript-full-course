@@ -21,9 +21,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2023-08-14T17:01:17.194Z',
+    '2023-08-15T03:36:17.929Z',
+    '2023-08-16T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -80,6 +80,20 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+const formatMovementDate = function(date) {
+  const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(date, new Date);
+  console.log(daysPassed);
+  if (daysPassed === 1) return `Yesterday`;
+  if (daysPassed === 0) return `Today`;
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  // else is not needed, cuz it is automatically executed if all condisions are false
+  let movDay = `${date.getDate()}`.padStart(2, 0);
+  let movMonth = `${date.getMonth() + 1}`.padStart(2, 0);
+  let moveYear = `${date.getFullYear()}`.padStart(2, 0);
+  return `${movDay}/${movMonth}/${moveYear}`;
+};
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -88,19 +102,15 @@ const displayMovements = function (acc, sort = false) {
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-    let movDate = new Date(acc.movementsDates[i]);
-    let movDay = `${movDate.getDate()}`.padStart(2, 0);
-    let movMonth = `${movDate.getMonth() + 1}`.padStart(2, 0);
-    let moveYear = `${movDate.getFullYear()}`.padStart(2, 0);
-    let movHour = `${movDate.getHours()}`.padStart(2, 0);
-    let movMin = `${movDate.getMinutes()}`.padStart(2, 0);
+    const movDate = new Date(acc.movementsDates[i]);
+    const displayDate = formatMovementDate(movDate);
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__date">${movDay}/${movMonth}/${moveYear}, ${movHour}:${movMin}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -521,3 +531,12 @@ console.log(future.setFullYear(2040));
 // we have also set months and set day and so on:
 console.log(future);
 // prints now Mon Nov 19 2040 15:23:00 GMT+0100 (Central European Standard Time)
+
+// OPERATIONS WITH DATES:
+// substraction:
+// we can do it when we convert it to the numbers: by adding + before
+console.log(+future); // was sometime: 2236947780000
+// const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+const future2 = new Date(2037, 3, 14);
+const d2 = new Date(2037, 3, 4);
+console.log(calcDaysPassed(future2, d2)); // prints 10
