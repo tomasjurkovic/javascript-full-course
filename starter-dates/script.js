@@ -558,3 +558,26 @@ const future2 = new Date(2037, 3, 14);
 const d2 = new Date(2037, 3, 4);
 // console.log(calcDaysPassed(future2, d2)); // prints 10
 
+// internationalizing numbers:
+const numbr = 3852452.24;
+
+const options = {
+  style: "currency", // percent
+  unit: "celsius", // celsius
+  currency: 'EUR',
+  // grouping: false,
+}
+// there are plenty of possibilties what to define
+
+// prints nicely 3,852,452.24
+console.log('US:     ', new Intl.NumberFormat('en-US', options).format(numbr));
+console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(numbr));
+// german: 3.852.452,24
+console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(numbr));
+// prints: ٣٬٨٥٢٬٤٥٢٫٢٤
+console.log('Browser:',
+  navigator.language,
+  new Intl.NumberFormat(navigator.language).format(numbr));
+// actually I have en-US as well
+// prints Browser: en-US 3,852,452.24
+
