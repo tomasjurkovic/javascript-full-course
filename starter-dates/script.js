@@ -268,8 +268,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movementsDates.push(new Date().toISOString());
     receiverAcc.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+    setTimeout(function () {
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
 });
 
@@ -279,14 +281,16 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add date and time of the loan request:
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add date and time of the loan request:
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -595,3 +599,23 @@ console.log('Browser:',
 // actually I have en-US as well
 // prints Browser: en-US 3,852,452.24
 
+// SET TIMOUT:
+const ingredients = ['olives', 'spinach'];
+
+// setTimeout((ing1, ing2) => console.log(`Here is your pizza 🍕 with ${ing1} and ${ing2}`), 3000, 'olives', 'spinach');
+const pizzaTimer = setTimeout((ing1, ing2) => console.log(`Here is your pizza 🍕 with ${ing1} and ${ing2}`), 3000, ...ingredients);
+// after 3 seconds it prints: Here is your pizza 🍕
+// when we inserts arguments in set timout, they can be used:
+// Here is your pizza 🍕 with olives and spinach
+
+console.log('Waiting...');
+// waiting will be displayed in console sooner than pizza arrives
+if(ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+// after this it won't be printed cause timeout is canceled.
+
+// setInterval:
+// create real clock including hours minutes and seconds that displays each change
+setInterval(function() {
+  const now = new Date();
+  console.log(`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
+}, 1000)
