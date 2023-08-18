@@ -42,7 +42,7 @@ console.log(document.head);
 console.log(document.body);
 
 // selecting html elements:
-document.querySelector('.header');
+const header = document.querySelector('.header');
 const allSections = document.querySelectorAll('.section');
 console.log(allSections);
 
@@ -54,3 +54,19 @@ console.log(allButtons); // return html collection
 // by classname / similar to previous one:
 const allBtns = document.getElementsByClassName('btn');
 console.log(allBtns); //refresh automatically 
+
+// creating and inserting elements:
+// .insertAdjacentHTM 
+const message = document.createElement('div'); // not yet in the DOM itself
+message.classList.add('cookie-message');
+// message.textContent = 'We use cookies for improveing functionality and analytics.';
+message.innerHTML = 'We use cookies for improveing functionality and analytics. <button class ="btn btn--close-cookie"> Got it! </button>';
+
+// header.prepend(message); // displayed as a first element
+header.append(message); // it just moved it down if line above is applied
+// now it is displayed as a last element of header
+// header.append(message.cloneNode(true)); // displayed twice / we cloned it
+
+// header.before(message);
+// header.after(message);
+// those two will make a message element a sibling to the header element
