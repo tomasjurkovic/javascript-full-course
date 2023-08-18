@@ -87,6 +87,12 @@ const formatCurrency = function(value, locale, currency) {
   }).format(value);
 };
 
+const resetTimer = () => {
+  // reset timer after action:
+  clearInterval(timer);
+  timer = startLogoutTimer();
+}
+
 const formatMovementDate = function(date, locale) {
   const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -304,6 +310,9 @@ btnTransfer.addEventListener('click', function (e) {
       // Update UI
       updateUI(currentAccount);
     }, 2500);
+
+    // reset timer after action:
+    resetTimer();
   }
 });
 
@@ -325,6 +334,8 @@ btnLoan.addEventListener('click', function (e) {
     }, 2500);
   }
   inputLoanAmount.value = '';
+  // reset timer after action:
+  resetTimer();
 });
 
 btnClose.addEventListener('click', function (e) {
@@ -345,6 +356,7 @@ btnClose.addEventListener('click', function (e) {
 
     // Hide UI
     containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Log in to get started`;
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
