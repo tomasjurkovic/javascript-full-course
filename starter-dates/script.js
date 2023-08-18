@@ -87,6 +87,12 @@ const formatCurrency = function(value, locale, currency) {
   }).format(value);
 };
 
+const resetTimer = () => {
+  // reset timer after action:
+  clearInterval(timer);
+  timer = startLogoutTimer();
+}
+
 const formatMovementDate = function(date, locale) {
   const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -183,14 +189,44 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = function() {
+
+  const tick = function() {
+    const min = String(Math.trunc(remainingTime/60)).padStart(2, 0);
+    const sec = String(remainingTime%60).padStart(2, 0);
+    
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop timer, logout to user
+    if(remainingTime === 0) 
+    {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+    // decrese 1 second:
+    remainingTime--;
+  };
+
+  // Set time to 5 minutes
+  let remainingTime = 300;
+  // call it for the firts tim:
+  tick();
+  // Call timer every second
+  if (timer) clearInterval(timer);
+  timer = setInterval(tick, 1000);
+  return timer;
+}
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
-// FAKE ALWAYS LOGGED IN:
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// // FAKE ALWAYS LOGGED IN:
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 // formating dates:
 // experimenting with API:
@@ -241,6 +277,8 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    startLogoutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -268,8 +306,13 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movementsDates.push(new Date().toISOString());
     receiverAcc.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+    setTimeout(function () {
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
+
+    // reset timer after action:
+    resetTimer();
   }
 });
 
@@ -279,16 +322,20 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add date and time of the loan request:
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add date and time of the loan request:
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmount.value = '';
+  // reset timer after action:
+  resetTimer();
 });
 
 btnClose.addEventListener('click', function (e) {
@@ -309,6 +356,7 @@ btnClose.addEventListener('click', function (e) {
 
     // Hide UI
     containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Log in to get started`;
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
@@ -595,3 +643,23 @@ console.log('Browser:',
 // actually I have en-US as well
 // prints Browser: en-US 3,852,452.24
 
+// SET TIMOUT:
+const ingredients = ['olives', 'spinach'];
+
+// setTimeout((ing1, ing2) => console.log(`Here is your pizza 🍕 with ${ing1} and ${ing2}`), 3000, 'olives', 'spinach');
+const pizzaTimer = setTimeout((ing1, ing2) => console.log(`Here is your pizza 🍕 with ${ing1} and ${ing2}`), 3000, ...ingredients);
+// after 3 seconds it prints: Here is your pizza 🍕
+// when we inserts arguments in set timout, they can be used:
+// Here is your pizza 🍕 with olives and spinach
+
+console.log('Waiting...');
+// waiting will be displayed in console sooner than pizza arrives
+if(ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+// after this it won't be printed cause timeout is canceled.
+
+// setInterval:
+// create real clock including hours minutes and seconds that displays each change
+setInterval(function() {
+  const now = new Date();
+  console.log(`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
+}, 100000);
