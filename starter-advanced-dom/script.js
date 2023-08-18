@@ -32,3 +32,25 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+// SELECT, CREATE, DELETE elements:
+// select whole document
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+// selecting html elements:
+document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+
+document.getElementById('#section--1');
+const allButtons = document.getElementsByTagName('button');
+console.log(allButtons); // return html collection
+// automatically refreshes if something is added/deleted
+
+// by classname / similar to previous one:
+const allBtns = document.getElementsByClassName('btn');
+console.log(allBtns); //refresh automatically 
