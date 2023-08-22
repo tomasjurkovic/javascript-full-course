@@ -215,3 +215,33 @@ h1.addEventListener('mouseenter', alertH1);
 // bubbling:
 // if we attach event  listeners also to the one of the parent elements
 // then it happens in bubbling phase as well in bubbling phase
+
+// random color
+const randomInt = (min,max) => 
+  Math.floor(Math.random() * (max-min + 1) + min);
+const randomColor = () => 
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// console.log(randomColor()); // prints f.e. rgb(139,166,166)
+
+document.querySelector('.nav__link')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('LINK', e.target, e.currentTarget);
+    console.log(e.currentTarget === this); // true
+
+    // // stop propagation:
+    // e.stopPropagation();
+});
+
+document.querySelector('.nav__links')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('CONTAINER', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('NAV', e.target, e.currentTarget);
+}/*, true*/); // if there is true, than capturing phase is on
