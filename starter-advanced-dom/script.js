@@ -32,3 +32,120 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+// SELECT, CREATE, DELETE elements:
+// select whole document
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+// selecting html elements:
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+
+document.getElementById('#section--1');
+const allButtons = document.getElementsByTagName('button');
+console.log(allButtons); // return html collection
+// automatically refreshes if something is added/deleted
+
+// by classname / similar to previous one:
+const allBtns = document.getElementsByClassName('btn');
+console.log(allBtns); //refresh automatically 
+
+// creating and inserting elements:
+// creating element itself:
+const message = document.createElement('div'); // not yet in the DOM itself
+message.classList.add('cookie-message');
+// message.textContent = 'We use cookies for improveing functionality and analytics.';
+message.innerHTML = 'We use cookies for improveing functionality and analytics. <button class ="btn btn--close-cookie"> Got it! </button>';
+
+// inserting element:
+// .insertAdjacentHTM 
+// header.insertAdjacentElement('beforeend', message); // example of doing it
+
+// header.prepend(message); // displayed as a first element
+header.append(message); // it just moved it down if line above is applied
+// now it is displayed as a last element of header
+// header.append(message.cloneNode(true)); // displayed twice / we cloned it
+
+// header.before(message);
+// header.after(message);
+// those two will make a message element a sibling to the header element
+
+// removing cookie element when clicking on button:
+document.querySelector('.btn--close-cookie')
+  .addEventListener('click', function() {
+    message.remove(); // not needed to select it again, when we have a variable
+    // previously:
+    // message.parentElement.removeChild(message);
+});
+
+// styles, attributes & classes:
+
+// styles:
+// adding style to (already selected) element:
+// inline styles:
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(message.style.height); // prints nothing)
+console.log(message.style.width); // prints 120%)
+
+// get computed style:
+console.log(getComputedStyle(message)); // prints huge list of styles)
+console.log(getComputedStyle(message).color); // prints rgb(187, 187, 187)
+
+message.style.height = Number.
+  parseFloat(getComputedStyle(message)  
+  .height, 10) + 30 +'px';
+// parse float has to be there, 
+// because there is 50px and we cannot count string/number
+
+// changing css from javascript:
+document.documentElement.style.setProperty('--color-primary', 'yellowgreen');
+
+// attributes:
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt); // Bankist logo
+console.log(logo.src); // http://127.0.0.1:8080/starter-advanced-dom/img/logo.png
+console.log(logo.className); // prints nav__logo
+
+// non-standard element:
+console.log(logo.designer); // undefined, non-standard element
+console.log(logo.getAttribute('designer'));
+
+// set attribute:
+// standard:
+logo.alt = 'Beautiful minimalist logo';
+console.log(logo.alt); // Beautiful minimalist logo
+
+// non-standard:
+logo.setAttribute('company', 'Bankist');
+console.log(logo.getAttribute('company')); // Bankist
+
+// difference in src or link element:
+console.log(logo.src); // http://127.0.0.1:8080/starter-advanced-dom/img/logo.png
+console.log(logo.getAttribute('src')); // img/logo.png
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); // http://127.0.0.1:8080/starter-advanced-dom/#
+console.log(link.getAttribute('href')); // #
+
+// Data attributes:
+// cammelCase is important instead of dash
+console.log(logo.dataset.versionNumber); // 3.0
+
+// they are always set in dataset object
+
+// Classes:
+logo.classList.add('newClass');
+console.log(logo.classList); // newClass added
+console.log(logo.classList.contains('newClass')); // true
+logo.classList.remove('newClass'); 
+console.log(logo.classList); // no newClass class
+logo.classList.toggle('newClass');
+console.log(logo.classList); // newClass is back
+
