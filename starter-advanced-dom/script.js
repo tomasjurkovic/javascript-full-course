@@ -149,3 +149,38 @@ console.log(logo.classList); // no newClass class
 logo.classList.toggle('newClass');
 console.log(logo.classList); // newClass is back
 
+// smooth scrolling:
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.getElementById('section--1');
+
+// apply smooth scrolling:
+btnScrollTo.addEventListener('click', function(e) {
+  const s1cords = section1.getBoundingClientRect();
+  console.log(s1cords);
+  // prints {x: 0, y: 596, width: 907, height: 1652.6875, top: 596, …}
+  // relative to current viewport
+  console.log(e.target.getBoundingClientRect()); 
+  // {x: 30, y: 460.265625, width: 110, height: 29, top: 460.265625, …}
+
+  console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+  // f.e. 0 247, 55 264 or where we are, relative
+
+  console.log('Height/width viewport: ', 
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth);
+  // 579 907 relative again
+
+  // scrolling (global function on window object):
+  // by window.pageYOffset we determined absolute position
+  // window.scrollTo(s1cords.left + window.pageXOffset, s1cords.top + window.pageYOffset);
+
+  // smooth scrolling (old way):
+  // window.scrollTo({
+  //   left: s1cords.left + window.pageXOffset,
+  //   top: s1cords.top + window.pageYOffset,
+  //   behavior: 'smooth', 
+  // })
+
+  // smooth scrolling modern way:
+  section1.scrollIntoView({behavior: 'smooth'});
+});
