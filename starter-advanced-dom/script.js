@@ -184,3 +184,30 @@ btnScrollTo.addEventListener('click', function(e) {
   // smooth scrolling modern way:
   section1.scrollIntoView({behavior: 'smooth'});
 });
+
+// type of events:
+// event is a signal generated from node
+// events happen if we listen on them or not
+
+// mouseenter - similar to css hover
+const h1 = document.querySelector('h1');
+
+// create a function that removes:
+const alertH1 = function(e) {
+  alert('addEventListener: Great, you are reading the heading');
+
+  // removing event handler inseide the function:
+  // h1.removeEventListener('mouseenter', alertH1)
+  // with this it happens only once
+}
+
+// timeout removing of event hendler:
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+// delayes it for 3 seconds now
+
+h1.addEventListener('mouseenter', alertH1);
+
+// // older solution:
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener: Perfect, you are reading the heading');
+// }; // pretty much does the same as above
