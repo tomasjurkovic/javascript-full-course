@@ -82,3 +82,70 @@ document.querySelector('.btn--close-cookie')
     // previously:
     // message.parentElement.removeChild(message);
 });
+
+// styles, attributes & classes:
+
+// styles:
+// adding style to (already selected) element:
+// inline styles:
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(message.style.height); // prints nothing)
+console.log(message.style.width); // prints 120%)
+
+// get computed style:
+console.log(getComputedStyle(message)); // prints huge list of styles)
+console.log(getComputedStyle(message).color); // prints rgb(187, 187, 187)
+
+message.style.height = Number.
+  parseFloat(getComputedStyle(message)  
+  .height, 10) + 30 +'px';
+// parse float has to be there, 
+// because there is 50px and we cannot count string/number
+
+// changing css from javascript:
+document.documentElement.style.setProperty('--color-primary', 'yellowgreen');
+
+// attributes:
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt); // Bankist logo
+console.log(logo.src); // http://127.0.0.1:8080/starter-advanced-dom/img/logo.png
+console.log(logo.className); // prints nav__logo
+
+// non-standard element:
+console.log(logo.designer); // undefined, non-standard element
+console.log(logo.getAttribute('designer'));
+
+// set attribute:
+// standard:
+logo.alt = 'Beautiful minimalist logo';
+console.log(logo.alt); // Beautiful minimalist logo
+
+// non-standard:
+logo.setAttribute('company', 'Bankist');
+console.log(logo.getAttribute('company')); // Bankist
+
+// difference in src or link element:
+console.log(logo.src); // http://127.0.0.1:8080/starter-advanced-dom/img/logo.png
+console.log(logo.getAttribute('src')); // img/logo.png
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); // http://127.0.0.1:8080/starter-advanced-dom/#
+console.log(link.getAttribute('href')); // #
+
+// Data attributes:
+// cammelCase is important instead of dash
+console.log(logo.dataset.versionNumber); // 3.0
+
+// they are always set in dataset object
+
+// Classes:
+logo.classList.add('newClass');
+console.log(logo.classList); // newClass added
+console.log(logo.classList.contains('newClass')); // true
+logo.classList.remove('newClass'); 
+console.log(logo.classList); // no newClass class
+logo.classList.toggle('newClass');
+console.log(logo.classList); // newClass is back
+
