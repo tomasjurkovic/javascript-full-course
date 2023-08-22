@@ -211,3 +211,7 @@ h1.addEventListener('mouseenter', alertH1);
 // h1.onmouseenter = function (e) {
 //   alert('addEventListener: Perfect, you are reading the heading');
 // }; // pretty much does the same as above
+
+// bubbling:
+// if we attach event  listeners also to the one of the parent elements
+// then it happens in bubbling phase as well in bubbling phase
