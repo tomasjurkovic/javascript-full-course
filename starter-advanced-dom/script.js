@@ -184,3 +184,64 @@ btnScrollTo.addEventListener('click', function(e) {
   // smooth scrolling modern way:
   section1.scrollIntoView({behavior: 'smooth'});
 });
+
+// type of events:
+// event is a signal generated from node
+// events happen if we listen on them or not
+
+// mouseenter - similar to css hover
+const h1 = document.querySelector('h1');
+
+// create a function that removes:
+const alertH1 = function(e) {
+  alert('addEventListener: Great, you are reading the heading');
+
+  // removing event handler inseide the function:
+  // h1.removeEventListener('mouseenter', alertH1)
+  // with this it happens only once
+}
+
+// timeout removing of event hendler:
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+// delayes it for 3 seconds now
+
+h1.addEventListener('mouseenter', alertH1);
+
+// // older solution:
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener: Perfect, you are reading the heading');
+// }; // pretty much does the same as above
+
+// bubbling:
+// if we attach event  listeners also to the one of the parent elements
+// then it happens in bubbling phase as well in bubbling phase
+
+// random color
+const randomInt = (min,max) => 
+  Math.floor(Math.random() * (max-min + 1) + min);
+const randomColor = () => 
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// console.log(randomColor()); // prints f.e. rgb(139,166,166)
+
+document.querySelector('.nav__link')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('LINK', e.target, e.currentTarget);
+    console.log(e.currentTarget === this); // true
+
+    // // stop propagation:
+    // e.stopPropagation();
+});
+
+document.querySelector('.nav__links')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('CONTAINER', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav')
+  .addEventListener('click', function(e) {
+    this.style.backgroundColor = randomColor();
+    console.log('NAV', e.target, e.currentTarget);
+}/*, true*/); // if there is true, than capturing phase is on
