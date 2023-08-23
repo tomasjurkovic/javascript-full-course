@@ -321,3 +321,23 @@ headline.closest('.header').style.background = 'var(--gradient-secondary)';
 headline.closest('h1').style.background = 'var(--gradient-primary)';
 // same as:
 // headline.style.background = 'var(--gradient-primary)';
+
+// going sideways:
+console.log(headline.previousElementSibling); // actually null, because there is no previous sibling
+console.log(headline.nextElementSibling); // h4 element
+
+// for nodes:
+console.log(headline.previousSibling);
+console.log(headline.nextSibling);
+
+// all siblings:
+console.log(headline.parentElement.children); // weird but working
+// including itself as well 
+// 4 elements
+
+[...headline.parentElement.children].forEach(function(el) {
+  if (el !== h1) { 
+    el.style.transform = 'scale(0.5)';
+    // all sibling elements excluding the selected one are 50% smaller now
+  }
+})
