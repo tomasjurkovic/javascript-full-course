@@ -272,3 +272,72 @@ const randomColor = () =>
 
 // event delegation:
 // smooth scrolling in navigation bar:
+
+// dom traversing:
+const headline = document.querySelector('h1');
+
+// going downwards: child
+console.log(headline.querySelectorAll('.highlight'));
+// this would work no matter how deep they are as a child elements
+// they don't need to be the direct child elements
+// it would go down deep as necessary
+
+// direct children:
+console.log(headline.childNodes);
+// we get NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text]
+console.log(headline.children);
+// we get HTMLCollection(3) [span.highlight, br, span.highlight]
+console.log(headline.firstElementChild);
+console.log(headline.lastElementChild);
+// <span class="highlight">minimalist</span>
+
+// it is possible to set its property:
+headline.firstElementChild.style.color = 'white';
+
+// going upwards:
+console.log(headline.parentNode); // direct parent
+/* <div class="header__title">
+<h1>
+    When
+    <!-- Green highlight effect -->
+    <span class="highlight" style="color: white;">banking</span>
+    meets<br>
+    <span class="highlight">minimalist</span>
+  </h1>
+  <h4>A simpler banking experience for a simpler life.</h4>
+  <button class="btn--text btn--scroll-to">Learn more ↓</button>
+  <img src="img/hero.png" class="header__img" alt="Minimalist bank items">
+</div> */
+
+console.log(headline.parentElement); // now it is same
+
+// closest:
+// finding closest parent element in the dom tree
+headline.closest('.header').style.background = 'var(--gradient-secondary)'; 
+// it is possible to use CSS variable (custom property) from CSS file, 
+// like we have this gradient
+
+// it is possible to change itself with this:
+headline.closest('h1').style.background = 'var(--gradient-primary)';
+// same as:
+// headline.style.background = 'var(--gradient-primary)';
+
+// going sideways:
+console.log(headline.previousElementSibling); // actually null, because there is no previous sibling
+console.log(headline.nextElementSibling); // h4 element
+
+// for nodes:
+console.log(headline.previousSibling);
+console.log(headline.nextSibling);
+
+// all siblings:
+console.log(headline.parentElement.children); // weird but working
+// including itself as well 
+// 4 elements
+
+[...headline.parentElement.children].forEach(function(el) {
+  if (el !== h1) { 
+    el.style.transform = 'scale(0.5)';
+    // all sibling elements excluding the selected one are 50% smaller now
+  }
+})
