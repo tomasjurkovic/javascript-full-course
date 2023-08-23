@@ -93,6 +93,34 @@ document.querySelector('.nav__links')
     }
 });
 
+// TABBED COMPONENT:
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabContents = document.querySelectorAll('.operations__content');
+
+
+// old wrong way:
+// tabs.forEach(t => t.addEventListener('click', () => console.log("TAB")));
+
+// event handler:
+tabsContainer.addEventListener('click', function(e) {
+  const clicked = e.target.closest('.operations__tab'); 
+  // if we click on button, we get button, if on span, we gat button as well 
+  
+  // gueard clause - if click is elsewhere, do nothing and end execution
+  if (!clicked) return;
+
+  // deactivate tabs:
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabContents.forEach(tab => tab.classList.remove('operations__content--active'));
+
+  // activate content area:
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+})
+
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 // SELECT, CREATE, DELETE elements:
@@ -313,12 +341,12 @@ console.log(headline.parentElement); // now it is same
 
 // closest:
 // finding closest parent element in the dom tree
-headline.closest('.header').style.background = 'var(--gradient-secondary)'; 
+// headline.closest('.header').style.background = 'var(--gradient-secondary)'; 
 // it is possible to use CSS variable (custom property) from CSS file, 
 // like we have this gradient
 
 // it is possible to change itself with this:
-headline.closest('h1').style.background = 'var(--gradient-primary)';
+// headline.closest('h1').style.background = 'var(--gradient-primary)';
 // same as:
 // headline.style.background = 'var(--gradient-primary)';
 
@@ -335,9 +363,9 @@ console.log(headline.parentElement.children); // weird but working
 // including itself as well 
 // 4 elements
 
-[...headline.parentElement.children].forEach(function(el) {
-  if (el !== h1) { 
-    el.style.transform = 'scale(0.5)';
-    // all sibling elements excluding the selected one are 50% smaller now
-  }
-})
+// [...headline.parentElement.children].forEach(function(el) {
+//   if (el !== h1) { 
+//     el.style.transform = 'scale(0.5)';
+//     // all sibling elements excluding the selected one are 50% smaller now
+//   }
+// })
