@@ -122,7 +122,8 @@ tabsContainer.addEventListener('click', function(e) {
 
 // menu fade animation: event delegation:
 // mouseover bubbles
-navEl.addEventListener('mouseover', function (e) {
+// menu fade animation:
+const handleHover = function (e, opacity) {
   const link = e.target;
   const siblings = link.closest('.nav')
     .querySelectorAll('.nav__link');
@@ -130,42 +131,37 @@ navEl.addEventListener('mouseover', function (e) {
 
   if(e.target.classList.contains('nav__logo')) {
     siblings.forEach(el => {
-      el.style.opacity = 0.5;
+      el.style.opacity = this;
     });
+    if (logo.style.opacity === 0.5) logo.style.opacity = this;
   };
 
   if(e.target.classList.contains('nav__link')) {
     siblings.forEach(el => {
-      if (el !== link) el.style.opacity = 0.5;
+      if (el !== link) el.style.opacity = this;
     });
-    logo.style.opacity = 0.5;
-  };
-});
+    logo.style.opacity = this;
+  }
+}
+
+// navEl.addEventListener('mouseover', function (e) {
+//   handleHover(e, 0.5);
+//   // this wont work:
+//   // navEl.addEventListener('mouseover', handleHover(e, 0.5) {
+//   // it has to be like above, calling function (e) 
+//   // and then our created funtcion
+// });
+
+// passing "argument" into event handler function
+// only one real parameter = e
+// we need to use this keyword and bind method
+navEl.addEventListener('mouseover', handleHover.bind(0.5));
 
 // opposites: 
 // mouseenter - mouseleave
 // mouseover - mouseout
 
-navEl.addEventListener('mouseout', function (e) {
-  const link = e.target;
-  const siblings = link.closest('.nav')
-    .querySelectorAll('.nav__link');
-  const logo = link.closest('.nav').querySelector('img');
-
-  if(e.target.classList.contains('nav__logo')) {
-    siblings.forEach(el => {
-      el.style.opacity = 1;
-    });
-    logo.style.opacity = 1;
-  };
-
-  if(e.target.classList.contains('nav__link')) {
-    siblings.forEach(el => {
-      if (el !== link) el.style.opacity = 1;
-    });
-    logo.style.opacity = 1;
-  }
-});
+navEl.addEventListener('mouseout', handleHover.bind(1));
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
