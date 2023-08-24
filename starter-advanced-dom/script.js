@@ -123,7 +123,7 @@ tabsContainer.addEventListener('click', function(e) {
 // menu fade animation: event delegation:
 // mouseover bubbles
 // menu fade animation:
-const handleHover = function (e, opacity) {
+const handleHover = function (e) {
   const link = e.target;
   const siblings = link.closest('.nav')
     .querySelectorAll('.nav__link');
