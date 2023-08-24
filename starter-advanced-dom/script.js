@@ -14,6 +14,7 @@ const navLinks = document.querySelectorAll('.nav__links');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabContents = document.querySelectorAll('.operations__content');
+const allSections = document.querySelectorAll('.section');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -192,10 +193,8 @@ const initialCoords = section1.getBoundingClientRect();
 
 const header = document.querySelector('.header');
 const navHeight = navEl.getBoundingClientRect().height;
-console.log(navHeight);
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) {
     navEl.classList.add('sticky');
   } else {
@@ -211,6 +210,26 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+// remove class hidden for each section as we observe them:
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  
+  // unobserve: we can do it like this:
+  observer.unobserve(entry.target);
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 // SELECT, CREATE, DELETE elements:
@@ -221,7 +240,6 @@ console.log(document.body);
 
 // selecting html elements:
 // const header = document.querySelector('.header');
-const allSections = document.querySelectorAll('.section');
 console.log(allSections);
 
 document.getElementById('#section--1');
