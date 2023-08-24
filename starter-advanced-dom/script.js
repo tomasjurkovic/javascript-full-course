@@ -9,6 +9,11 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.getElementById('section--1');
+const navEl = document.querySelector('.nav');
+const navLinks = document.querySelectorAll('.nav__links');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabContents = document.querySelectorAll('.operations__content');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -94,11 +99,6 @@ document.querySelector('.nav__links')
 });
 
 // TABBED COMPONENT:
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabContents = document.querySelectorAll('.operations__content');
-
-
 // old wrong way:
 // tabs.forEach(t => t.addEventListener('click', () => console.log("TAB")));
 
@@ -118,8 +118,54 @@ tabsContainer.addEventListener('click', function(e) {
   clicked.classList.add('operations__tab--active');
   document.querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
-})
+});
 
+// menu fade animation: event delegation:
+// mouseover bubbles
+navEl.addEventListener('mouseover', function (e) {
+  const link = e.target;
+  const siblings = link.closest('.nav')
+    .querySelectorAll('.nav__link');
+  const logo = link.closest('.nav').querySelector('img');
+
+  if(e.target.classList.contains('nav__logo')) {
+    siblings.forEach(el => {
+      el.style.opacity = 0.5;
+    });
+  };
+
+  if(e.target.classList.contains('nav__link')) {
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = 0.5;
+    });
+    logo.style.opacity = 0.5;
+  };
+});
+
+// opposites: 
+// mouseenter - mouseleave
+// mouseover - mouseout
+
+navEl.addEventListener('mouseout', function (e) {
+  const link = e.target;
+  const siblings = link.closest('.nav')
+    .querySelectorAll('.nav__link');
+  const logo = link.closest('.nav').querySelector('img');
+
+  if(e.target.classList.contains('nav__logo')) {
+    siblings.forEach(el => {
+      el.style.opacity = 1;
+    });
+    logo.style.opacity = 1;
+  };
+
+  if(e.target.classList.contains('nav__link')) {
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = 1;
+    });
+    logo.style.opacity = 1;
+  }
+});
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
