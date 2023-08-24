@@ -123,7 +123,7 @@ tabsContainer.addEventListener('click', function(e) {
 // menu fade animation: event delegation:
 // mouseover bubbles
 // menu fade animation:
-const handleHover = function (e, opacity) {
+const handleHover = function (e) {
   const link = e.target;
   const siblings = link.closest('.nav')
     .querySelectorAll('.nav__link');
@@ -163,6 +163,54 @@ navEl.addEventListener('mouseover', handleHover.bind(0.5));
 
 navEl.addEventListener('mouseout', handleHover.bind(1));
 
+// sticky navigation when scrolling:
+const initialCoords = section1.getBoundingClientRect();
+
+// really bad for performance:
+// window.addEventListener('scroll', function () {
+//   if(window.scrollY >= initialCoords.top) {
+//     navEl.classList.add('sticky');
+//   } else {
+//     navEl.classList.remove('sticky');
+//   }
+// });
+// const obsCallback = function (entries, observer) {
+//   // whenever the first section - target is intercepted 10% of our threshold,
+//   // then the function is called
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// }
+
+// const obsOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = navEl.getBoundingClientRect().height;
+console.log(navHeight);
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) {
+    navEl.classList.add('sticky');
+  } else {
+    navEl.classList.remove('sticky');
+  }
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null, 
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, // 90px is height of nav, needs to be in px unf.
+});
+
+headerObserver.observe(header);
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 // SELECT, CREATE, DELETE elements:
@@ -172,7 +220,7 @@ console.log(document.head);
 console.log(document.body);
 
 // selecting html elements:
-const header = document.querySelector('.header');
+// const header = document.querySelector('.header');
 const allSections = document.querySelectorAll('.section');
 console.log(allSections);
 
