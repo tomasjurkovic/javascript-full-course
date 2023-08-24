@@ -9,6 +9,11 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.getElementById('section--1');
+const navEl = document.querySelector('.nav');
+const navLinks = document.querySelectorAll('.nav__links');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabContents = document.querySelectorAll('.operations__content');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -92,6 +97,71 @@ document.querySelector('.nav__links')
         .scrollIntoView({behavior: 'smooth'});
     }
 });
+
+// TABBED COMPONENT:
+// old wrong way:
+// tabs.forEach(t => t.addEventListener('click', () => console.log("TAB")));
+
+// event handler:
+tabsContainer.addEventListener('click', function(e) {
+  const clicked = e.target.closest('.operations__tab'); 
+  // if we click on button, we get button, if on span, we gat button as well 
+  
+  // gueard clause - if click is elsewhere, do nothing and end execution
+  if (!clicked) return;
+
+  // deactivate tabs:
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabContents.forEach(tab => tab.classList.remove('operations__content--active'));
+
+  // activate content area:
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// menu fade animation: event delegation:
+// mouseover bubbles
+// menu fade animation:
+const handleHover = function (e, opacity) {
+  const link = e.target;
+  const siblings = link.closest('.nav')
+    .querySelectorAll('.nav__link');
+  const logo = link.closest('.nav').querySelector('img');
+
+  if(e.target.classList.contains('nav__logo')) {
+    siblings.forEach(el => {
+      el.style.opacity = this;
+    });
+    if (logo.style.opacity === 0.5) logo.style.opacity = this;
+  };
+
+  if(e.target.classList.contains('nav__link')) {
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+}
+
+// navEl.addEventListener('mouseover', function (e) {
+//   handleHover(e, 0.5);
+//   // this wont work:
+//   // navEl.addEventListener('mouseover', handleHover(e, 0.5) {
+//   // it has to be like above, calling function (e) 
+//   // and then our created funtcion
+// });
+
+// passing "argument" into event handler function
+// only one real parameter = e
+// we need to use this keyword and bind method
+navEl.addEventListener('mouseover', handleHover.bind(0.5));
+
+// opposites: 
+// mouseenter - mouseleave
+// mouseover - mouseout
+
+navEl.addEventListener('mouseout', handleHover.bind(1));
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
@@ -272,3 +342,72 @@ const randomColor = () =>
 
 // event delegation:
 // smooth scrolling in navigation bar:
+
+// dom traversing:
+const headline = document.querySelector('h1');
+
+// going downwards: child
+console.log(headline.querySelectorAll('.highlight'));
+// this would work no matter how deep they are as a child elements
+// they don't need to be the direct child elements
+// it would go down deep as necessary
+
+// direct children:
+console.log(headline.childNodes);
+// we get NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text]
+console.log(headline.children);
+// we get HTMLCollection(3) [span.highlight, br, span.highlight]
+console.log(headline.firstElementChild);
+console.log(headline.lastElementChild);
+// <span class="highlight">minimalist</span>
+
+// it is possible to set its property:
+headline.firstElementChild.style.color = 'white';
+
+// going upwards:
+console.log(headline.parentNode); // direct parent
+/* <div class="header__title">
+<h1>
+    When
+    <!-- Green highlight effect -->
+    <span class="highlight" style="color: white;">banking</span>
+    meets<br>
+    <span class="highlight">minimalist</span>
+  </h1>
+  <h4>A simpler banking experience for a simpler life.</h4>
+  <button class="btn--text btn--scroll-to">Learn more ↓</button>
+  <img src="img/hero.png" class="header__img" alt="Minimalist bank items">
+</div> */
+
+console.log(headline.parentElement); // now it is same
+
+// closest:
+// finding closest parent element in the dom tree
+// headline.closest('.header').style.background = 'var(--gradient-secondary)'; 
+// it is possible to use CSS variable (custom property) from CSS file, 
+// like we have this gradient
+
+// it is possible to change itself with this:
+// headline.closest('h1').style.background = 'var(--gradient-primary)';
+// same as:
+// headline.style.background = 'var(--gradient-primary)';
+
+// going sideways:
+console.log(headline.previousElementSibling); // actually null, because there is no previous sibling
+console.log(headline.nextElementSibling); // h4 element
+
+// for nodes:
+console.log(headline.previousSibling);
+console.log(headline.nextSibling);
+
+// all siblings:
+console.log(headline.parentElement.children); // weird but working
+// including itself as well 
+// 4 elements
+
+// [...headline.parentElement.children].forEach(function(el) {
+//   if (el !== h1) { 
+//     el.style.transform = 'scale(0.5)';
+//     // all sibling elements excluding the selected one are 50% smaller now
+//   }
+// })
