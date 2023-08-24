@@ -163,6 +163,17 @@ navEl.addEventListener('mouseover', handleHover.bind(0.5));
 
 navEl.addEventListener('mouseout', handleHover.bind(1));
 
+// sticky navigation when scrolling:
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function () {
+  if(window.scrollY >= initialCoords.top) {
+    navEl.classList.add('sticky');
+  } else {
+    navEl.classList.remove('sticky');
+  }
+});
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 // SELECT, CREATE, DELETE elements:
