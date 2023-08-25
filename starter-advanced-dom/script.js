@@ -237,7 +237,6 @@ const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   // observer.unobserve(entry.target);
   if(!entry.isIntersecting) return
   // replace the source image with data source image:
@@ -256,9 +255,25 @@ const featureImgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach(image => featureImgObserver.observe(image));
 
-  // image.classList.remove('lazy-img');
-  // image.style.src = image.dataset.src;
+// main own darkening icons function:
+const featureIcons = document.querySelectorAll('.features__icon');
 
+const darkenIcons = function (entries, observer) {
+  const [entry] = entries;
+  if(!entry.isIntersecting) return;
+  entry.target.classList.add('features__icon-darker');
+  entry.target.addEventListener('mouseover', function(){
+    entry.target.classList.remove('features__icon-darker');
+  })
+  observer.unobserve(entry.target);
+}
+
+const featureIconsObserver = new IntersectionObserver(darkenIcons, {
+  root: null,
+  threshold: 0.35,
+});
+
+featureIcons.forEach(icon => featureIconsObserver.observe(icon));
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
