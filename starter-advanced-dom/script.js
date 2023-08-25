@@ -222,31 +222,40 @@ const revealSection = function (entries, observer) {
 
 const sectionObserver = new IntersectionObserver(revealSection, {
   root: null,
-  threshold: 0.15
+  threshold: 0,
+  rootMargin: '+200px', // start loading before we reach images
 });
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
-})
+});
 
 // lazy loading images: my try:
-const images = document.querySelectorAll('img [data-src]'); 
+const imgTargets = document.querySelectorAll('img[data-src]'); 
 // only img with data-src attribute
 
-const loadImage = function(entries, observer) {
+const loadImg = function (entries, observer) {
   const [entry] = entries;
   console.log(entry);
   // observer.unobserve(entry.target);
+  if(!entry.isIntersecting) return
+  // replace the source image with data source image:
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load', function() {
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
 }
 
-const featureImgObserver = new IntersectionObserver(loadImage, {
+const featureImgObserver = new IntersectionObserver(loadImg, {
   root: null,
-  threshold: 0
+  threshold: 0,
 })
 
-images.forEach(image => featureImgObserver.observe(image));
-  // featureImgObserver.observe(image);
+imgTargets.forEach(image => featureImgObserver.observe(image));
+
   // image.classList.remove('lazy-img');
   // image.style.src = image.dataset.src;
 
