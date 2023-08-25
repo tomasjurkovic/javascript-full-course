@@ -213,7 +213,6 @@ headerObserver.observe(header);
 // remove class hidden for each section as we observe them:
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if(!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
   
@@ -230,6 +229,28 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 })
+
+// lazy loading images: my try:
+const images = document.querySelectorAll('img [data-src]'); 
+// only img with data-src attribute
+
+const loadImage = function(entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  // observer.unobserve(entry.target);
+}
+
+const featureImgObserver = new IntersectionObserver(loadImage, {
+  root: null,
+  threshold: 0
+})
+
+images.forEach(image => featureImgObserver.observe(image));
+  // featureImgObserver.observe(image);
+  // image.classList.remove('lazy-img');
+  // image.style.src = image.dataset.src;
+
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 // SELECT, CREATE, DELETE elements:
