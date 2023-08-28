@@ -330,6 +330,17 @@ document.addEventListener('keydown', function (e) {
   if(e.key === 'ArrowLeft') previousSlide();
   // short circuing for another one which works the same:
   e.key === 'ArrowRight' && nextSlide();
+});
+
+// add event handler:
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    // const slide = e.target.dataset.slide; 
+    // or we can use:
+    const { slide } = e.target.dataset;
+    // not data-slide nor dataSlide, just slide if it is called data-slide;
+    goToSlide(slide);
+  }
 })
 
 slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`)); 
