@@ -228,7 +228,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // lazy loading images: my try:
@@ -274,6 +274,18 @@ const featureIconsObserver = new IntersectionObserver(darkenIcons, {
 });
 
 featureIcons.forEach(icon => featureIconsObserver.observe(icon));
+
+// slider:
+const slides = document.querySelectorAll('.slide');
+
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.4) translateX(-1200px)';
+slider.style.overflow = 'visible';
+
+
+slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`)); 
+// 0%, 100%, 200%, 300%
+
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
