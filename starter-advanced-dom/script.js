@@ -298,6 +298,15 @@ const createDots = function () {
 
 createDots();
 
+// function for dots activation:
+const activateDot = function (slide) {
+  dotContainer.querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList
+    .remove('dots__dot--active'));
+  dotContainer.querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+}
+
 const goToSlide = function (slide) {
   slides.forEach((s, i) => 
     (s.style.transform = `translateX(${100 * (i - slide)}%)`));
@@ -310,6 +319,7 @@ const nextSlide = function() {
     curSlide++;
   }
   goToSlide(curSlide);
+  activateDot(curSlide);
 }
 
 const previousSlide = function() {
@@ -319,6 +329,7 @@ const previousSlide = function() {
     curSlide--;
   }
   goToSlide(curSlide);
+  activateDot(curSlide);
 };
 
 btnRight.addEventListener('click', nextSlide);
@@ -330,6 +341,7 @@ document.addEventListener('keydown', function (e) {
   if(e.key === 'ArrowLeft') previousSlide();
   // short circuing for another one which works the same:
   e.key === 'ArrowRight' && nextSlide();
+  activateDot(curSlide);
 });
 
 // add event handler:
