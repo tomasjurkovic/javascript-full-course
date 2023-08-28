@@ -276,6 +276,9 @@ const featureIconsObserver = new IntersectionObserver(darkenIcons, {
 featureIcons.forEach(icon => featureIconsObserver.observe(icon));
 
 // slider:
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.4) translateX(-1200px)';
+slider.style.overflow = 'visible';
 const slides = document.querySelectorAll('.slide');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
@@ -309,10 +312,12 @@ btnRight.addEventListener('click', nextSlide);
 
 btnLeft.addEventListener('click', previousSlide);
 
-const slider = document.querySelector('.slider');
-slider.style.transform = 'scale(0.4) translateX(-1200px)';
-slider.style.overflow = 'visible';
-
+document.addEventListener('keydown', function (e) {
+  console.log(e);
+  if(e.key === 'ArrowLeft') previousSlide();
+  // short circuing for another one which works the same:
+  e.key === 'ArrowRight' && nextSlide();
+})
 
 slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`)); 
 // 0%, 100%, 200%, 300%
