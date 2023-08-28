@@ -301,16 +301,18 @@ createDots();
 // function for dots activation:
 const activateDot = function (slide) {
   dotContainer.querySelectorAll('.dots__dot')
-    .forEach(dot => dot.classList
+  .forEach(dot => dot.classList
     .remove('dots__dot--active'));
-  dotContainer.querySelector(`.dots__dot[data-slide="${slide}"]`)
+    dotContainer.querySelector(`.dots__dot[data-slide="${slide}"]`)
     .classList.add('dots__dot--active');
-}
-
-const goToSlide = function (slide) {
-  slides.forEach((s, i) => 
+  }
+  
+  const goToSlide = function (slide) {
+    slides.forEach((s, i) => 
     (s.style.transform = `translateX(${100 * (i - slide)}%)`));
-};
+  };
+  
+activateDot(0);
 
 const nextSlide = function() {
   if(curSlide === maxSlide - 1) {
