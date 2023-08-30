@@ -633,8 +633,19 @@ window.addEventListener('load', function (e) {
 // dont use it too much,
 // only when user is in the middle of filling forms, 
 // or when data can be lost somehow
-window.addEventListener('beforeunload', function (e) {
-  e.preventDefault(); // some browsers require this
-  console.log(e);
-  e.returnValue = 'message';
-});
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault(); // some browsers require this
+//   console.log(e);
+//   e.returnValue = 'message';
+// });
+
+// efficient script loading: defer and async:
+// regular:
+// <script src='script.js'></script>
+
+// async:
+// <script async src='script.js'></script>
+
+// defer:
+// <script defer src='script.js'></script>
+
