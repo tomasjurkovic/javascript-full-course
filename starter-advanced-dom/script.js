@@ -615,3 +615,37 @@ console.log(headline.parentElement.children); // weird but working
 //     // all sibling elements excluding the selected one are 50% smaller now
 //   }
 // })
+
+// events that happen on DOM elements during web page's lifecycle:
+
+// page loaded event:
+document.addEventListener('DOMContentLoaded', function (e) {
+  // just HTML and javascript needs to be loaded, not images/videos
+  console.log('HTML parsed and DOM tree built', e);
+});
+
+// fully loaded page event:
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+// before unload event:
+// dont use it too much,
+// only when user is in the middle of filling forms, 
+// or when data can be lost somehow
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault(); // some browsers require this
+//   console.log(e);
+//   e.returnValue = 'message';
+// });
+
+// efficient script loading: defer and async:
+// regular:
+// <script src='script.js'></script>
+
+// async:
+// <script async src='script.js'></script>
+
+// defer:
+// <script defer src='script.js'></script>
+
