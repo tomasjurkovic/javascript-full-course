@@ -643,9 +643,9 @@ window.addEventListener('load', function (e) {
 // regular:
 // <script src='script.js'></script>
 
-// async:
+// async: shorter execution, not ordered, those which are loaded sooner
 // <script async src='script.js'></script>
 
-// defer:
+// defer: shorter execution in order / it is the best solution actually
 // <script defer src='script.js'></script>
 
