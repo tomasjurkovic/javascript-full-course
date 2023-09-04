@@ -107,3 +107,46 @@ console.log(arr.unique()); // prints (7) [3, 7, 4, 99, 45, 5, 77]
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
+
+// ES6 classes:
+
+// class expression:
+// const PersonCl = class {};
+
+// class declaration:
+class PersonCl {
+    // needs to be called constructor:
+    constructor(firstName, birtYear) {
+        this.firstName = firstName;
+        this.birtYear = birtYear;
+    }
+
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    }
+
+    // no need to add ;
+    greet() {
+        console.log(`Hey, ${this.firstName}`);
+    }
+};
+// this looks nicer :-)
+
+// lets create instance of this PersonCl class:
+const jessica = new PersonCl('Jessica', 1996);
+console.log(jessica);
+console.log(jessica.__proto__ === PersonCl.prototype); // true
+// calc age is in .__proto__
+
+// greet function outside, but
+// PersonCl.prototype.greet = function () {
+//     console.log(`Hey, ${this.firstName}`);
+// };
+// it is possible, but it is nicer to do it in the class itself :)
+
+jessica.greet(); // Hey, Jessica
+// 1. classes are NOT hoisted, we need to define them firstly and then use them
+// 2. classes are first-class citizens 
+// we can pass the into funtions and return them from functions
+// 3. classes are executed in the strict mode
