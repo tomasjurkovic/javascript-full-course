@@ -121,6 +121,7 @@ class PersonCl {
         this.birtYear = birtYear;
     }
 
+    // instance methods:
     // Methods will be added to .prototype property
     calcAge() {
         console.log(new Date().getFullYear() - this.birtYear);
@@ -144,6 +145,12 @@ class PersonCl {
 
     get fullName() {
         return this._fullName;
+    }
+
+    // static methods
+    static hey() {
+        console.log('Hey there');
+        // console.log(this); // prints whole class
     }
 };
 // this looks nicer :-)
@@ -191,3 +198,19 @@ const ammount = {
 console.log(ammount.latest);
 ammount.latest = 500;
 console.log(ammount.movements); // prints [200, 202, 54, 150, 300, 500]
+
+// static methods:
+Number.parseFloat(12);
+console.log(Array.from(document.querySelectorAll('h1'))); // [h1]
+// not working on array, only on Array constructor
+// [1, 2, 3].from(); // [1,2,3].from is not a function
+
+
+Person.hey = function() {
+    console.log('Hey there 👋');
+    // console.log(this); // entire constructor function
+}
+
+Person.hey();
+
+PersonCl.hey();
