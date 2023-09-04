@@ -65,3 +65,45 @@ console.log(jack.species, matilda.species); // Homo Sapiens Homo Sapiens
 console.log(jack.hasOwnProperty('firstName')); // prints true
 console.log(jack.hasOwnProperty('species')); 
 // prints false, because it just has access to it
+
+// prototypal inheritance - built in objects:
+console.log(tomas.__proto__); 
+// {species: 'Homo Sapiens', calcAge: ƒ, constructor: ƒ}
+
+// Object.prototype / top of the chain =>
+console.log(tomas.__proto__.__proto__); 
+// {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+// contains f.r. hasOwnProperty
+// that's why we can do this:
+console.log(tomas.hasOwnProperty('firstName'));
+
+console.log(tomas.__proto__.__proto__.__proto__); // return null
+// there is nothing that high in chain
+
+console.dir(Person.prototype.constructor);
+// ƒ Person(firstName, birthYear)
+
+const arr = [3, 7, 4, 99, 45, 5, 4, 4, 3, 99, 77];
+console.log(arr.__proto__);
+// [constructor: ƒ, at: ƒ, concat: ƒ, copyWithin: ƒ, fill: ƒ, …]
+// the reason why all arrays get access to these methods
+// they inherit them from its prototype
+console.log(arr.__proto__ === Array.prototype); // true
+
+// prints object.prototype => top of the chain
+console.log(arr.__proto__.__proto__);
+// {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+
+
+// create new method for all arrays, that will inherit it
+// lets create unique methof that returns only unique values from array
+Array.prototype.unique = function() {
+    return [...new Set(this)];
+    // it will create set of unique values in the array
+};
+
+console.log(arr.unique()); // prints (7) [3, 7, 4, 99, 45, 5, 77]
+// don't use to do it, because it is not good practice to extend built in objects
+
+const h1 = document.querySelector('h1');
+console.dir(x => x + 1);
