@@ -116,8 +116,8 @@ console.dir(x => x + 1);
 // class declaration:
 class PersonCl {
     // needs to be called constructor:
-    constructor(firstName, birtYear) {
-        this.firstName = firstName;
+    constructor(fullName, birtYear) {
+        this.fullName = fullName;
         this.birtYear = birtYear;
     }
 
@@ -128,13 +128,28 @@ class PersonCl {
 
     // no need to add ;
     greet() {
-        console.log(`Hey, ${this.firstName}`);
+        console.log(`Hey, ${this.fullName}`);
+    }
+
+    get age() {
+        return new Date().getFullYear() - this.birtYear;
+    }
+
+    // set a property that already exists:
+    set fullName(name) {
+        if(name.includes(' ')) this._fullName = name; 
+        // convention to avoid an error of infinite callings
+        else alert(`${name} does not contain a space!`);
+    }
+
+    get fullName() {
+        return this._fullName;
     }
 };
 // this looks nicer :-)
 
 // lets create instance of this PersonCl class:
-const jessica = new PersonCl('Jessica', 1996);
+const jessica = new PersonCl('Jessica Davis', 1996);
 console.log(jessica);
 console.log(jessica.__proto__ === PersonCl.prototype); // true
 // calc age is in .__proto__
@@ -150,3 +165,29 @@ jessica.greet(); // Hey, Jessica
 // 2. classes are first-class citizens 
 // we can pass the into funtions and return them from functions
 // 3. classes are executed in the strict mode
+
+// person get age:
+console.log(jessica.age); // prints 27 
+
+// setters and getters:
+// are functions that get and set values
+const walter = new PersonCl('Walter White', 1990);
+
+
+// object litteral
+const ammount = {
+    owner: 'Jonas',
+    movements: [200, 202, 54, 150, 300],
+
+    get latest() {
+        return this.movements.slice(-1).pop();
+    },
+
+    set latest(mov) {
+        this.movements.push(mov);
+    },
+};
+
+console.log(ammount.latest);
+ammount.latest = 500;
+console.log(ammount.movements); // prints [200, 202, 54, 150, 300, 500]
