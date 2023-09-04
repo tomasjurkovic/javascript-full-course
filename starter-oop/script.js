@@ -107,3 +107,137 @@ console.log(arr.unique()); // prints (7) [3, 7, 4, 99, 45, 5, 77]
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
+
+// ES6 classes:
+
+// class expression:
+// const PersonCl = class {};
+
+// class declaration:
+class PersonCl {
+    // needs to be called constructor:
+    constructor(fullName, birtYear) {
+        this.fullName = fullName;
+        this.birtYear = birtYear;
+    }
+
+    // instance methods:
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    }
+
+    // no need to add ;
+    greet() {
+        console.log(`Hey, ${this.fullName}`);
+    }
+
+    get age() {
+        return new Date().getFullYear() - this.birtYear;
+    }
+
+    // set a property that already exists:
+    set fullName(name) {
+        if(name.includes(' ')) this._fullName = name; 
+        // convention to avoid an error of infinite callings
+        else alert(`${name} does not contain a space!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
+
+    // static methods
+    static hey() {
+        console.log('Hey there');
+        // console.log(this); // prints whole class
+    }
+};
+// this looks nicer :-)
+
+// lets create instance of this PersonCl class:
+const jessica = new PersonCl('Jessica Davis', 1996);
+console.log(jessica);
+console.log(jessica.__proto__ === PersonCl.prototype); // true
+// calc age is in .__proto__
+
+// greet function outside, but
+// PersonCl.prototype.greet = function () {
+//     console.log(`Hey, ${this.firstName}`);
+// };
+// it is possible, but it is nicer to do it in the class itself :)
+
+jessica.greet(); // Hey, Jessica
+// 1. classes are NOT hoisted, we need to define them firstly and then use them
+// 2. classes are first-class citizens 
+// we can pass the into funtions and return them from functions
+// 3. classes are executed in the strict mode
+
+// person get age:
+console.log(jessica.age); // prints 27 
+
+// setters and getters:
+// are functions that get and set values
+const walter = new PersonCl('Walter White', 1990);
+
+
+// object litteral
+const ammount = {
+    owner: 'Jonas',
+    movements: [200, 202, 54, 150, 300],
+
+    get latest() {
+        return this.movements.slice(-1).pop();
+    },
+
+    set latest(mov) {
+        this.movements.push(mov);
+    },
+};
+
+console.log(ammount.latest);
+ammount.latest = 500;
+console.log(ammount.movements); // prints [200, 202, 54, 150, 300, 500]
+
+// static methods:
+Number.parseFloat(12);
+console.log(Array.from(document.querySelectorAll('h1'))); // [h1]
+// not working on array, only on Array constructor
+// [1, 2, 3].from(); // [1,2,3].from is not a function
+
+
+Person.hey = function() {
+    console.log('Hey there 👋');
+    // console.log(this); // entire constructor function
+}
+
+Person.hey();
+
+PersonCl.hey();
+
+// OBJECT.CREATE:
+const PersonProto = {
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    },
+
+    // seems like constructor, but it's not
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birtYear = birthYear;
+    },
+};
+
+const steven = Object.create(PersonProto);
+// it creates new objcet and its prototype its inserted argument (object)
+console.log(steven); 
+/* {}[[Prototype]]: ObjectcalcAge: ƒ calcAge()[[Prototype]]: Object */
+steven.name =' Steven Segal';
+steven.birtYear = 1950;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto); // true
+
+const sofia = Object.create(PersonProto);
+sofia.init('Sofia', 1995);
+sofia.calcAge(); // 28
