@@ -214,3 +214,30 @@ Person.hey = function() {
 Person.hey();
 
 PersonCl.hey();
+
+// OBJECT.CREATE:
+const PersonProto = {
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    },
+
+    // seems like constructor, but it's not
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birtYear = birthYear;
+    },
+};
+
+const steven = Object.create(PersonProto);
+// it creates new objcet and its prototype its inserted argument (object)
+console.log(steven); 
+/* {}[[Prototype]]: ObjectcalcAge: ƒ calcAge()[[Prototype]]: Object */
+steven.name =' Steven Segal';
+steven.birtYear = 1950;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto); // true
+
+const sofia = Object.create(PersonProto);
+sofia.init('Sofia', 1995);
+sofia.calcAge(); // 28
