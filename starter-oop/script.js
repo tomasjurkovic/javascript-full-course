@@ -241,3 +241,50 @@ console.log(steven.__proto__ === PersonProto); // true
 const sofia = Object.create(PersonProto);
 sofia.init('Sofia', 1995);
 sofia.calcAge(); // 28
+
+// copy of previous work:
+const Person2 = function(firstName, birthYear) {
+    this.firstName = firstName; // convention
+    this.birthYear = birthYear;
+};
+
+Person2.prototype.calcAge = function () {
+    console.log(new Date().getFullYear() - this.birthYear);
+};
+
+const Student = function(firstName, birthYear, course) {
+    // this.firstName = firstName;
+    // this.birtYear = birthYear;
+    // instead of duplicating, use this:
+    Person2.call(this, firstName, birthYear); 
+    // needs to be with call function and this keyword as a argument
+    this.course = course;
+};
+
+// mike.calcAge();
+// to make this work we need to manually connect Student.prototype .__proto__
+// to Person.prototype
+
+// Linking prototypes:
+// has to be here, because Object.create will return an empty object
+Student.prototype = Object.create(Person2.prototype);
+// if this was after following method, it would overwrite it.
+
+Student.prototype.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}.`);
+}
+
+
+const mike = new Student('Mike', 2005, 'computer sience');
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__ === Student.prototype); // true
+console.log(mike.__proto__.__proto__ === Person2.prototype); // true
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person2); 
+console.log(mike instanceof Object); // all three true
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
