@@ -393,3 +393,51 @@ const jay = Object.create(StudentProto2);
 jay.init('Jay', 2005, 'computer sience');
 jay.introduce();
 jay.calcAge();
+
+// another class examples:
+class Account {
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+        this.pin = pin;
+        this.movements = []; 
+        // we can create more properties that are not based on any input
+        this.locale = navigator.language;
+
+        // we can do any code here:
+        console.log(`Thanks for opening new account, ${this.owner}.`);
+    }
+
+    deposit(val) {
+        this.movements.push(val);
+    }
+
+    withdrawal(val) {
+        this.deposit(-val);
+    }
+
+    approveLoan(val) {
+        return true;
+    }
+
+    requestLoan(val) {
+        if(this.approveLoan(val)) {
+            this.deposit(val);
+            console.log('Loan approved');
+        }
+    }
+};
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+console.log(acc1);
+// put movements in array:
+// acc1.movements.push(250);
+// acc1.movements.push(-140); // not good idea to do it
+// better create new methods
+// and use it here:
+acc1.deposit(5000);
+acc1.withdrawal(650); // no need to use negative values
+console.log(acc1);
+
+acc1.requestLoan(1000);
+acc1.approveLoan(500);
