@@ -288,3 +288,76 @@ console.log(mike instanceof Object); // all three true
 
 Student.prototype.constructor = Student;
 console.dir(Student.prototype.constructor);
+
+// ES6 classes inheritance:
+class PersonCl2 {
+    // needs to be called constructor:
+    constructor(fullName, birtYear) {
+        this.fullName = fullName;
+        this.birtYear = birtYear;
+    }
+
+    // instance methods:
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    }
+
+    // no need to add ;
+    greet() {
+        console.log(`Hey, ${this.fullName}`);
+    }
+
+    get age() {
+        return new Date().getFullYear() - this.birtYear;
+    }
+
+    // set a property that already exists:
+    set fullName(name) {
+        if(name.includes(' ')) this._fullName = name; 
+        // convention to avoid an error of infinite callings
+        else alert(`${name} does not contain a space!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
+
+    // static methods
+    static hey() {
+        console.log('Hey there');
+        // console.log(this); // prints whole class
+    }
+};
+
+// we only need extends keyword
+class StudentCl2 extends PersonCl2 {
+    constructor(fullName, birtYear, course) {
+        // super is constructor of the parent class
+        // don't need to specify parent class here:
+        // just specify arguments of super function
+        // super always needs to happen first to access this keyword
+        super(fullName, birtYear);
+
+        // then specify properties (if needed):
+        this.course = course;
+    }
+
+    // here is possible to add new methods:
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}.`);
+    }
+
+    // we can also overwrite parent's class methods:
+    calcAge() {
+        console.log(`I am ${new Date().getFullYear() - this.birtYear} years old, but as a student I feel more like ${new Date().getFullYear() - this.birtYear + 10}.`);
+    }
+};
+
+// if we specify only this, we wouldn't need any constructor at all
+// const martha = new StudentCl2('Martha Jones', 2012);
+const martha = new StudentCl2('Martha Jones', 2012, 'biology');
+console.log(martha);
+martha.introduce();
+martha.greet();
+martha.calcAge(); // it overwrote function from parent class (shadowing it)
