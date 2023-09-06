@@ -361,3 +361,35 @@ console.log(martha);
 martha.introduce();
 martha.greet();
 martha.calcAge(); // it overwrote function from parent class (shadowing it)
+
+// Object.create example:
+const PersonProto2 = {
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    },
+
+    // seems like constructor, but it's not
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birtYear = birthYear;
+    },
+};
+
+const samuel = Object.create(PersonProto2);
+
+// Person proto 2 is prototype of Student Proto 2
+const StudentProto2 = Object.create(PersonProto2);
+
+StudentProto2.init = function(firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto2.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}.`);
+};
+
+const jay = Object.create(StudentProto2);
+jay.init('Jay', 2005, 'computer sience');
+jay.introduce();
+jay.calcAge();
