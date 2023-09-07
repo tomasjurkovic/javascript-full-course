@@ -394,37 +394,47 @@ jay.init('Jay', 2005, 'computer sience');
 jay.introduce();
 jay.calcAge();
 
+// 1. public fields
+// 2. private fields
+// 3. public methods
+// 4. private methods
+// 5. there is also static method
+
 // another class examples:
 class Account {
+    // public fields: (instances)
+    locale = navigator.language; // don't need to declare it, it needs ;
+    
+    // private fields:
+    #movements = []; // # symbol makes it private
+    #pin; // set to undefined and it will be redifined through constructor
+
     constructor(owner, currency, pin) {
         this.owner = owner;
         this.currency = currency;
 
         // _protected propertoes:
-        this._pin = pin;
-        this._movements = []; // convention when it should be private
+        this.#pin = pin;
+        // this._movements = []; // convention when it should be private
         // we can create more properties that are not based on any input
-        this.locale = navigator.language;
+        // this.locale = navigator.language;
 
         // we can do any code here:
         console.log(`Thanks for opening new account, ${this.owner}.`);
     }
 
     // Public interface:
+    // 3. Public methods
     getMovements() {
-        return this._movements;
+        return this.#movements;
     }
     
     deposit(val) {
-        this._movements.push(val);
+        this.#movements.push(val);
     }
 
     withdrawal(val) {
         this.deposit(-val);
-    }
-
-    _approveLoan(val) {
-        return true;
     }
 
     requestLoan(val) {
@@ -432,6 +442,18 @@ class Account {
             this.deposit(val);
             console.log('Loan approved');
         }
+    }
+
+    // 4. private methods:
+    // #approveLoan(val) { // in future it would look like this
+    _approveLoan(val) {
+        return true;
+    }
+
+    // 5. static methods:
+    // we use them for helper functions:
+    static helper() {
+        console.log('Helper');
     }
 };
 
@@ -447,8 +469,16 @@ acc1.withdrawal(650); // no need to use negative values
 console.log(acc1);
 
 acc1.requestLoan(1000);
-acc1.approveLoan(500);
+acc1._approveLoan(500); // we should not do it
+// acc1.#approveLoan(500); // not possible to access again, it is private
 
-console.log(acc1._movements); // possible, but we should not do it
+// console.log(acc1._movements); // possible, but we should not do it
+// console.log(acc1.#movements); // not possible at all, syntax error
+console.log(acc1.getMovements()); // correct way to do it
 
-console.log(acc1.getMovements()); // better way to do it
+// console.log(acc1.#pin); // not possible at all again
+
+// static methods:
+// console.log(acc1.helper()); // not working on instances
+Account.helper();
+// it is possible to call it on class itself
