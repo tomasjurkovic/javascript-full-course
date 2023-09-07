@@ -399,8 +399,10 @@ class Account {
     constructor(owner, currency, pin) {
         this.owner = owner;
         this.currency = currency;
-        this.pin = pin;
-        this.movements = []; 
+
+        // _protected propertoes:
+        this._pin = pin;
+        this._movements = []; // convention when it should be private
         // we can create more properties that are not based on any input
         this.locale = navigator.language;
 
@@ -408,20 +410,25 @@ class Account {
         console.log(`Thanks for opening new account, ${this.owner}.`);
     }
 
+    // Public interface:
+    getMovements() {
+        return this._movements;
+    }
+    
     deposit(val) {
-        this.movements.push(val);
+        this._movements.push(val);
     }
 
     withdrawal(val) {
         this.deposit(-val);
     }
 
-    approveLoan(val) {
+    _approveLoan(val) {
         return true;
     }
 
     requestLoan(val) {
-        if(this.approveLoan(val)) {
+        if(this._approveLoan(val)) {
             this.deposit(val);
             console.log('Loan approved');
         }
@@ -441,3 +448,7 @@ console.log(acc1);
 
 acc1.requestLoan(1000);
 acc1.approveLoan(500);
+
+console.log(acc1._movements); // possible, but we should not do it
+
+console.log(acc1.getMovements()); // better way to do it
