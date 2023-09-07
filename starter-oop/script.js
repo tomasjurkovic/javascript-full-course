@@ -288,3 +288,197 @@ console.log(mike instanceof Object); // all three true
 
 Student.prototype.constructor = Student;
 console.dir(Student.prototype.constructor);
+
+// ES6 classes inheritance:
+class PersonCl2 {
+    // needs to be called constructor:
+    constructor(fullName, birtYear) {
+        this.fullName = fullName;
+        this.birtYear = birtYear;
+    }
+
+    // instance methods:
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    }
+
+    // no need to add ;
+    greet() {
+        console.log(`Hey, ${this.fullName}`);
+    }
+
+    get age() {
+        return new Date().getFullYear() - this.birtYear;
+    }
+
+    // set a property that already exists:
+    set fullName(name) {
+        if(name.includes(' ')) this._fullName = name; 
+        // convention to avoid an error of infinite callings
+        else alert(`${name} does not contain a space!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
+
+    // static methods
+    static hey() {
+        console.log('Hey there');
+        // console.log(this); // prints whole class
+    }
+};
+
+// we only need extends keyword
+class StudentCl2 extends PersonCl2 {
+    constructor(fullName, birtYear, course) {
+        // super is constructor of the parent class
+        // don't need to specify parent class here:
+        // just specify arguments of super function
+        // super always needs to happen first to access this keyword
+        super(fullName, birtYear);
+
+        // then specify properties (if needed):
+        this.course = course;
+    }
+
+    // here is possible to add new methods:
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}.`);
+    }
+
+    // we can also overwrite parent's class methods:
+    calcAge() {
+        console.log(`I am ${new Date().getFullYear() - this.birtYear} years old, but as a student I feel more like ${new Date().getFullYear() - this.birtYear + 10}.`);
+    }
+};
+
+// if we specify only this, we wouldn't need any constructor at all
+// const martha = new StudentCl2('Martha Jones', 2012);
+const martha = new StudentCl2('Martha Jones', 2012, 'biology');
+console.log(martha);
+martha.introduce();
+martha.greet();
+martha.calcAge(); // it overwrote function from parent class (shadowing it)
+
+// Object.create example:
+const PersonProto2 = {
+    calcAge() {
+        console.log(new Date().getFullYear() - this.birtYear);
+    },
+
+    // seems like constructor, but it's not
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birtYear = birthYear;
+    },
+};
+
+const samuel = Object.create(PersonProto2);
+
+// Person proto 2 is prototype of Student Proto 2
+const StudentProto2 = Object.create(PersonProto2);
+
+StudentProto2.init = function(firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto2.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}.`);
+};
+
+const jay = Object.create(StudentProto2);
+jay.init('Jay', 2005, 'computer sience');
+jay.introduce();
+jay.calcAge();
+
+// 1. public fields
+// 2. private fields
+// 3. public methods
+// 4. private methods
+// 5. there is also static method
+
+// another class examples:
+class Account {
+    // public fields: (instances)
+    locale = navigator.language; // don't need to declare it, it needs ;
+    
+    // private fields:
+    #movements = []; // # symbol makes it private
+    #pin; // set to undefined and it will be redifined through constructor
+
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+
+        // _protected propertoes:
+        this.#pin = pin;
+        // this._movements = []; // convention when it should be private
+        // we can create more properties that are not based on any input
+        // this.locale = navigator.language;
+
+        // we can do any code here:
+        console.log(`Thanks for opening new account, ${this.owner}.`);
+    }
+
+    // Public interface:
+    // 3. Public methods
+    getMovements() {
+        return this.#movements;
+    }
+    
+    deposit(val) {
+        this.#movements.push(val);
+    }
+
+    withdrawal(val) {
+        this.deposit(-val);
+    }
+
+    requestLoan(val) {
+        if(this._approveLoan(val)) {
+            this.deposit(val);
+            console.log('Loan approved');
+        }
+    }
+
+    // 4. private methods:
+    // #approveLoan(val) { // in future it would look like this
+    _approveLoan(val) {
+        return true;
+    }
+
+    // 5. static methods:
+    // we use them for helper functions:
+    static helper() {
+        console.log('Helper');
+    }
+};
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+console.log(acc1);
+// put movements in array:
+// acc1.movements.push(250);
+// acc1.movements.push(-140); // not good idea to do it
+// better create new methods
+// and use it here:
+acc1.deposit(5000);
+acc1.withdrawal(650); // no need to use negative values
+console.log(acc1);
+
+acc1.requestLoan(1000);
+acc1._approveLoan(500); // we should not do it
+// acc1.#approveLoan(500); // not possible to access again, it is private
+
+// console.log(acc1._movements); // possible, but we should not do it
+// console.log(acc1.#movements); // not possible at all, syntax error
+console.log(acc1.getMovements()); // correct way to do it
+
+// console.log(acc1.#pin); // not possible at all again
+
+// static methods:
+// console.log(acc1.helper()); // not working on instances
+Account.helper();
+// it is possible to call it on class itself
