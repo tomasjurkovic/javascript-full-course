@@ -234,3 +234,5 @@ rivian.accelerate()
     .accelerate()
     .brake()
     .brake();
+
+console.log(rivian.speedUS); // 103.125
