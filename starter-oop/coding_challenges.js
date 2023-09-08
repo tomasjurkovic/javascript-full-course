@@ -84,6 +84,7 @@ class CarCl {
     brake() {
         this.speed -= 5;
         console.log(`The ${this.make}'s speed is: ${this.speed}`);
+        return this;
     }
 
     // 2:
@@ -171,3 +172,67 @@ zhidou.accelerate();
 zhidou.accelerate();
 
 // added some bonus checks, looks better now :)
+
+/* Coding Challenge #4
+Your tasks:
+1. Re-create Challenge #3, but this time using ES6 classes: create an 'EVCl'
+child class of the 'CarCl' class
+2. Make the 'charge' property private
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery'
+methods of this class, and also update the 'brake' method in the 'CarCl'
+class. Then experiment with chaining!
+Test data:
+§ Data car 1: 'Rivian' going at 120 km/h, with a charge of 23%
+GOOD LUCK  */
+
+// 1: redifine this class from previous challenge
+class EVCl extends CarCl {
+    // 2: make charbe be private param
+    #charge;
+
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    }
+
+    // 3: redefine methods and let chaining be available
+    chargeBattery(chargeTo) {
+        if(this.#charge > chargeTo) {
+            console.log(`You can't charge less battery (${chargeTo}), than it already has ${this.#charge}.`);
+            return;
+        };
+        if(chargeTo > 100) {
+            this.#charge = 100;
+            return;
+        }
+        this.#charge = chargeTo;
+        return this;
+    }
+    
+    accelerate() {
+        this.#charge -= 1;
+        if(this.#charge === 0 || this.#charge <= 0) {
+            this.#charge = 0;
+            console.log(`Battery is ${this.#charge}%. Need to charge.`);
+            return;
+        }
+        this.speed += 20;
+        console.log(`${this.make} is going at ${this.speed}, with a charge of ${this.#charge}%.`);
+        return this;
+    }
+};
+
+const rivian = new EVCl('Rivian', 120, 23);
+console.log(rivian);
+
+// 4: play with chainings:
+rivian.accelerate()
+    .chargeBattery(50)
+    .accelerate()
+    .brake()
+    .chargeBattery(55)
+    .accelerate()
+    .brake()
+    .brake();
+
+console.log(rivian.speedUS); // 103.125

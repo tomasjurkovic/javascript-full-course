@@ -431,16 +431,20 @@ class Account {
     
     deposit(val) {
         this.#movements.push(val);
+        return this; // the way it is chainable now
+        // this is current object
     }
 
     withdrawal(val) {
         this.deposit(-val);
+        return this; // the way it is chainable now
     }
 
     requestLoan(val) {
         if(this._approveLoan(val)) {
             this.deposit(val);
             console.log('Loan approved');
+            return this; // the way it is chainable now
         }
     }
 
@@ -482,3 +486,16 @@ console.log(acc1.getMovements()); // correct way to do it
 // console.log(acc1.helper()); // not working on instances
 Account.helper();
 // it is possible to call it on class itself
+
+// CHAINING METHODS:
+// it is really simple, all we have to do is 
+// returing object itself in the method that ww need to be chainable:
+
+// chaining methods:
+acc1.deposit(500)
+    .deposit(400)
+    .withdrawal(250)
+    .requestLoan(5000)
+    .withdrawal(500);
+console.log(acc1.getMovements());
+// works pretty nice: prints [5000, -650, 1000, 500, 400, -250, 5000, -500]
