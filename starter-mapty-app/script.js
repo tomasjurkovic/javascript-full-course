@@ -12,9 +12,21 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 let map, mapEvent;
 
-// geolocation API:
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+class App {
+    constructor() {
+
+    }
+
+    // geolocation API:
+    _getPosition() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this._loadMap, function () {
+                alert('Could not get your position');
+            });
+        };
+    }
+    
+    _loadMap(position) {
         console.log(position);
         // using destructuring here:
         // SAME AS:    position.coords.latitude;
@@ -60,10 +72,18 @@ if (navigator.geolocation) {
             //     .setPopupContent('Workout')
             //     .openPopup();
         })
-    }, function () {
-        alert('Could not get your position');
-    });
+    }
+
+    // _showForm(){}
+
+    // _toggleElevationField(){}
+
+    // _newWorkout(){}
+
 };
+
+// create app object
+const app = new App();
 
 // accessing global variable from the other.sj script:
 // console.log(`I am ${firstName}`); // printed 'Tomas'
