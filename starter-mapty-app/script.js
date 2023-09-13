@@ -66,6 +66,8 @@ class Cycling extends Workout {
 class App {
     #map;
     #mapEvent;
+    #workout = [];
+
     constructor() {
         this._getPosition(); 
         // display map while page is loading right at the constructor
@@ -154,6 +156,8 @@ class App {
         const type = inputType.value;
         const distance = +inputDistance.value; // + conver it to number
         const duration = +inputDuration.value; // + conver it to number
+        const {lat, lng} = this.#mapEvent.latlng;
+        let workout;
 
         // if activity running, create the running object
         if (type === 'running') {
@@ -164,31 +168,33 @@ class App {
                 // !Number.isFinite(distance) || 
                 // !Number.isFinite(duration) || 
                 // !Number.isFinite(cadence)
-                !validInputs(distance, duration, cadence)) {
+                !validInputs(distance, duration, cadence) ||
+                !allPositive(distance, cadence, duration)) {
                 return alert('Inputs have to be possitive numbers');
             }
 
-            if(!allPositive(distance, cadence, duration)) {
-                return alert('Inputs have to be possitive numbers');
-            }
+            // create running object:
+            workout = new Running([lat, lng], distance, duration, cadence);
         }
 
         // if activity cycling, create the cycling object
         if (type === 'cycling') {
             const elevation = +inputElevation.value;
             // check if data is valid
-            if(!allPositive(distance, duration)) {
+            if(!allPositive(distance, duration) ||
+                !allPositive(distance, duration)) {
                 return alert('Inputs have to be possitive numbers')
             }
 
-            if(distance < 0 || duration < 0){
-                return alert('Inputs have to be possitive numbers');
-            }
+            // create cycling object:
+            workout = new Cycling([lat, lng], distance, duration, elevation);
         }
+
         // add new object to workout array
+        this.#workout.push(workout);
+        console.log(app.#workout);
 
         // render workout on map as marker
-        const {lat, lng} = this.#mapEvent.latlng;
         const crds = [lat, lng];
         L.marker(crds).addTo(this.#map)
         .bindPopup(L.popup({
