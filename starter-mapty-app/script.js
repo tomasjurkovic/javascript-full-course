@@ -145,8 +145,17 @@ class App {
         e.preventDefault();
         console.log(this);
 
-        // clear inputs fields:
-        inputCadence.value = inputDistance.value = inputDuration.value = inputElevation.value = '';
+        // get data from form
+
+        // check if data is valid
+
+        // if activity running, create the running object
+
+        // if activity cycling, create the cycling object
+
+        // add new object to workout array
+
+        // render workout on map as marker
         const {lat, lng} = this.#mapEvent.latlng;
         const crds = [lat, lng];
         L.marker(crds).addTo(this.#map)
@@ -159,10 +168,12 @@ class App {
             })
         )
         .setPopupContent('Workout')
-        .openPopup();
-        
-    }
+        .openPopup(); 
+        // render workout on list
 
+        // hide form + clear inputs fields:
+        inputCadence.value = inputDistance.value = inputDuration.value = inputElevation.value = '';
+    }
 };
 
 // create app object
