@@ -11,6 +11,58 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+class Workout {
+    date = new Date();
+    id = (Date.now() + '').slice(-10);
+
+    constructor(coords, distance, duration) {
+        // this.date = ... (but not needed cuz code above)
+        this.coords = coords; // [lat, lng]
+        this.distance = distance; // in km
+        this.duration = duration; // in min
+    }
+
+    click() {}
+
+    _setDescription() {}
+}
+
+class Running extends Workout {
+    constructor(coords, distance, duration, cadence) {
+        super(coords, distance, duration);
+        this.cadence = cadence;
+        this.calcPace();
+    }
+
+    calcPace() {
+        // usually min/km
+        this.pace = this.duration / this.distance;
+        return this.pace; // not needed, called in constructor
+    }
+}
+
+class Cycling extends Workout {
+    constructor(coords, distance, duration, elevationGain) {
+        super(coords, distance, duration);
+        this.elevationGain = elevationGain;
+        this.calcSpeed();
+    }
+
+    calcSpeed() {
+        // usually km/h
+        this.speed = this.distance / this.duration;
+        return this.speed; // not needed, called in constructor
+    }
+}
+
+// check if it works:
+// const run1 = new Running([31, -12], 5.2, 24, 179);
+// const cycling1 = new Cycling([39, -12], 27, 59, 523);
+// console.log(run1, cycling1);
+
+////////////////////////////////////////////////////////////////////////////
+// APPLICATION ARCHITECTURE:
+
 class App {
     #map;
     #mapEvent;
