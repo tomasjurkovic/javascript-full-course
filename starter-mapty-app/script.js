@@ -142,17 +142,49 @@ class App {
     }
 
     _newWorkout(e){
+        // helper function:
+        const validInputs = (...inputs) => 
+            inputs.every(inp => Number.isFinite(inp));
+        const allPositive = (...inputs) => 
+            inputs.every(inp => inp > 0);
         e.preventDefault();
         console.log(this);
 
         // get data from form
-
-        // check if data is valid
+        const type = inputType.value;
+        const distance = +inputDistance.value; // + conver it to number
+        const duration = +inputDuration.value; // + conver it to number
 
         // if activity running, create the running object
+        if (type === 'running') {
+            const cadence = +inputCadence.value;
+            // check if data is valid
+            // using guard clause:
+            if (
+                // !Number.isFinite(distance) || 
+                // !Number.isFinite(duration) || 
+                // !Number.isFinite(cadence)
+                !validInputs(distance, duration, cadence)) {
+                return alert('Inputs have to be possitive numbers');
+            }
+
+            if(!allPositive(distance, cadence, duration)) {
+                return alert('Inputs have to be possitive numbers');
+            }
+        }
 
         // if activity cycling, create the cycling object
+        if (type === 'cycling') {
+            const elevation = +inputElevation.value;
+            // check if data is valid
+            if(!allPositive(distance, duration)) {
+                return alert('Inputs have to be possitive numbers')
+            }
 
+            if(distance < 0 || duration < 0){
+                return alert('Inputs have to be possitive numbers');
+            }
+        }
         // add new object to workout array
 
         // render workout on map as marker
