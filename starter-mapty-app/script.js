@@ -13,6 +13,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
     date = new Date();
     id = (Date.now() + '').slice(-10);
+    clicks = 0;
 
     constructor(coords, distance, duration) {
         // this.date = ... (but not needed cuz code above)
@@ -21,7 +22,9 @@ class Workout {
         this.duration = duration; // in min
     }
 
-    click() {}
+    click() {
+        this.clicks++;
+    }
 
     _setDescription() {
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -305,6 +308,9 @@ class App {
                 duration: 1
             }
         });
+
+        // using public interface:
+        workout.click();
     }
 };
 
