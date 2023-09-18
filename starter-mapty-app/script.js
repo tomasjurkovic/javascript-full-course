@@ -78,7 +78,7 @@ class Cycling extends Workout {
 class App {
     #map;
     #mapEvent;
-    #workout = [];
+    #workouts = [];
     #mapZoomLevel = 13;
 
     constructor() {
@@ -216,8 +216,8 @@ class App {
         }
 
         // add new object to workout array
-        this.#workout.push(workout);
-        console.log(app.#workout);
+        this.#workouts.push(workout);
+        console.log(app.#workouts);
 
         // render workout on map as marker:
         this._renderWorkoutMarker(workout);
@@ -227,6 +227,9 @@ class App {
 
         // hide form + clear inputs fields:
         this._hideForm();
+
+        // set local storage to all workouts>
+        this._setLocalStorage();
     }
 
     _renderWorkoutMarker(workout) {
@@ -300,7 +303,7 @@ class App {
         // guard clause>
         if(!workoutEl) return;
 
-        const workout = this.#workout.find(work => work.id === workoutEl.dataset.id);
+        const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
         console.log(workout);
         this.#map.setView(workout.coords, this.#mapZoomLevel, {
             animate: true,
@@ -311,6 +314,10 @@ class App {
 
         // using public interface:
         workout.click();
+    }
+
+    _setLocalStorage() {
+        localStorage.setItem('workouts', JSON.stringify(this.#workouts));
     }
 };
 
