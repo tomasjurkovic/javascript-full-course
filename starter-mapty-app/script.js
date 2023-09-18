@@ -336,6 +336,12 @@ class App {
             this._renderWorkout(work);
         });
     }
+
+    // this is possible to remove workouts from local storage
+    reset() {
+        localStorage.removeItem('workouts');
+        location.reload();
+    }
 };
 
 // create app object
