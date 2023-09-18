@@ -76,6 +76,7 @@ class App {
     #map;
     #mapEvent;
     #workout = [];
+    #mapZoomLevel = 13;
 
     constructor() {
         this._getPosition(); 
@@ -87,6 +88,8 @@ class App {
         // there is need to bind it this way to app (using .bind(this))
 
         inputType.addEventListener('change', this._toggleElevationField);
+
+        containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
     }
 
     // geolocation API:
@@ -113,7 +116,7 @@ class App {
         console.log(`https://www.google.sk/maps/@${latitude},${longitude}`);
 
         console.log(this);
-        this.#map = L.map('map').setView(coords, 13);
+        this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
         L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -285,6 +288,23 @@ class App {
             `;
         
         form.insertAdjacentHTML('afterend', html);
+    }
+
+    _moveToPopup(e) {
+        const workoutEl = e.target.closest('.workout');
+        console.log(workoutEl);
+
+        // guard clause>
+        if(!workoutEl) return;
+
+        const workout = this.#workout.find(work => work.id === workoutEl.dataset.id);
+        console.log(workout);
+        this.#map.setView(workout.coords, this.#mapZoomLevel, {
+            animate: true,
+            pan: {
+                duration: 1
+            }
+        });
     }
 };
 
