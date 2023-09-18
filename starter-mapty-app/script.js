@@ -82,9 +82,14 @@ class App {
     #mapZoomLevel = 13;
 
     constructor() {
+        // get user position>
         this._getPosition(); 
         // display map while page is loading right at the constructor
 
+        // get data from local storage
+        this._getLocalStorage();
+
+        // attach event handlers:
         // add event listener for submitting the form:
         form.addEventListener('submit', this._newWorkout.bind(this)); 
         // event handler function
@@ -105,7 +110,6 @@ class App {
     }
     
     _loadMap(position) {
-        console.log(position);
         // using destructuring here:
         // SAME AS:    position.coords.latitude;
         // SAME AS:
@@ -113,12 +117,8 @@ class App {
         // const {longitude} = position.coords;
         const {latitude, longitude} = position.coords;
         const coords = [latitude, longitude];
-        console.log(latitude, longitude);
 
         // check if google link will open map with my current location:
-        console.log(`https://www.google.sk/maps/@${latitude},${longitude}`);
-
-        console.log(this);
         this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
         L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -128,6 +128,12 @@ class App {
         // special object with couple of methods:
         // handling clicks on map:
         this.#map.on('click', this._showForm.bind(this));
+
+        // load map has to happen first
+        // this is why it has to be not used in _getLocalStorage method
+        this.#workouts.forEach(work => {
+            this._renderWorkoutMarker(work);
+        });
     }
 
     _showForm(mapE){
@@ -175,7 +181,6 @@ class App {
         const allPositive = (...inputs) => 
             inputs.every(inp => inp > 0);
         e.preventDefault();
-        console.log(this);
 
         // get data from form
         const type = inputType.value;
@@ -217,7 +222,6 @@ class App {
 
         // add new object to workout array
         this.#workouts.push(workout);
-        console.log(app.#workouts);
 
         // render workout on map as marker:
         this._renderWorkoutMarker(workout);
@@ -298,13 +302,11 @@ class App {
 
     _moveToPopup(e) {
         const workoutEl = e.target.closest('.workout');
-        console.log(workoutEl);
 
         // guard clause>
         if(!workoutEl) return;
 
         const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
-        console.log(workout);
         this.#map.setView(workout.coords, this.#mapZoomLevel, {
             animate: true,
             pan: {
@@ -313,11 +315,26 @@ class App {
         });
 
         // using public interface:
-        workout.click();
+        // workout.click();
     }
 
     _setLocalStorage() {
         localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+    }
+
+    _getLocalStorage() {
+        const data = JSON.parse(localStorage.getItem('workouts')); 
+        // JSON.parse is opposite of JSON.stringify()
+
+        // guard clause:
+        if(!data) return;
+        
+        // restore back the data:
+        this.#workouts = data;
+
+        this.#workouts.forEach(work => {
+            this._renderWorkout(work);
+        });
     }
 };
 
