@@ -98,6 +98,9 @@ class App {
         inputType.addEventListener('change', this._toggleElevationField);
 
         containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+
+        containerWorkouts.addEventListener('dblclick', this._deleteWorkout.bind(this));
+
     }
 
     // geolocation API:
@@ -270,7 +273,7 @@ class App {
             html += `
               <div class="workout__details">
                 <span class="workout__icon">⚡️</span>
-                <span class="workout__value">${workout.pace.toFixed(1)}}</span>
+                <span class="workout__value">${workout.pace.toFixed(1)}</span>
                 <span class="workout__unit">min/km</span>
               </div>
               <div class="workout__details">
@@ -341,6 +344,28 @@ class App {
     reset() {
         localStorage.removeItem('workouts');
         location.reload();
+    }
+
+    // MORE FUNCTIONALITY:
+    _deleteWorkout(e) {
+        let workout
+        const workoutEl = e.target.closest('.workout');
+        console.log('DBLCLICK');
+        // guard clause>
+        if(!workoutEl) return;
+
+        this.#workouts.pop(workoutEl);
+
+        // delete workout on UI
+        workoutEl.remove();
+        console.log(workoutEl.coords);
+        console.log(workout.coords);
+
+        // delete workout marker
+        // const workoutPosition = this.#workouts.id;
+        // console.log(this.#workouts.filter(el => el.id === workout.id));
+        // console.log(workoutPosition);
+        // this.#workouts.pop(workoutPosition);
     }
 };
 
