@@ -34,7 +34,13 @@ const renderCountry = function (data, className = '') {
     `;
     
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
+    // countriesContainer.style.opacity = 1;
+}
+
+// error rendering:
+const renderError = function (msg) {
+    countriesContainer.insertAdjacentText('beforeend', msg);
+    // countriesContainer.style.opacity = 1;
 }
 
 // const getCountryAndNeighbour = function (country) {
@@ -112,9 +118,10 @@ console.log(request); // we have promise stored in the request variable:
 // };
 
 // NOW IT LOOKS CLEANER AND FASTER (woeks same as above)
+
 const getCountryData = function (country) {
     fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then((response) => response.json())
+        .then((response) => response.json() /*, err => alert(err) */) // possible to do it that way
         .then((data) => {
           renderCountry(data[0]); 
           const neighbour = data[0].borders[0]
@@ -124,8 +131,20 @@ const getCountryData = function (country) {
           return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
         }) 
         .then((response) => response.json())
-        .then((data) => renderCountry(data[0], 'neighbour')); 
+        .then((data) => renderCountry(data[0], 'neighbour')) 
+        .catch(err => {
+            console.error(`${err} 💥💥💥`);
+            renderError(`💥 Something went wrong: ${err.message}. Try again!`);
+        })
+        .finally(() => {
+            // this gonna be called always:
+            // not useful always, but it hides f.e. loaded spinner
+            countriesContainer.style.opacity = 1;
+        });
 };
 
-getCountryData('portugal');
-getCountryData('poland');
+btn.addEventListener('click', function () {
+    getCountryData('wakanda');
+});
+
+getCountryData('wakanda');
