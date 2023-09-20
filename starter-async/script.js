@@ -63,6 +63,7 @@ const getCountryAndNeighbour = function (country) {
         request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
         request2.send();
 
+        // nested callback:
         request2.addEventListener('load', function () {
             const [data2] = JSON.parse(this.responseText);
             console.log([data2]);
@@ -77,3 +78,19 @@ const getCountryAndNeighbour = function (country) {
 getCountryAndNeighbour("portugal");
 getCountryAndNeighbour("slovakia");
 
+// callback hell example
+setTimeout(() => {
+    console.log('1 second passed');
+    setTimeout(() => {
+        console.log('2 seconds passed');
+        setTimeout(() => {
+            console.log('3 seconds passed');
+            setTimeout(() => {
+                console.log('4 seconds passed');
+                setTimeout(() => {
+                    console.log('5 seconds passed');
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }, 1000);
+}, 1000);
