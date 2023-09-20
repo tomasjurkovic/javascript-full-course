@@ -99,3 +99,23 @@ setTimeout(() => {
 // AJAX call country 1:
 const request = fetch(`https://restcountries.com/v3.1/name/portugal`);
 console.log(request); // we have promise stored in the request variable:
+
+
+// const getCountryData = function (country) {
+//     fetch(`https://restcountries.com/v3.1/name/${country}`).then(function (response) {
+//        console.log(response); 
+//        return response.json();
+//     }).then(function (data) {
+//         console.log(data);
+//         renderCountry(data[0])
+//     })
+// };
+
+// NOW IT LOOKS CLEANER AND FASTER (woeks same as above)
+const getCountryData = function (country) {
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then((response) => response.json())
+        .then((data) => renderCountry(data[0]));
+};
+
+getCountryData('portugal');
