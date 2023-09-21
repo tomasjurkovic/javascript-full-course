@@ -185,7 +185,7 @@ const getCountryData = function (country) {
       .then(data => renderCountry(data, 'neighbour'))
       .catch(err => {
         console.error(`${err} 💥💥💥`);
-        renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
+        // renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
       })
       .finally(() => {
         countriesContainer.style.opacity = 1;
@@ -238,11 +238,31 @@ Test data:
 § Coordinates 3: -33.933, 18.474
 */
 
+// const whereAmI = function name(lat, lng) {
+//     getJSON(
+//         `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`,
+//         'Country not found'
+//     ).then(data => {
+//         const matchedCountry = data.features[0].properties.country;
+//         const matchedCity = data.features[0].properties.city;
+//         console.log(`You are in ${matchedCity}, ${matchedCountry}`);
+
+//         // render country that is recieved back
+//         getCountryData(matchedCountry);
+//     }).catch(err => {
+//         console.error(`${err} 💥💥💥`);
+//         renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
+//     })
+// }
+
+// jonas inspired solulion without getJSON
 const whereAmI = function name(lat, lng) {
-    getJSON(
-        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`,
-        'Country not found'
-    ).then(data => {
+    fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`)
+    .then(res => {
+        if(!res.ok) throw new Error(`Problem with geocoding ${res.status}`)
+        return res.json();
+    }).then(data => {
+        console.log(data);
         const matchedCountry = data.features[0].properties.country;
         const matchedCity = data.features[0].properties.city;
         console.log(`You are in ${matchedCity}, ${matchedCountry}`);
