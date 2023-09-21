@@ -259,7 +259,7 @@ Test data:
 const whereAmI = function name(lat, lng) {
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`)
     .then(res => {
-        if(!res.ok) throw new Error(`Problem with geocoding ${res.status}`)
+        if(!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
         return res.json();
     }).then(data => {
         console.log(data);
