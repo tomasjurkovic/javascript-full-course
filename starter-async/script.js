@@ -190,11 +190,11 @@ const getCountryData = function (country) {
       .finally(() => {
         countriesContainer.style.opacity = 1;
       });
-  };
+};
 
-btn.addEventListener('click', function () {
-    getCountryData('portugal');
-});
+// btn.addEventListener('click', function () {
+//     getCountryData('portugal');
+// });
 
 // getCountryData('cuba');
 
@@ -402,3 +402,32 @@ const getPosition = function() {
 
 getPosition().then(pos => console.log(pos))
     .catch(err => console.error(err));
+
+
+// reversegeolocation:
+
+const whereAmIPromise = function () {
+
+    getPosition().then(pos => {
+        console.log(pos.coords);
+        const {latitude: lat, longitude: lng} = pos.coords;
+        return fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`)
+    }).then(res => {
+        if(!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+        return res.json();
+    }).then(data => {
+        console.log(data);
+        const matchedCountry = data.features[0].properties.country;
+        const matchedCity = data.features[0].properties.city;
+        console.log(`You are in ${matchedCity}, ${matchedCountry}`);
+        
+        // render country that is recieved back
+        getCountryData(matchedCountry);
+    }).catch(err => {
+        console.error(`${err} 💥💥💥`);
+        renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
+    })
+}
+    
+btn.addEventListener('click', whereAmIPromise);
+    
