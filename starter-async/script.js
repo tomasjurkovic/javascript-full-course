@@ -295,3 +295,23 @@ console.log("Test end");
 // promise and timout goes after it / both in callback queues
 // callback of the resolved promise will go to microtask queue
 // it means it has priority over basic callback queue
+
+// Building new Promise:
+// it takes just one argument - executor function
+// executor funtion has 2 params / resolve and reject
+const lotteryPromise = new Promise(function(resolve, reject) {  
+    console.log('Lottery draw is happening 🔮');
+    setTimeout(function() {
+        if(Math.random() >= 0.5) {
+            resolve("You WIN 🏆");
+        } else {
+            reject(new Error("You lost your money 💩")); // nice to create new error object here
+        }
+    }, 2500); 
+});
+
+// consuming promise
+// needs to call it, then method what to do with the result  
+// and catch if it is rejected
+lotteryPromise.then(res => console.log(res))
+    .catch(err => console.error(err));
