@@ -315,3 +315,21 @@ const lotteryPromise = new Promise(function(resolve, reject) {
 // and catch if it is rejected
 lotteryPromise.then(res => console.log(res))
     .catch(err => console.error(err));
+
+// promisifing setTimeout function
+// const wait = function (seconds) {
+//     return new Promise(function(resolve) {
+//         setTimeout(resolve, seconds * 1000);
+//     });
+// };
+
+// arrow function:
+const wait = function (seconds) {
+    return new Promise((resolve) =>
+        setTimeout(resolve, seconds * 1000));
+};
+
+wait(2).then(() => {
+    console.log('I waited for 2 seconds');
+    return wait(1);
+}).then(() => console.log('I waited one more second'));
