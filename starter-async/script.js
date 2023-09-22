@@ -85,21 +85,21 @@ const renderError = function (msg) {
 // getCountryAndNeighbour("slovakia");
 
 // callback hell example
-setTimeout(() => {
-    console.log('1 second passed');
-    setTimeout(() => {
-        console.log('2 seconds passed');
-        setTimeout(() => {
-            console.log('3 seconds passed');
-            setTimeout(() => {
-                console.log('4 seconds passed');
-                setTimeout(() => {
-                    console.log('5 seconds passed');
-                }, 1000);
-            }, 1000);
-        }, 1000);
-    }, 1000);
-}, 1000);
+// setTimeout(() => {
+//     console.log('1 second passed');
+//     setTimeout(() => {
+//         console.log('2 seconds passed');
+//         setTimeout(() => {
+//             console.log('3 seconds passed');
+//             setTimeout(() => {
+//                 console.log('4 seconds passed');
+//                 setTimeout(() => {
+//                     console.log('5 seconds passed');
+//                 }, 1000);
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+// }, 1000);
 
 // FETCH API>
 // AJAX call country 1:
@@ -333,3 +333,50 @@ wait(2).then(() => {
     console.log('I waited for 2 seconds');
     return wait(1);
 }).then(() => console.log('I waited one more second'));
+
+// callback hell example refactored: previous code
+// setTimeout(() => {
+//     console.log('1 second passed');
+//     setTimeout(() => {
+//         console.log('2 seconds passed');
+//         setTimeout(() => {
+//             console.log('3 seconds passed');
+//             setTimeout(() => {
+//                 console.log('4 seconds passed');
+//                 setTimeout(() => {
+//                     console.log('5 seconds passed');
+//                 }, 1000);
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+// }, 1000);
+
+// instead of callback hell:
+wait(1).then(() => {
+    console.log('1 second passed');
+    return wait(1);
+}).then(() => {
+    console.log('2 seconds passed');
+    return wait(1);
+}).then(() => {
+    console.log('3 seconds passed');
+    return wait(1);
+}).then(() => {
+    console.log('4 seconds passed');
+    return wait(1);
+}).then(() => {
+    console.log('5 seconds passed');
+    return wait(1);
+});
+
+// for (let i = 1; i <= 5; i++) {
+//     wait(1).then(() => {
+//         console.log(`${i} second${i >= 2 ? 's' : ''} passed`);
+//         return wait(1);
+//     });    
+// }
+
+// create fulfilled promise imidiately:
+Promise.resolve('example success').then(x => console.log(x));
+// create rejected promise imidiately:
+Promise.reject('example reject').catch(x => console.error(x));
