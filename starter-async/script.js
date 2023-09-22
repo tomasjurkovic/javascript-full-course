@@ -380,3 +380,25 @@ wait(1).then(() => {
 Promise.resolve('example success').then(x => console.log(x));
 // create rejected promise imidiately:
 Promise.reject('example reject').catch(x => console.error(x));
+
+// promisifying geolocation function API:
+
+// navigator.geolocation.getCurrentPosition(
+//     position => console.log(position),
+//     err => console.log(err)
+// );
+
+const getPosition = function() {
+    return new Promise(function (resolve, reject) {
+        // simple way:
+        // navigator.geolocation.getCurrentPosition(
+        //     position => resolve(position),
+        //     err => reject((err))
+        // );
+        // one line code:
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+
+getPosition().then(pos => console.log(pos))
+    .catch(err => console.error(err));
