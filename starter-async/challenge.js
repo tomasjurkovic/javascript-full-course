@@ -1,6 +1,5 @@
 'use strict';
 
-// coding challenge 2:
 /* Coding Challenge #2
 For this challenge you will actually have to watch the video! Then, build the image 
 loading functionality that I just showed you on the screen.
