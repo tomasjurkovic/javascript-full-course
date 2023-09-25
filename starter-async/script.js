@@ -434,7 +434,7 @@ btn.addEventListener('click', whereAmIPromise);
 // ASYNC AWAIT
 // just add acync after function name and =
 // inside async funtion we can have one or more await statement
-const  whereAmIAsync = async function () {
+const whereAmIAsync = async function () {
     try {
         // Geolocation:
         const pos = await getPosition()
@@ -454,18 +454,33 @@ const  whereAmIAsync = async function () {
     
         // should be working with
         renderCountry(data[0]);
-        renderCountry('whewikwiwwiiw')
         // same like this what we do before, but nicer and cleaner, no callback hell:
         // fetch(`https://restcountries.com/v3.1/name/${country}`)
         //     .then(res => console.log(res));
+
+        // return value from this function>
+
+        // return statement
+        return `You are located in ${dataGeo.features[0].properties.city}, ${dataGeo.features[0].properties.country}`;
     } catch (err) {
         renderError(`${err.message}`)
         console.error(err.message);
+
+        // rethrowing the erron if reject promise returned from async function
     }
 }
 
-whereAmIAsync();
-console.log('FIRST');
+// order in regular function ACB
+// console.log('1: Will get location'); // A
+// // const city = whereAmIAsync(); // B
+// // console.log(city);
+// whereAmIAsync()
+//     .then(city => console.log(`2: ${city}`))
+//     .catch(err => console.error(`2: ${err}`))
+//     .finally(() => console.log('3: Finish fetting location'));
+// now it is printed in correct order 1,2,3
+
+// console.log('2: Finish fetting location'); // C
 
 // TRY CATCH block:
 // try {
@@ -477,3 +492,18 @@ console.log('FIRST');
 //     alert(err.message)
 //     // prints Assignment to constant variable.
 // }
+
+// async IFFE: 
+// challenge to convert above code to async code:
+(async () => {
+    try {
+        console.log('1: Will get location'); // A
+        const place = await whereAmIAsync();
+        console.log(`2: ${place}`);
+
+    } catch (err) {
+        console.error(err.message);
+    };
+
+    console.log('3: Finish fetting location');
+})();
