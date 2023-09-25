@@ -556,9 +556,22 @@ const timeout = function(sec) {
     });
 };
 
+// we can use it like this, if response time is too long>
 Promise.race([
     getJSON(`https://restcountries.com/v3.1/name/tanzania`),
     timeout(0.15)
 ])
     .then(res => console.log(res[0]))
     .catch(err => console.error(err));
+
+    // Promise.allSettled =>
+    Promise.any([
+        Promise.resolve('Success'),
+        Promise.reject('Error'),
+        Promise.resolve('Another success')
+    ]).then(res => console.log(res))
+    .catch(err => console.error(err));
+    // it will print all promises even those which are rejected
+    // Promise.all prints only error
+    // Promise.any is same as Promise.race but it does not care about rejected promises
+    // if all are rejected Promise.any wont do anything
