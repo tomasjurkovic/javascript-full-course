@@ -34,7 +34,7 @@ const renderCountry = function (data, className = '') {
     `;
     
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    // countriesContainer.style.opacity = 1;
+    countriesContainer.style.opacity = 1;
 }
 
 // error rendering:
@@ -443,13 +443,18 @@ const  whereAmIAsync = async function () {
     // reverse GeoCoding:
     const resGeo = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`);
     const dataGeo = await resGeo.json();
+    const country = await dataGeo.features[0].properties.country.toLowerCase()
     console.log(dataGeo);
+    console.log(country);
 
     // country data>
-    const res = await fetch(`https://restcountries.com/v3.1/name/${dataGeo.country}`);
+    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     console.log(res);
     const data = await res.json();
     console.log(data);
+    console.log(data[0]);
+
+    // should be working with
     renderCountry(data[0]);
     // same like this what we do before, but nicer and cleaner, no callback hell:
     // fetch(`https://restcountries.com/v3.1/name/${country}`)
