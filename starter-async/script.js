@@ -34,7 +34,7 @@ const renderCountry = function (data, className = '') {
     `;
     
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    // countriesContainer.style.opacity = 1;
+    countriesContainer.style.opacity = 1;
 }
 
 // error rendering:
@@ -275,9 +275,9 @@ const whereAmI = function name(lat, lng) {
     })
 }
 
-whereAmI(52.508, 13.381);
-whereAmI(19.037, 72.873);
-whereAmI(-33.933, 18.474);
+// whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
 // whereAmI(48.71395, 21.25808);
 
 // EVENT LOOP:
@@ -430,4 +430,148 @@ const whereAmIPromise = function () {
 }
     
 btn.addEventListener('click', whereAmIPromise);
+
+// ASYNC AWAIT
+// just add acync after function name and =
+// inside async funtion we can have one or more await statement
+const whereAmIAsync = async function () {
+    try {
+        // Geolocation:
+        const pos = await getPosition()
+        const { latitude: lat, longitude: lng } = pos.coords;
     
+        // reverse GeoCoding:
+        const resGeo = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`);
+        const dataGeo = await resGeo.json();
+        if (!resGeo.ok) throw new Error('Problem getting location data');
+        const country = await dataGeo.features[0].properties.country.toLowerCase()
+
+        // country data>
+        const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+        if (!res.ok) throw new Error('Problem getting country data');
+        const data = await res.json();
+
+    
+        // should be working with
+        renderCountry(data[0]);
+        // same like this what we do before, but nicer and cleaner, no callback hell:
+        // fetch(`https://restcountries.com/v3.1/name/${country}`)
+        //     .then(res => console.log(res));
+
+        // return value from this function>
+
+        // return statement
+        return `You are located in ${dataGeo.features[0].properties.city}, ${dataGeo.features[0].properties.country}`;
+    } catch (err) {
+        renderError(`${err.message}`)
+        console.error(err.message);
+
+        // rethrowing the erron if reject promise returned from async function
+    }
+}
+
+// order in regular function ACB
+// console.log('1: Will get location'); // A
+// // const city = whereAmIAsync(); // B
+// // console.log(city);
+// whereAmIAsync()
+//     .then(city => console.log(`2: ${city}`))
+//     .catch(err => console.error(`2: ${err}`))
+//     .finally(() => console.log('3: Finish fetting location'));
+// now it is printed in correct order 1,2,3
+
+// console.log('2: Finish fetting location'); // C
+
+// TRY CATCH block:
+// try {
+//     // simulate this scenario, where I reassign const x which is not allowed
+//     let y = 1;
+//     const x =2
+//     x =3
+// } catch (err) {
+//     alert(err.message)
+//     // prints Assignment to constant variable.
+// }
+
+// async IFFE: 
+// challenge to convert above code to async code:
+// (async () => {
+//     try {
+//         console.log('1: Will get location'); // A
+//         const place = await whereAmIAsync();
+//         console.log(`2: ${place}`);
+
+//     } catch (err) {
+//         console.error(err.message);
+//     };
+
+//     console.log('3: Finish fetting location');
+// })();
+
+// running promises in parallel:
+const get3Countries = async function (c1, c2, c3) {
+    try {
+        // const [data1] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c1}`,
+        //     'Country not found'
+        // );
+        // const [data2] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c2}`,
+        //     'Country not found'
+        // );
+        // const [data3] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c3}`,
+        //     'Country not found'
+        // );
+
+        const data = await Promise.all([
+            getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+        ])
+        // console.log(data1.capital, data2.capital, data3.capital);
+        console.log(data.map(d => d[0].capital));
+    } catch (error) {
+        console.error(err);
+    }
+};
+
+get3Countries('armenia', 'russia', 'brasil');
+
+// simple IIFE for 3 values that races among each other which is faster
+(async function(){
+    const res = await Promise.race([
+        getJSON(`https://restcountries.com/v3.1/name/argentina`),
+        getJSON(`https://restcountries.com/v3.1/name/spain`),
+        getJSON(`https://restcountries.com/v3.1/name/mexico`),
+    ]);
+    console.log(res[0]);
+})();
+
+const timeout = function(sec) {
+    return new Promise(function(_, reject) {
+        setTimeout(function () {
+            reject(new Error('Request took too long!'))
+        }, sec * 1000);
+    });
+};
+
+// we can use it like this, if response time is too long>
+Promise.race([
+    getJSON(`https://restcountries.com/v3.1/name/tanzania`),
+    timeout(0.15)
+])
+    .then(res => console.log(res[0]))
+    .catch(err => console.error(err));
+
+    // Promise.allSettled =>
+    Promise.any([
+        Promise.resolve('Success'),
+        Promise.reject('Error'),
+        Promise.resolve('Another success')
+    ]).then(res => console.log(res))
+    .catch(err => console.error(err));
+    // it will print all promises even those which are rejected
+    // Promise.all prints only error
+    // Promise.any is same as Promise.race but it does not care about rejected promises
+    // if all are rejected Promise.any wont do anything
