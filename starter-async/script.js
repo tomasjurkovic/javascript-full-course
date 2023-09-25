@@ -275,9 +275,9 @@ const whereAmI = function name(lat, lng) {
     })
 }
 
-whereAmI(52.508, 13.381);
-whereAmI(19.037, 72.873);
-whereAmI(-33.933, 18.474);
+// whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
 // whereAmI(48.71395, 21.25808);
 
 // EVENT LOOP:
@@ -495,15 +495,54 @@ const whereAmIAsync = async function () {
 
 // async IFFE: 
 // challenge to convert above code to async code:
-(async () => {
+// (async () => {
+//     try {
+//         console.log('1: Will get location'); // A
+//         const place = await whereAmIAsync();
+//         console.log(`2: ${place}`);
+
+//     } catch (err) {
+//         console.error(err.message);
+//     };
+
+//     console.log('3: Finish fetting location');
+// })();
+
+// running promises in parallel:
+const get3Countries = async function (c1, c2, c3) {
     try {
-        console.log('1: Will get location'); // A
-        const place = await whereAmIAsync();
-        console.log(`2: ${place}`);
+        // const [data1] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c1}`,
+        //     'Country not found'
+        // );
+        // const [data2] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c2}`,
+        //     'Country not found'
+        // );
+        // const [data3] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c3}`,
+        //     'Country not found'
+        // );
 
-    } catch (err) {
-        console.error(err.message);
-    };
+        const data = await Promise.all([
+            getJSON(
+                `https://restcountries.com/v3.1/name/${c1}`,
+                'Country not found'
+            ),
+            getJSON(
+                `https://restcountries.com/v3.1/name/${c2}`,
+                'Country not found'
+            ),
+            getJSON(
+                `https://restcountries.com/v3.1/name/${c3}`,
+                'Country not found'
+            ),
+        ])
+        // console.log(data1.capital, data2.capital, data3.capital);
+        console.log(data.map(d => d[0].capital).join());
+    } catch (error) {
+        console.error(err);
+    }
+};
 
-    console.log('3: Finish fetting location');
-})();
+get3Countries('armenia', 'russia', 'brasil');
