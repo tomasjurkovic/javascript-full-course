@@ -435,31 +435,45 @@ btn.addEventListener('click', whereAmIPromise);
 // just add acync after function name and =
 // inside async funtion we can have one or more await statement
 const  whereAmIAsync = async function () {
+    try {
+        // Geolocation:
+        const pos = await getPosition()
+        const { latitude: lat, longitude: lng } = pos.coords;
+    
+        // reverse GeoCoding:
+        const resGeo = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`);
+        const dataGeo = await resGeo.json();
+        if (!resGeo.ok) throw new Error('Problem getting location data');
+        const country = await dataGeo.features[0].properties.country.toLowerCase()
 
-    // Geolocation:
-    const pos = await getPosition()
-    const { latitude: lat, longitude: lng } = pos.coords;
+        // country data>
+        const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+        if (!res.ok) throw new Error('Problem getting country data');
+        const data = await res.json();
 
-    // reverse GeoCoding:
-    const resGeo = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`);
-    const dataGeo = await resGeo.json();
-    const country = await dataGeo.features[0].properties.country.toLowerCase()
-    console.log(dataGeo);
-    console.log(country);
-
-    // country data>
-    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
-    console.log(res);
-    const data = await res.json();
-    console.log(data);
-    console.log(data[0]);
-
-    // should be working with
-    renderCountry(data[0]);
-    // same like this what we do before, but nicer and cleaner, no callback hell:
-    // fetch(`https://restcountries.com/v3.1/name/${country}`)
-    //     .then(res => console.log(res));
+    
+        // should be working with
+        renderCountry(data[0]);
+        renderCountry('whewikwiwwiiw')
+        // same like this what we do before, but nicer and cleaner, no callback hell:
+        // fetch(`https://restcountries.com/v3.1/name/${country}`)
+        //     .then(res => console.log(res));
+    } catch (err) {
+        renderError(`${err.message}`)
+        console.error(err.message);
+    }
 }
 
 whereAmIAsync();
 console.log('FIRST');
+
+// TRY CATCH block:
+// try {
+//     // simulate this scenario, where I reassign const x which is not allowed
+//     let y = 1;
+//     const x =2
+//     x =3
+// } catch (err) {
+//     alert(err.message)
+//     // prints Assignment to constant variable.
+// }
