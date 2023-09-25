@@ -430,4 +430,20 @@ const whereAmIPromise = function () {
 }
     
 btn.addEventListener('click', whereAmIPromise);
-    
+
+// ASYNC AWAIT
+// just add acync after function name and =
+// inside async funtion we can have one or more await statement
+const  whereAmIAsync = async function (country) {
+    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+    console.log(res);
+    const data = await res.json();
+    console.log(data);
+
+    // same like this what we do before, but nicer and cleaner, no callback hell:
+    // fetch(`https://restcountries.com/v3.1/name/${country}`)
+    //     .then(res => console.log(res));
+}
+
+whereAmIAsync('hungary');
+console.log('FIRST');
