@@ -434,16 +434,27 @@ btn.addEventListener('click', whereAmIPromise);
 // ASYNC AWAIT
 // just add acync after function name and =
 // inside async funtion we can have one or more await statement
-const  whereAmIAsync = async function (country) {
-    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+const  whereAmIAsync = async function () {
+
+    // Geolocation:
+    const pos = await getPosition()
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // reverse GeoCoding:
+    const resGeo = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=58ffa65367f94f82b05ff64146e5a386`);
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+    // country data>
+    const res = await fetch(`https://restcountries.com/v3.1/name/${dataGeo.country}`);
     console.log(res);
     const data = await res.json();
     console.log(data);
-
+    renderCountry(data[0]);
     // same like this what we do before, but nicer and cleaner, no callback hell:
     // fetch(`https://restcountries.com/v3.1/name/${country}`)
     //     .then(res => console.log(res));
 }
 
-whereAmIAsync('hungary');
+whereAmIAsync();
 console.log('FIRST');
