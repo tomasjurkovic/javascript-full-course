@@ -525,24 +525,40 @@ const get3Countries = async function (c1, c2, c3) {
         // );
 
         const data = await Promise.all([
-            getJSON(
-                `https://restcountries.com/v3.1/name/${c1}`,
-                'Country not found'
-            ),
-            getJSON(
-                `https://restcountries.com/v3.1/name/${c2}`,
-                'Country not found'
-            ),
-            getJSON(
-                `https://restcountries.com/v3.1/name/${c3}`,
-                'Country not found'
-            ),
+            getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c3}`),
         ])
         // console.log(data1.capital, data2.capital, data3.capital);
-        console.log(data.map(d => d[0].capital).join());
+        console.log(data.map(d => d[0].capital));
     } catch (error) {
         console.error(err);
     }
 };
 
 get3Countries('armenia', 'russia', 'brasil');
+
+// simple IIFE for 3 values that races among each other which is faster
+(async function(){
+    const res = await Promise.race([
+        getJSON(`https://restcountries.com/v3.1/name/argentina`),
+        getJSON(`https://restcountries.com/v3.1/name/spain`),
+        getJSON(`https://restcountries.com/v3.1/name/mexico`),
+    ]);
+    console.log(res[0]);
+})();
+
+const timeout = function(sec) {
+    return new Promise(function(_, reject) {
+        setTimeout(function () {
+            reject(new Error('Request took too long!'))
+        }, sec * 1000);
+    });
+};
+
+Promise.race([
+    getJSON(`https://restcountries.com/v3.1/name/tanzania`),
+    timeout(0.15)
+])
+    .then(res => console.log(res[0]))
+    .catch(err => console.error(err));
