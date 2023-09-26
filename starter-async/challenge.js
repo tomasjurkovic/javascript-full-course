@@ -84,21 +84,23 @@ let currentImage;
 
 const loadNPause = async function (imgPath1, imgPath2) {
     try {
-        await createImage(imgPath1);
-        currentImage = img;
+        // load img 1
+        let img = await createImage(imgPath1);
         console.log('Image 1 loaded');
         await wait(2);
-        currentImage.style.display = 'none';
-        await createImage(imgPath2);
+        img.style.display = 'none';
+        
+        // load img 2
+        img = await createImage(imgPath2);
         console.log('Image 2 loaded');
         await wait(2);
-        currentImage.style.display = 'none';
+        img.style.display = 'none';
     } catch (err) {
         console.error(err);
     }
-}
+};
 
-loadNPause('img/img-1.jpg', 'img/img-2.jpg');
+// loadNPause('img/img-1.jpg', 'img/img-2.jpg');
 
 /* Coding Challenge #3
 Your tasks:
@@ -120,3 +122,34 @@ PART 2
 5. Add the 'parallel' class to all the images (it has some CSS styles)
 Test data Part 2: ['img/img-1.jpg', 'img/img-2.jpg', 'img/img3.jpg']. To test, turn off the 'loadNPause' function */
 
+// part 2:
+const loadAll = async function (imgArr) {
+    try {
+        const imgs = imgArr.map(async img => await createImage(img));
+        console.log(imgs);
+        // displays just 3 promises [Promise, Promise, Promise]
+
+        // add promise.all to resolve them all:
+        const imgsEl = await Promise.all(imgs);
+        console.log(imgsEl);
+        // prints 3 img elements now [img, img, img]
+
+        // adding parallel class to each img element
+        imgsEl.forEach(imgEl => imgEl.classList.add('parallel'));
+    } catch (error) {
+        console.error(err);
+    }
+};
+
+loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);
+
+// const data = await Promise.all([
+//     getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+//     getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+//     getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+// ])
+// console.log(data1.capital, data2.capital, data3.capital);
+// console.log(data.map(d => d[0].capital));
+// } catch (error) {
+// console.error(err);
+// }
