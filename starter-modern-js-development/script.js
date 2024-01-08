@@ -31,3 +31,27 @@ console.log(cart);
 {product: 'gluten-free bread', quantity: 1}
 {product: 'vegan cheese', quantity: 5}
 */
+
+// console.log('Start fetching');
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json();
+// console.log(data);
+// console.log('Something');
+
+const getLastPost = async function name(params) {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+  return { title: data.at(-1).title, text: data.at(-1).body };
+};
+
+const lastPost = getLastPost();
+console.log(lastPost); // returns promise
+
+// not very clean way how to resolve this promise
+// lastPost.then(last => console.log(last));
+
+// but await can be used to handle this above:
+const lastPost2 = await getLastPost();
+console.log(lastPost2);
+// returns nice object like this:
+/* {title: 'at nam consequatur ea labore ea harum', text: 'cupiditate quo est a modi nesciunt soluta\nipsa vol…nam et distinctio eum\naccusamus ratione error aut'} */
