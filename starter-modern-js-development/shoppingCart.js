@@ -1,6 +1,12 @@
 // Exporting module
 console.log('Exporting module');
 
+// blocking code:
+// console.log('Start fetching users');
+// await fetch('https://jsonplaceholder.typicode.com/users');
+// console.log('Finish fetching');
+// top level await really can block execution of code in the different modules
+
 const shippingCode = 10;
 export const cart = [];
 
