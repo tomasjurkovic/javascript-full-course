@@ -55,3 +55,43 @@ const lastPost2 = await getLastPost();
 console.log(lastPost2);
 // returns nice object like this:
 /* {title: 'at nam consequatur ea labore ea harum', text: 'cupiditate quo est a modi nesciunt soluta\nipsa vol…nam et distinctio eum\naccusamus ratione error aut'} */
+
+// module pattern which was used before:
+// main goal of module patter is encapsulate functionality to have private data and to expose public api
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shoppingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(
+      `${quantity} ${product}${
+        quantity >= 2 ? 's' : ''
+      } added to cart. Shipping costs: ${shoppingCost}`
+    );
+  };
+
+  const orderStock = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(
+      `${quantity} ${product}${quantity >= 2 ? 's' : ''} ordered from supplier`
+    );
+  };
+
+  // return all I wanted to expose to the outside
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity,
+  };
+})();
+
+ShoppingCart2.addToCart('apple', 4);
+ShoppingCart2.addToCart('gluten-free pizza', 2);
+console.log(ShoppingCart2); // it prints whole object
+console.log(ShoppingCart2.shoppingCost); // prints undefined / I did no returned it (not publicly accessed)
+// but I can access it in function inside the whole module and display it in console like it is done in line: 72
+console.log(ShoppingCart2.totalPrice); // prints 237 / I returned it
