@@ -51,8 +51,8 @@ console.log(lastPost); // returns promise
 // lastPost.then(last => console.log(last));
 
 // but await can be used to handle this above:
-const lastPost2 = await getLastPost();
-console.log(lastPost2);
+// const lastPost2 = await getLastPost();
+// console.log(lastPost2);
 // returns nice object like this:
 /* {title: 'at nam consequatur ea labore ea harum', text: 'cupiditate quo est a modi nesciunt soluta\nipsa vol…nam et distinctio eum\naccusamus ratione error aut'} */
 
