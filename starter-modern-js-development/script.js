@@ -95,3 +95,21 @@ console.log(ShoppingCart2); // it prints whole object
 console.log(ShoppingCart2.shoppingCost); // prints undefined / I did no returned it (not publicly accessed)
 // but I can access it in function inside the whole module and display it in console like it is done in line: 72
 console.log(ShoppingCart2.totalPrice); // prints 237 / I returned it
+
+// importing from node_modules:
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [
+    { product: 'tomato', quantity: 2 },
+    { product: 'pizza', quantity: 3 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+state.user.loggedIn = false;
+console.log(state);
+console.log(stateClone);
+console.log(stateDeepClone);
